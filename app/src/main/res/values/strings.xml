@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">UltraTracker</string>
+    <string name="planner">Planner</string>
+    <string name="health">Health</string>
+    <string name="exercise">Exercise</string>
+    <string name="todo">Todo</string>
+    <string name="reminders">Reminders</string>
+    <string name="notes">Notes</string>
+    <string name="recent">Recent</string>
 </resources>
