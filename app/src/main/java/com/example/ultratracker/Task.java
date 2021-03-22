@@ -1,21 +1,21 @@
 package com.example.ultratracker;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Task {
     public static int Key = 0; // ID key for database
 
     private String name;
     private LocalDate dueDate;
-    private LocalDateTime dueTime;
+    private LocalTime dueTime;
     private String description;
     private int key;
 
     private int priority;
     private boolean complete;
 
-    public Task(String name, LocalDate dueDate, LocalDateTime dueTime, String description, int priority, boolean complete) {
+    public Task(String name, LocalDate dueDate, LocalTime dueTime, String description, int priority, boolean complete) {
         this.name = name;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
@@ -23,6 +23,19 @@ public class Task {
         this.priority = priority;
         this.complete = complete;
         this.key = Key++;
+    }
+
+    // Constructor for db list since we don't want to increase the keys
+    // DueDate and DueTime are string since that is how we receive them in the db
+    // they are then converted to their api class
+    public Task(String name, String dueDate, String dueTime, String description, int priority, boolean complete, int key) {
+        this.name = name;
+        this.dueDate = LocalDate.parse(dueDate);
+        this.dueTime = LocalTime.parse(dueTime);
+        this.description = description;
+        this.priority = priority;
+        this.complete = complete;
+        this.key = key;
     }
 
     // default constructor
@@ -40,19 +53,20 @@ public class Task {
         this.name = name;
     }
 
-    public LocalDate getDueDate() {
-        return dueDate;
+    public String getDueDate() {
+        return dueDate.toString();
     }
 
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public LocalDateTime getDueTime() {
-        return dueTime;
+    // format is yyyy-mm-dd
+    public String getDueTime() {
+        return dueTime.toString();
     }
 
-    public void setDueTime(LocalDateTime dueTime) {
+    public void setDueTime(LocalTime dueTime) {
         this.dueTime = dueTime;
     }
 
