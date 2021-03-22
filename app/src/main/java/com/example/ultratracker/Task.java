@@ -1,13 +1,49 @@
 package com.example.ultratracker;
 
-public class Task {
-    String name;
-    String dueDate;
-    String dueTime;
-    String description;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    int priority;
-    boolean complete;
+public class Task {
+    public static int Key = 0; // ID key for database
+
+    private String name;
+    private LocalDate dueDate;
+    private LocalTime dueTime;
+    private String description;
+    private int key;
+
+    private int priority;
+    private boolean complete;
+
+    public Task(String name, LocalDate dueDate, LocalTime dueTime, String description, int priority, boolean complete) {
+        this.name = name;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
+        this.description = description;
+        this.priority = priority;
+        this.complete = complete;
+        this.key = Key++;
+    }
+
+    // Constructor for db list since we don't want to increase the keys
+    // DueDate and DueTime are string since that is how we receive them in the db
+    // they are then converted to their api class
+    public Task(String name, String dueDate, String dueTime, String description, int priority, boolean complete, int key) {
+        this.name = name;
+        this.dueDate = LocalDate.parse(dueDate);
+        this.dueTime = LocalTime.parse(dueTime);
+        this.description = description;
+        this.priority = priority;
+        this.complete = complete;
+        this.key = key;
+    }
+
+    // default constructor
+    // Times are all default for an hour in the same day
+    public Task() {
+        this.key = Key++;
+        this.complete = false;
+    }
 
     public String getName() {
         return name;
@@ -18,18 +54,19 @@ public class Task {
     }
 
     public String getDueDate() {
-        return dueDate;
+        return dueDate.toString();
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
+    // format is yyyy-mm-dd
     public String getDueTime() {
-        return dueTime;
+        return dueTime.toString();
     }
 
-    public void setDueTime(String dueTime) {
+    public void setDueTime(LocalTime dueTime) {
         this.dueTime = dueTime;
     }
 
@@ -57,12 +94,7 @@ public class Task {
         this.complete = complete;
     }
 
-    public Task(String name, String dueDate, String dueTime, String description, int priority, boolean complete) {
-        this.name = name;
-        this.dueDate = dueDate;
-        this.dueTime = dueTime;
-        this.description = description;
-        this.priority = priority;
-        this.complete = complete;
+    public int getKey() {
+        return this.key;
     }
 }
