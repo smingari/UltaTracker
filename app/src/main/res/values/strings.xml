@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UltraTracker</string>
+    <string name="app_name">UltaTracker</string>
     <string name="planner">Planner</string>
     <string name="health">Health</string>
     <string name="exercise">Exercise</string>
@@ -7,4 +7,9 @@
     <string name="reminders">Reminders</string>
     <string name="notes">Notes</string>
     <string name="recent">Recent</string>
+    <string name="recent_entries">Recent Entries:</string>
+    <string name="add_button">add button</string>
+    <string name="add_exercise_button">add exercise button</string>
+    <string name="add_health_button">add health button</string>
+    <string name="add_planner_button">add to planner button</string>
 </resources>
