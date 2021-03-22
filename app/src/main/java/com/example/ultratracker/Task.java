@@ -1,13 +1,36 @@
 package com.example.ultratracker;
 
-public class Task {
-    String name;
-    String dueDate;
-    String dueTime;
-    String description;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    int priority;
-    boolean complete;
+public class Task {
+    public static int Key = 0; // ID key for database
+
+    private String name;
+    private LocalDate dueDate;
+    private LocalDateTime dueTime;
+    private String description;
+    private int key;
+
+    private int priority;
+    private boolean complete;
+
+    public Task(String name, LocalDate dueDate, LocalDateTime dueTime, String description, int priority, boolean complete) {
+        this.name = name;
+        this.dueDate = dueDate;
+        this.dueTime = dueTime;
+        this.description = description;
+        this.priority = priority;
+        this.complete = complete;
+        this.key = Key++;
+    }
+
+    // default constructor
+    // Times are all default for an hour in the same day
+    public Task() {
+        this.key = Key++;
+        this.complete = false;
+    }
 
     public String getName() {
         return name;
@@ -17,19 +40,19 @@ public class Task {
         this.name = name;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
-    public String getDueTime() {
+    public LocalDateTime getDueTime() {
         return dueTime;
     }
 
-    public void setDueTime(String dueTime) {
+    public void setDueTime(LocalDateTime dueTime) {
         this.dueTime = dueTime;
     }
 
@@ -57,12 +80,7 @@ public class Task {
         this.complete = complete;
     }
 
-    public Task(String name, String dueDate, String dueTime, String description, int priority, boolean complete) {
-        this.name = name;
-        this.dueDate = dueDate;
-        this.dueTime = dueTime;
-        this.description = description;
-        this.priority = priority;
-        this.complete = complete;
+    public int getKey() {
+        return this.key;
     }
 }

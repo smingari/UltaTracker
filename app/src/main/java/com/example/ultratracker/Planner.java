@@ -24,14 +24,14 @@ public class Planner {
     public void editTask(Task task, String newText) {
         if(todo.contains(task)) {
             int index = todo.indexOf(task);
-            todo.get(index).setTaskText(newText);
+            todo.get(index).setDescription(newText);
         }
     }
 
     public void markAsComplete(Task task) {
         if(todo.contains(task)) {
             int index = todo.indexOf(task);
-            todo.get(index).setCompleted(true);
+            todo.get(index).setComplete(true);
         }
     }
 
