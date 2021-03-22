@@ -13,4 +13,6 @@
     <string name="add_exercise_button">add exercise button</string>
     <string name="add_health_button">add health button</string>
     <string name="add_planner_button">add to planner button</string>
+    <string name="tasks">Tasks</string>
+    <string name="home_button">Home</string>
 </resources>

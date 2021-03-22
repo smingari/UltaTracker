@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     TextView addPlannerText;
     TextView addHealthText;
     TextView addExerciseText;
+    CalendarView cal;
+    public static String selectedDate; // syntax - month/day/year
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +48,17 @@ public class MainActivity extends AppCompatActivity {
         addPlannerText = findViewById(R.id.addPlannerText);
         addHealthText = findViewById(R.id.addHealthText);
         addExerciseText = findViewById(R.id.addExerciseText);
+        cal = (CalendarView) findViewById(R.id.calendarView4);
         isFABOpen = false;
         plannerMode = true; // Main screen defaults to planner mode upon startup
+
+        cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDate = (month + "/" + dayOfMonth + "/" + year);
+                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         addEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,18 +74,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 plannerMode = true; healthMode = false; exerciseMode = false;
+                Toast.makeText(MainActivity.this, "Planner Mode Activated", Toast.LENGTH_SHORT).show();
+                closeFABMenu();
             }
         });
         addHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 plannerMode = false; healthMode = true; exerciseMode = false;
+                Toast.makeText(MainActivity.this, "Health Tracker Activated", Toast.LENGTH_SHORT).show();
+                closeFABMenu();
             }
         });
         addExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 plannerMode = false; healthMode = false; exerciseMode = true;
+                Toast.makeText(MainActivity.this, "Exercise Tracker Activated", Toast.LENGTH_SHORT).show();
+                closeFABMenu();
             }
         });
     }
