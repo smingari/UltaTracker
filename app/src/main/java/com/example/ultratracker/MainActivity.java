@@ -1,16 +1,24 @@
 package com.example.ultratracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
     Boolean isFABOpen;
+    Boolean plannerMode;
+    Boolean healthMode;
+    Boolean exerciseMode;
     FloatingActionButton addEntryButton;
     FloatingActionButton addPlanner;
     FloatingActionButton addHealth;
@@ -37,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         addHealthText = findViewById(R.id.addHealthText);
         addExerciseText = findViewById(R.id.addExerciseText);
         isFABOpen = false;
+        plannerMode = true; // Main screen defaults to planner mode upon startup
+
         addEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +57,40 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        addPlanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                plannerMode = true; healthMode = false; exerciseMode = false;
+            }
+        });
+        addHealth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                plannerMode = false; healthMode = true; exerciseMode = false;
+            }
+        });
+        addExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                plannerMode = false; healthMode = false; exerciseMode = true;
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     private void showFABMenu(){
