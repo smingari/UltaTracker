@@ -15,12 +15,14 @@ public class TaskTests {
 
     private Task task;
     private LocalDate d1;
+    private LocalDate a1;
     private LocalTime t1;
 
     @Before
     public void setUp() throws Exception {
         task = new Task();
         d1 = LocalDate.of(2021,4,20); // format is 2021-04-20
+        a1 = LocalDate.of(2021,4,19); // format is 2021-04-19
         t1 = LocalTime.of(10,14); // format is 10:14
     }
 
@@ -36,20 +38,19 @@ public class TaskTests {
      */
     @Test
     public void testCreateTaskWithConstructor() {
-        LocalDate d1 = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        Task t1 = new Task("Test 1", d1, time, "Creation", 1, false);
+        Task tt = new Task("Test 1", a1, d1, t1, "Creation", 1, false);
 
         // check that each task created as a unique key
-        assertEquals(2, t1.getKey()); // 1 since we have before each
+        assertEquals(2, tt.getKey()); // 1 since we have before each
 
 
         // check that each testTask is correct
-        assertEquals("Test 1", t1.getName());
-        assertEquals(d1.toString(), t1.getDueDate().toString());
-        assertEquals(time.toString(), t1.getDueTime().toString());
-        assertEquals(1, t1.getPriority());
-        assertEquals(false, t1.isComplete());
+        assertEquals("Test 1", tt.getName());
+        assertEquals(a1.toString(), tt.getAssignedDate());
+        assertEquals(d1.toString(), tt.getDueDate());
+        assertEquals(t1.toString(), tt.getDueTime());
+        assertEquals(1, tt.getPriority());
+        assertEquals(false, tt.isComplete());
     }
 
     @Test
