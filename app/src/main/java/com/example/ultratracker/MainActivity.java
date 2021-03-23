@@ -3,6 +3,7 @@ package com.example.ultratracker;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
         cal = (CalendarView) findViewById(R.id.calendarView4);
         isFABOpen = false;
         plannerMode = true; // Main screen defaults to planner mode upon startup
+        healthMode = false;
+        exerciseMode = false;
 
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 selectedDate = (month + "/" + dayOfMonth + "/" + year);
-                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+                if (plannerMode) { toPDay(view); }
+                else if (healthMode) { }
+                else if (exerciseMode) { }
             }
         });
 
@@ -140,5 +145,8 @@ public class MainActivity extends AppCompatActivity {
         addExerciseContainer.animate().translationY(0);
     }
 
-
+    public void toPDay(View view) {
+        Intent intent = new Intent(MainActivity.this, PDayActivity.class);
+        startActivity(intent);
+    }
 }
