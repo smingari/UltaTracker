@@ -76,6 +76,31 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
        }
     }
 
+
+
+    // MAYBE REMOVE THIS
+    public boolean updateAll(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+
+        cv.put(COLUMN_NAME, task.getName());
+        cv.put(COLUMN_ASSIGNED_DATE, task.getAssignedDate());
+        cv.put(COLUMN_DUEDATE, task.getDueDate());
+        cv.put(COLUMN_DUETIME, task.getDueTime());
+        cv.put(COLUMN_DESCRIPTION, task.getDescription());
+        cv.put(COLUMN_PRIORITY, task.getPriority());
+        cv.put(COLUMN_COMPLETE, task.isComplete());
+
+        int success = db.update(TASK_TABLE, cv, "key=?", new String[]{String.valueOf(task.getKey())});
+        db.close();
+        if(success > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
     public List<Task> getAll() {
         List<Task> returnList = new ArrayList<>();
         List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
