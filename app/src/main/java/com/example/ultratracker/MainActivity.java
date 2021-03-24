@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = (month + "/" + dayOfMonth + "/" + year);
+                selectedDate = (month+1 + "/" + dayOfMonth + "/" + year);
                 if (plannerMode) { toPDay(view); }
                 else if (healthMode) { }
                 else if (exerciseMode) { }

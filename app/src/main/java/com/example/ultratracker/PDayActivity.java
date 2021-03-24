@@ -2,14 +2,20 @@ package com.example.ultratracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
+
+import com.example.ultratracker.MainActivity;
 
 
 public class PDayActivity extends AppCompatActivity {
@@ -22,6 +28,9 @@ public class PDayActivity extends AppCompatActivity {
         // Create the table of tasks programmatically
         init_table();
 
+        setContentView(R.layout.activity_p_day);
+        TextView date = (TextView)findViewById(R.id.current_date);
+        date.setText(MainActivity.selectedDate);
     }
 
     public void init_table() {
@@ -75,5 +84,10 @@ public class PDayActivity extends AppCompatActivity {
             taskTable.addView(row);
         }
 
+    }
+
+    public void toMainActivity(View view) {
+        Intent intent = new Intent(PDayActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
