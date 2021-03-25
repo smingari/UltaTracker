@@ -46,42 +46,41 @@
         android:id="@+id/tasks_scrollview"
         android:layout_width="408dp"
         android:layout_height="220dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_button">
 
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />-->
 
         <HorizontalScrollView
             android:id="@+id/hscrll1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayout1"
-            android:layout_width="fill_parent"
-            android:layout_gravity="center"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/task_table"
-                android:layout_width="fill_parent"
+                <!--<RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:stretchColumns="*" >
-            </TableLayout>
-        </RelativeLayout></HorizontalScrollView>
+                android:layout_gravity="center"
+                android:orientation="vertical">-->
 
+                <TableLayout
+                    android:id="@+id/task_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="false"
+                    android:stretchColumns="*"></TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
 
 
     </ScrollView>
@@ -183,21 +182,25 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayout2"
-            android:layout_width="fill_parent"
-            android:layout_gravity="center"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/task_table2"
-                android:layout_width="fill_parent"
+                <!--<RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:stretchColumns="*" >
-            </TableLayout>
-        </RelativeLayout></HorizontalScrollView>
+                android:layout_gravity="center"
+                android:orientation="vertical">-->
+
+                <TableLayout
+                    android:id="@+id/completed_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="false"
+                    android:stretchColumns="*"></TableLayout>
+            </LinearLayout></HorizontalScrollView>
     </ScrollView>
 
     <Button
