@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,9 +61,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 selectedDate = (month+1 + "/" + dayOfMonth + "/" + year);
-                if (plannerMode) { toPDay(view); }
-                else if (healthMode) { }
-                else if (exerciseMode) { }
+                if (plannerMode) {
+                    closeFABMenu();
+                    toPDay(view);
+                }
+                else if (healthMode) {
+                    closeFABMenu();
+                }
+                else if (exerciseMode) {
+                    closeFABMenu();
+                }
             }
         });
 
@@ -79,24 +88,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 plannerMode = true; healthMode = false; exerciseMode = false;
-                Toast.makeText(MainActivity.this, "Planner Mode Activated", Toast.LENGTH_SHORT).show();
-                closeFABMenu();
+                addPlanner.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.purple_500)));
+                addHealth.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                addExercise.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
             }
         });
         addHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 plannerMode = false; healthMode = true; exerciseMode = false;
-                Toast.makeText(MainActivity.this, "Health Tracker Activated", Toast.LENGTH_SHORT).show();
-                closeFABMenu();
+                addPlanner.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                addHealth.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.purple_500)));
+                addExercise.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
             }
         });
         addExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 plannerMode = false; healthMode = false; exerciseMode = true;
-                Toast.makeText(MainActivity.this, "Exercise Tracker Activated", Toast.LENGTH_SHORT).show();
-                closeFABMenu();
+                addPlanner.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                addHealth.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+                addExercise.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.purple_500)));
+                Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -132,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void closeFABMenu(){
+        plannerMode = false; healthMode = false; exerciseMode = false;
+        addPlanner.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+        addHealth.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
+        addExercise.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_700)));
         isFABOpen=false;
         addEntryButton.animate().rotation(0.0F).withLayer().setDuration(300).start();
         addPlanner.setClickable(false);
