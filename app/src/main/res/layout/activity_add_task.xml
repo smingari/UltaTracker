@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTaskActivity">
+
+    <TextView
+        android:id="@+id/create_task_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:text="@string/create_a_new_task"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/create_task_textview" />
+
+    <TextView
+        android:id="@+id/name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <EditText
+        android:id="@+id/name_entry"
+        android:layout_width="308dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="55dp"
+        android:ems="10"
+        android:hint="@string/enter_task_name"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/due_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/due_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_entry" />
+
+    <TextView
+        android:id="@+id/due_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/due_time"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_textview" />
+
+    <EditText
+        android:id="@+id/due_time_entry"
+        android:layout_width="224dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="15dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/enter_due_time_11_59"
+        android:inputType="time"
+        app:layout_constraintStart_toEndOf="@+id/due_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_entry" />
+
+    <ToggleButton
+        android:id="@+id/am_toggle"
+        android:layout_width="50dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/togglebutton"
+        android:textOff="@string/am"
+        android:textOn="@string/pm"
+        app:layout_constraintStart_toEndOf="@+id/due_time_entry"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_entry" />
+
+    <TextView
+        android:id="@+id/description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/description"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_entry" />
+
+    <EditText
+        android:id="@+id/description_entry"
+        android:layout_width="268dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/enter_description_of_task"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/am_toggle"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/priority_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/priority_level"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_entry" />
+
+    <EditText
+        android:id="@+id/priority_entry"
+        android:layout_width="256dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/enter_priority_level_1_5"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/priority_textview"
+        app:layout_constraintTop_toBottomOf="@+id/description_entry"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/due_date_entry"
+        android:layout_width="284dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="@string/enter_due_date_03_15_2021"
+        android:inputType="date"
+        app:layout_constraintStart_toEndOf="@+id/due_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/name_entry"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="100dp"
+        android:text="@android:string/cancel"
+        android:onClick="toPDay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priority_entry" />
+
+    <Button
+        android:id="@+id/create_task_button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="101dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="@string/create_task"
+        android:onClick="toPDay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/cancel_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -90,4 +90,9 @@ public class PDayActivity extends AppCompatActivity {
         Intent intent = new Intent(PDayActivity.this, MainActivity.class);
         startActivity(intent);
     }
+
+    public void toAddTaskActivity(View view) {
+        Intent intent = new Intent(PDayActivity.this, AddTaskActivity.class);
+        startActivity(intent);
+    }
 }
