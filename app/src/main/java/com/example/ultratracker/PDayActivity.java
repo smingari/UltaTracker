@@ -27,7 +27,7 @@ public class PDayActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_p_day);
         TextView date = (TextView)findViewById(R.id.current_date);
-        date.setText(MainActivity.selectedDate);
+        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
 
         // Create the table of tasks programmatically
         init_task_table();
