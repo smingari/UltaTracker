@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public static int selectedMonth;
     public static int selectedDay;
 
+    public static Task selectedTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

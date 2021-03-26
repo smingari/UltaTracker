@@ -21,7 +21,7 @@ public class TodoActivity extends AppCompatActivity {
     TableRow selectedRow;
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete;
     TaskDatabaseHelper taskDatabaseHelper;
-    Task selectedTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +93,7 @@ public class TodoActivity extends AppCompatActivity {
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = row;
                     }
-                    selectedTask = taskList.get(row.getId());
+                    MainActivity.selectedTask = taskList.get(row.getId());
                     btn_taskDelete.setVisibility(View.VISIBLE);
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
@@ -124,7 +124,7 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void deleteT(View view) {
-        boolean success = taskDatabaseHelper.deleteTask(selectedTask);
+        boolean success = taskDatabaseHelper.deleteTask(MainActivity.selectedTask);
         /*if (success) {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
         } else {
@@ -134,7 +134,7 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void markComplete(View view) {
-        boolean success = taskDatabaseHelper.modifyComplete(selectedTask, true);
+        boolean success = taskDatabaseHelper.modifyComplete(MainActivity.selectedTask, true);
         if (success) {
             Toast.makeText(this,  "Successfully marked complete.", Toast.LENGTH_SHORT).show();
         } else {
@@ -150,6 +150,11 @@ public class TodoActivity extends AppCompatActivity {
 
     public void toAddTaskActivity(View view) {
         Intent intent = new Intent(TodoActivity.this, AddTaskActivity.class);
+        startActivity(intent);
+    }
+
+    public void toEditTaskActivity(View view) {
+        Intent intent = new Intent(TodoActivity.this, EditTaskActivity.class);
         startActivity(intent);
     }
 
