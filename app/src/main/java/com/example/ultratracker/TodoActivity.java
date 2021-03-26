@@ -80,6 +80,7 @@ public class TodoActivity extends AppCompatActivity {
         for (int i = 0; i < dbSize; i++) {
             TableRow row = new TableRow(this);
             row.setId(i);
+            Toast.makeText(this,  taskList.get(i).getDueDate(), Toast.LENGTH_SHORT).show();
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -127,6 +128,16 @@ public class TodoActivity extends AppCompatActivity {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
+        }
+        refresh(view);
+    }
+
+    public void markComplete(View view) {
+        boolean success = taskDatabaseHelper.modifyComplete(selectedTask, true);
+        if (success) {
+            Toast.makeText(this,  "Successfully marked complete.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
         }
         refresh(view);
     }
