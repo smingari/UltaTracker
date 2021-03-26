@@ -345,4 +345,59 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return false;
     }
+
+    public boolean editTask(Task task) {
+        // get data from the database
+        String queryString = "SELECT * FROM " + TASK_TABLE;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Find user
+        int key;
+        String name;
+        String assignedDate;
+        String dueDate;
+        String dueTime;
+        String description;
+        int priority;
+        boolean complete;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            // Loop through results and create new customer objects
+            do {
+                key = cursor.getInt(1);
+                if (key == task.getKey()) {
+                    name = task.getName();
+                    assignedDate = task.getAssignedDate();
+                    dueDate = task.getDueDate();
+                    dueTime = task.getDueTime();
+                    description = task.getDescription();
+                    priority = task.getPriority();
+                    complete = task.isComplete();
+
+                    ContentValues cv = new ContentValues();
+                    cv.put(COLUMN_KEY, key);
+                    cv.put(COLUMN_NAME, name);
+                    cv.put(COLUMN_ASSIGNED_DATE, assignedDate);
+                    cv.put(COLUMN_DUEDATE, dueDate);
+                    cv.put(COLUMN_DUETIME, dueTime);
+                    cv.put(COLUMN_DESCRIPTION, description);
+                    cv.put(COLUMN_PRIORITY, priority);
+                    cv.put(COLUMN_COMPLETE, complete);
+
+                    String[] whereArgs = {String.valueOf(task.getKey())};
+                    int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
+                    if (success > 0) {
+                        db.close();
+                        cursor.close();
+                        return true;
+                    }
+                }
+            } while (cursor.moveToNext());
+        } else {
+            // Failed
+        }
+        db.close();
+        cursor.close();
+        return false;
+    }
 }
