@@ -125,9 +125,9 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                 boolean complete =  cursor.getInt(8) == 1 ? true : false;
 
                 Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
-                if (keyList.contains(newTask.getKey())) {
-                    continue;
-                }
+                //if (keyList.contains(newTask.getKey())) {
+                //    continue;
+                //}
 
                 keyList.add(newTask.getKey());
                 returnList.add(newTask);

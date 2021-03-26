@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.List;
 
 import com.example.ultratracker.MainActivity;
@@ -23,6 +24,8 @@ import com.example.ultratracker.MainActivity;
 public class PDayActivity extends AppCompatActivity {
 
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete;
+
+    TableRow selectedRow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +92,15 @@ public class PDayActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    taskTable.setBackgroundColor(getResources().getColor(R.color.white));
-                    row.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                    if (selectedRow == null) {
+                        selectedRow = row;
+                        taskTable.setBackgroundColor(getResources().getColor(R.color.white));
+                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                    } else {
+                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                        selectedRow = row;
+                    }
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
@@ -98,16 +108,20 @@ public class PDayActivity extends AppCompatActivity {
             });
 
             TextView t1v = new TextView(this);
+            String name = taskList.get(i).getName();
+            Toast.makeText(this,  name, Toast.LENGTH_SHORT).show();
             t1v.setText(taskList.get(i).getName());
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t1v.setText(taskList.get(i).getDueDate());
+            t2v.setText(taskList.get(i).getDueDate());
+            t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t2v);
 
-            //TextView t3v = new TextView(this);
-            //t3v.setText(taskList.get(i).getPriority());
-            //row.addView(t3v);
+            TextView t3v = new TextView(this);
+            t3v.setText(Integer.toString(taskList.get(i).getPriority()));
+            t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+            row.addView(t3v);
 
             taskTable.addView(row);
         }
