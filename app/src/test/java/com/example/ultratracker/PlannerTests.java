@@ -66,18 +66,18 @@ public class PlannerTests {
     @Test
     public void testEditTask(){
         Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
-        assertEquals(true, planner.editTask(t1));
+        assertEquals(false, planner.editTask(t1));
         Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
-        assertEquals(false, planner.editTask(t2));
+        assertEquals(true, planner.editTask(t2));
     }
 
     @Test
     public void testRemoveTask(){
         Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
         planner.addTask(t1);
-        assertEquals(true, planner.removeTask(t1));
+        assertEquals(false, planner.removeTask(t1));
         Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
-        assertEquals(false, planner.removeTask(t2));
+        assertEquals(true, planner.removeTask(t2));
     }
 
     @Test
