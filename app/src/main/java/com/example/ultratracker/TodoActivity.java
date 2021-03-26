@@ -44,8 +44,8 @@ public class TodoActivity extends AppCompatActivity {
 
     public void init_task_table() {
         TableLayout taskTable = findViewById(R.id.todo_table);
-        List<Task> taskList = taskDatabaseHelper.getAll();
-        int dbSize = taskDatabaseHelper.getAll().size();
+        List<Task> taskList = taskDatabaseHelper.getTodoList();
+        int dbSize = taskDatabaseHelper.getTodoList().size();
 
         // Set up table header
         TableRow taskTableHeader = new TableRow(this);
@@ -80,7 +80,6 @@ public class TodoActivity extends AppCompatActivity {
         for (int i = 0; i < dbSize; i++) {
             TableRow row = new TableRow(this);
             row.setId(i);
-            Toast.makeText(this,  taskList.get(i).getDueDate(), Toast.LENGTH_SHORT).show();
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -124,11 +123,11 @@ public class TodoActivity extends AppCompatActivity {
 
     public void deleteT(View view) {
         boolean success = taskDatabaseHelper.deleteTask(selectedTask);
-        if (success) {
+        /*if (success) {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         refresh(view);
     }
 

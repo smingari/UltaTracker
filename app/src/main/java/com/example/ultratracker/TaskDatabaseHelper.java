@@ -8,8 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import com.example.ultratracker.MainActivity;
 
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
@@ -98,7 +103,6 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-
     public List<Task> getAll() {
         List<Task> returnList = new ArrayList<>();
         List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
@@ -113,23 +117,71 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             // loop through cursor and create new food objects and put in return list
             do{
+                int key = cursor.getInt(1);
+                String name = cursor.getString(2);
+                String assignedDate = cursor.getString(3);
+                String dueDate = cursor.getString(4);
+                String dueTime = cursor.getString(5);
+                String description = cursor.getString(6);
+                int priority = cursor.getInt(7);
                 boolean complete = cursor.getInt(8) == 1 ? true : false;
-                if (!complete) {
-                    int key = cursor.getInt(1);
-                    String name = cursor.getString(2);
-                    String assignedDate = cursor.getString(3);
-                    String dueDate = cursor.getString(4);
-                    String dueTime = cursor.getString(5);
-                    String description = cursor.getString(6);
-                    int priority = cursor.getInt(7);
 
-                    Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
-                    //if (keyList.contains(newTask.getKey())) {
-                    //    continue;
-                    //}
+                Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
+                //if (keyList.contains(newTask.getKey())) {
+                //    continue;
+                //}
 
-                    keyList.add(newTask.getKey());
-                    returnList.add(newTask);
+                keyList.add(newTask.getKey());
+                returnList.add(newTask);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+    public List<Task> getTodoList() {
+        List<Task> returnList = new ArrayList<>();
+        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + TASK_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String curDate = sdf.format(date.getTime());
+        String[] cDate = curDate.split("-");
+
+        // move to the first result. If it is true then there is at least 1 value
+        if(cursor.moveToFirst()) {
+            // loop through cursor and create new food objects and put in return list
+            do{
+                boolean complete = cursor.getInt(8) == 1 ? true : false;
+                String dueDate = cursor.getString(4);
+                String[] dDate = dueDate.split("-");
+                if (!complete && (Integer.parseInt(dDate[0]) >= Integer.parseInt(cDate[0]))) { // Check if task is not complete and at least the current year
+                    if ((Integer.parseInt(dDate[1]) >= Integer.parseInt(cDate[1])) && (Integer.parseInt(dDate[2]) >= Integer.parseInt(cDate[2]))) { // Check if task is at least the current date
+                        int key = cursor.getInt(1);
+                        String name = cursor.getString(2);
+                        String assignedDate = cursor.getString(3);
+                        String dueTime = cursor.getString(5);
+                        String description = cursor.getString(6);
+                        int priority = cursor.getInt(7);
+
+                        Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
+                        //if (keyList.contains(newTask.getKey())) {
+                        //    continue;
+                        //}
+
+                        keyList.add(newTask.getKey());
+                        returnList.add(newTask);
+                    }
                 }
             } while (cursor.moveToNext());
         }
