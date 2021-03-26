@@ -11,10 +11,9 @@ import androidx.annotation.Nullable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import com.example.ultratracker.MainActivity;
+//import com.example.ultratracker.MainActivity;
 
 public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
@@ -62,8 +61,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_COMPLETE, task.isComplete());
 
         long insert = db.insert(TASK_TABLE, null, cv);
-        if(insert == -1) return false;
-        return true;
+        return insert != -1;
     }
 
 
@@ -74,9 +72,11 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
        Cursor cursor = db.rawQuery(queryString, null);
        if(cursor.moveToFirst()){
+           cursor.close();
            return true;
        }
        else {
+           cursor.close();
            return false;
        }
     }
@@ -97,10 +97,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
         int success = db.update(TASK_TABLE, cv, "key=?", new String[]{String.valueOf(task.getKey())});
         db.close();
-        if(success > 0) {
-            return true;
-        }
-        return false;
+        return success > 0;
     }
 
     public List<Task> getAll() {
@@ -124,7 +121,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                 String dueTime = cursor.getString(5);
                 String description = cursor.getString(6);
                 int priority = cursor.getInt(7);
-                boolean complete = cursor.getInt(8) == 1 ? true : false;
+                boolean complete = cursor.getInt(8) == 1;
 
                 Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
                 //if (keyList.contains(newTask.getKey())) {
@@ -157,16 +154,22 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String curDate = sdf.format(date.getTime());
         String[] cDate = curDate.split("-");
+        int curYear = Integer.parseInt(cDate[0]);
+        int curMonth = Integer.parseInt(cDate[1]);
+        int curDay = Integer.parseInt(cDate[2]);
 
         // move to the first result. If it is true then there is at least 1 value
         if(cursor.moveToFirst()) {
             // loop through cursor and create new food objects and put in return list
             do{
-                boolean complete = cursor.getInt(8) == 1 ? true : false;
+                boolean complete = cursor.getInt(8) == 1;
                 String dueDate = cursor.getString(4);
                 String[] dDate = dueDate.split("-");
-                if (!complete && (Integer.parseInt(dDate[0]) >= Integer.parseInt(cDate[0]))) { // Check if task is not complete and at least the current year
-                    if ((Integer.parseInt(dDate[1]) >= Integer.parseInt(cDate[1])) && (Integer.parseInt(dDate[2]) >= Integer.parseInt(cDate[2]))) { // Check if task is at least the current date
+                int dueYear = Integer.parseInt(dDate[0]);
+                int dueMonth = Integer.parseInt(dDate[1]);
+                int dueDay = Integer.parseInt(dDate[2]);
+                if (!complete && (dueYear >= curYear)) { // Check if task is not complete and at least the current year
+                    if ((dueMonth > curMonth) || (dueMonth == curMonth && dueDay >= curDay)) { // Check if task is at least the current date
                         int key = cursor.getInt(1);
                         String name = cursor.getString(2);
                         String assignedDate = cursor.getString(3);
@@ -216,7 +219,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             // loop through cursor and create new food objects and put in return list
             do {
                 dueDate = cursor.getString(4);
-                complete = cursor.getInt(8) == 1 ? true : false;
+                complete = cursor.getInt(8) == 1;
                 if (dueDate.equals(date) && !complete) {
                     key = cursor.getInt(1);
                     name = cursor.getString(2);
@@ -264,7 +267,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             // loop through cursor and create new food objects and put in return list
             do {
                 dueDate = cursor.getString(4);
-                complete = cursor.getInt(8) == 1 ? true : false;
+                complete = cursor.getInt(8) == 1;
                 if (dueDate.equals(date) && complete) {
                     key = cursor.getInt(1);
                     name = cursor.getString(2);
@@ -325,7 +328,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                     cv.put(COLUMN_PRIORITY, priority);
                     cv.put(COLUMN_COMPLETE, bool);
 
-                    String whereArgs[] = {String.valueOf(task.getKey())};
+                    String[] whereArgs = {String.valueOf(task.getKey())};
                     int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
                     if (success > 0) {
                         db.close();
