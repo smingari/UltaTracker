@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +27,8 @@ public class PDayActivity extends AppCompatActivity {
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete;
 
     TableRow selectedRow;
+    TaskDatabaseHelper taskDatabaseHelper;
+    Task selectedTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +46,19 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskComplete = findViewById(R.id.mark_complete_button);
 
         btn_taskAdd.setVisibility(View.VISIBLE);
-        btn_taskDelete.setVisibility(View.VISIBLE);
+        btn_taskDelete.setVisibility(View.INVISIBLE);
         btn_taskEdit.setVisibility(View.INVISIBLE);
         btn_taskReminder.setVisibility(View.INVISIBLE);
         btn_taskComplete.setVisibility(View.INVISIBLE);
 
         // Create the table of tasks programmatically
+        taskDatabaseHelper = new TaskDatabaseHelper(this);
         init_task_table();
         //init_completed_table();
     }
 
     public void init_task_table() {
         TableLayout taskTable = findViewById(R.id.task_table);
-        TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
         List<Task> taskList = taskDatabaseHelper.getAll();
         int dbSize = taskDatabaseHelper.getAll().size();
 
@@ -66,18 +69,21 @@ public class PDayActivity extends AppCompatActivity {
 
         // First column header
         TextView tv0 = new TextView(this);
+        tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv0.setText(" Task ");
         tv0.setGravity(Gravity.CENTER_HORIZONTAL);
         taskTableHeader.addView(tv0);
 
         // Second column header
         TextView tv1 = new TextView(this);
+        tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv1.setText(" Due Date ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         taskTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
+        tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv2.setText(" Priority Level ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
         taskTableHeader.addView(tv2);
@@ -88,6 +94,7 @@ public class PDayActivity extends AppCompatActivity {
         // Add rows dynamically from database
         for (int i = 0; i < dbSize; i++) {
             TableRow row = new TableRow(this);
+            row.setId(i);
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,6 +108,8 @@ public class PDayActivity extends AppCompatActivity {
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = row;
                     }
+                    selectedTask = taskList.get(row.getId());
+                    btn_taskDelete.setVisibility(View.VISIBLE);
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
@@ -108,13 +117,12 @@ public class PDayActivity extends AppCompatActivity {
             });
 
             TextView t1v = new TextView(this);
-            String name = taskList.get(i).getName();
-            Toast.makeText(this,  name, Toast.LENGTH_SHORT).show();
             t1v.setText(taskList.get(i).getName());
+            t1v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(taskList.get(i).getDueDate());
+            t2v.setText(taskList.get(i).getDueDate() + " @ " + taskList.get(i).getDueTime());
             t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t2v);
 
@@ -180,6 +188,22 @@ public class PDayActivity extends AppCompatActivity {
         }
 
     }*/
+
+    public void deleteT(View view) {
+        Toast.makeText(this,  selectedTask.getName(), Toast.LENGTH_SHORT).show();
+        boolean success = taskDatabaseHelper.deleteTask(selectedTask);
+        if (success) {
+            Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
+        }
+        refresh(view);
+    }
+
+    public void refresh(View view) {
+        Intent intent = new Intent(PDayActivity.this, PDayActivity.class);
+        startActivity(intent);
+    }
 
     public void toMainActivity(View view) {
         Intent intent = new Intent(PDayActivity.this, MainActivity.class);

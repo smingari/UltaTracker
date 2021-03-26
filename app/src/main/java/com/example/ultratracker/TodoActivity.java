@@ -122,7 +122,6 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void deleteT(View view) {
-        Toast.makeText(this,  selectedTask.getName(), Toast.LENGTH_SHORT).show();
         boolean success = taskDatabaseHelper.deleteTask(selectedTask);
         if (success) {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
