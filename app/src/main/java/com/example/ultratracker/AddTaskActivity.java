@@ -109,7 +109,7 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
     }
 
     public void openDialog() {
-        DateSelectorDialog exampleDialog = new DateSelectorDialog(taskSelectedYear, taskSelectedMonth, taskSelectedDay);
+        DateSelectorDialog exampleDialog = new DateSelectorDialog();
         exampleDialog.show(getSupportFragmentManager(), "example dialog");
     }
 
