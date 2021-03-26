@@ -21,15 +21,7 @@ public class DateSelectorDialog extends AppCompatDialogFragment {
     private int year;
     private int month;
     private int day;
-    private long time;
-    private Calendar calendar;
     DatePicker date_picker;
-
-    public DateSelectorDialog(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
 
     @NonNull
     @Override
@@ -55,7 +47,6 @@ public class DateSelectorDialog extends AppCompatDialogFragment {
                 listener.applyDate(year, month, day);
             }
         });
-
         return builder.create();
     }
 
@@ -66,7 +57,7 @@ public class DateSelectorDialog extends AppCompatDialogFragment {
             listener = (DateSelectorListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
-                    "must implement ExampleDialogListener");
+                    "must implement DateSelectorListener");
         }
     }
     public interface DateSelectorListener {
