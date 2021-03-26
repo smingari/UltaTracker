@@ -103,7 +103,9 @@ public class TodoActivity extends AppCompatActivity {
 
             TextView t1v = new TextView(this);
             t1v.setGravity(Gravity.CENTER_HORIZONTAL);
-            t1v.setText(taskList.get(i).getName());
+            String taskName = taskList.get(i).getName();
+            if (taskName.length() > 12) { taskName = (taskName.substring(0, Math.min(taskName.length(), 12))) + ".."; }
+            t1v.setText(taskName);
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
