@@ -274,6 +274,11 @@ public class PDayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toEditTaskActivity(View view) {
+        Intent intent = new Intent(PDayActivity.this, EditTaskActivity.class);
+        startActivity(intent);
+    }
+
     public void toAddTaskActivity(View view) {
         Intent intent = new Intent(PDayActivity.this, AddTaskActivity.class);
         startActivity(intent);
