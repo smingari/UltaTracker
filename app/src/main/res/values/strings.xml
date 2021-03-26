@@ -40,4 +40,6 @@
     <string name="am">AM</string>
     <string name="pm">PM</string>
     <string name="togglebutton">ToggleButton</string>
+    <string name="upcoming_tasks">Upcoming Tasks</string>
+    <string name="edit_task">Edit Task</string>
 </resources>
