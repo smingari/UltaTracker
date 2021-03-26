@@ -117,4 +117,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, PDayActivity.class);
         startActivity(intent);
     }
+
+    public void toTodo(View view) {
+        Intent intent = new Intent(MainActivity.this, TodoActivity.class);
+        startActivity(intent);
+    }
 }

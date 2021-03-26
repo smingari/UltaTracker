@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Task {
-    public static int Key = 0; // ID key for database
+    //public static int Key = 0; // ID key for database
 
     private String name;
     private LocalDate assignedDate;
@@ -24,7 +24,7 @@ public class Task {
         this.description = description;
         this.priority = priority;
         this.complete = complete;
-        this.key = Key++;
+        this.key = getRandomBetweenRange(1, 100000);
     }
 
     // Constructor for db list since we don't want to increase the keys
@@ -44,8 +44,13 @@ public class Task {
     // default constructor
     // Times are all default for an hour in the same day
     public Task() {
-        this.key = Key++;
+        this.key = getRandomBetweenRange(1, 100000);
         this.complete = false;
+    }
+
+    public static int getRandomBetweenRange(double min, double max){
+        double x = (Math.random()*((max-min)+1))+min;
+        return (int) x;
     }
 
     public String getName() {
