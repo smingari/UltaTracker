@@ -25,19 +25,19 @@
     <string name="current_date">Current Date</string>
     <string name="create_a_new_task">Create a New Task</string>
     <string name="name">Name:</string>
-    <string name="enter_task_name">Enter Task Name</string>
+    <string name="enter_task_name">Task Name</string>
     <string name="due_date">Due Date:</string>
-    <string name="enter_due_date">Enter Due Date</string>
+    <string name="enter_due_date">Due Date</string>
     <string name="due_time">Due Time:</string>
-    <string name="enter_due_time">Enter Due Time</string>
+    <string name="enter_due_time">Due Time</string>
     <string name="description">Description:</string>
-    <string name="enter_description_of_task">Enter Description of Task</string>
-    <string name="priority_level">Priority Level:</string>
-    <string name="enter_priority_level_1_5">Enter Priority Level (1-5)</string>
+    <string name="enter_description_of_task">Description of Task</string>
+    <string name="priority">Priority:</string>
+    <string name="enter_priority_level_1_5">Priority Level (1-5)</string>
     <string name="create_task">Create Task</string>
-    <string name="enter_due_date_03_15_2021">Enter Due Date (03/15/2021)</string>
-    <string name="enter_due_time_11_59">Enter Due Time (11:59)</string>
+    <string name="enter_due_time_11_59">Due Time (11:59)</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
     <string name="togglebutton">ToggleButton</string>
+    <string name="set">Set</string>
 </resources>
