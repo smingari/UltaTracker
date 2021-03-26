@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -40,7 +41,7 @@ public class PDayActivity extends AppCompatActivity {
 
         btn_taskAdd.setVisibility(View.VISIBLE);
         btn_taskDelete.setVisibility(View.VISIBLE);
-        btn_taskEdit.setVisibility(View.VISIBLE);
+        btn_taskEdit.setVisibility(View.INVISIBLE);
         btn_taskReminder.setVisibility(View.INVISIBLE);
         btn_taskComplete.setVisibility(View.INVISIBLE);
 
@@ -88,8 +89,11 @@ public class PDayActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    taskTable.setBackgroundColor(getResources().getColor(R.color.white));
+                    row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
+                    btn_taskEdit.setVisibility(View.VISIBLE);
                 }
             });
 
