@@ -177,14 +177,10 @@
         app:layout_constraintStart_toStartOf="@+id/description_entry"
         app:layout_constraintTop_toBottomOf="@+id/description_entry" />
 
-    <EditText
+    <Spinner
         android:id="@+id/priority_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enter_priority_level_1_5"
-        android:importantForAutofill="no"
-        android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/priority_textview"
         app:layout_constraintTop_toBottomOf="@+id/priority_textview" />
 
