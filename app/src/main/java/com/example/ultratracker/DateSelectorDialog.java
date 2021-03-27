@@ -13,9 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 public class DateSelectorDialog extends AppCompatDialogFragment {
     private DateSelectorListener listener;
     private int year;
@@ -33,7 +30,6 @@ public class DateSelectorDialog extends AppCompatDialogFragment {
         date_picker = view.findViewById(R.id.date_picker);
 
         builder.setView(view);
-        //builder.setTitle("Set Date");
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}

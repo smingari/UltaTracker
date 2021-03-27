@@ -111,9 +111,7 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -141,24 +139,18 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
     public void applyTime(int hour, int minute) {
         dueHour = hour;
         dueMinute = minute;
+        int displayHour;
+        String AMorPM;
         System.out.println(hour + ":" + minute);
         if(hour < 12) {
-            if(hour == 0) {
-                due_time_display.setText(String.format("12:%02d AM", minute));
-            } else {
-                due_time_display.setText(String.format("%d:%02d AM", hour, minute));
-            }
+            AMorPM = "AM";
+            displayHour = dueHour;
         } else {
-            if(hour == 12) {
-                due_time_display.setText(String.format("12:%02d PM", minute));
-            } else {
-                due_time_display.setText(String.format("%d:%02d PM", hour-12, minute));
-            }
+            AMorPM = "PM";
+            displayHour = dueHour-12;
         }
-    }
-
-    public void createTask() {
-
+        if(displayHour == 0) displayHour = 12;
+        due_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
     public void toPDay(View view) {
