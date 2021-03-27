@@ -29,10 +29,11 @@ public class PDayActivity extends AppCompatActivity {
     TableLayout taskTable;
     TableLayout completedTable;
     TableRow selectedRow;
-    TableRow selectedCRow;
     TaskDatabaseHelper taskDatabaseHelper;
     Task selectedTask;
-    Task selectedCTask;
+
+    boolean taskSelected;
+    boolean completedTaskSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,27 +118,26 @@ public class PDayActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    boolean isComplete;
                     if (selectedRow == null) {
                         selectedRow = row;
-                        taskTable.setBackgroundColor(getResources().getColor(R.color.white));
+                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     } else {
                         selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = row;
                     }
-                    if (selectedCTask != null) {
-                        selectedCRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        selectedCTask = null;
-                        selectedCRow = null;
-                    }
                     selectedTask = taskList.get(row.getId());
+                    isComplete = selectedTask.isComplete();
+                    taskSelected = !isComplete;
+                    completedTaskSelected = isComplete;
                     btn_taskDelete.setVisibility(View.VISIBLE);
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
-                    btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.grey));
-                    btn_moveToTasks.setClickable(false);
+                    btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                    btn_moveToTasks.setClickable(isComplete);
                 }
             });
 
@@ -216,27 +216,26 @@ public class PDayActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectedCRow == null) {
-                        selectedCRow = row;
-                        completedTable.setBackgroundColor(getResources().getColor(R.color.white));
+                    boolean isComplete;
+                    if (selectedRow == null) {
+                        selectedRow = row;
+                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     } else {
-                        selectedCRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedCRow = row;
-                    }
-                    if (selectedTask != null) {
                         selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        selectedTask = null;
-                        selectedRow = null;
+                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                        selectedRow = row;
                     }
-                    selectedCTask = taskList.get(row.getId());
+                    selectedTask = taskList.get(row.getId());
+                    isComplete = selectedTask.isComplete();
+                    taskSelected = !isComplete;
+                    completedTaskSelected = isComplete;
                     btn_taskDelete.setVisibility(View.VISIBLE);
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
                     btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    btn_moveToTasks.setClickable(true);
+                    btn_moveToTasks.setClickable(isComplete);
                 }
             });
 
@@ -267,42 +266,56 @@ public class PDayActivity extends AppCompatActivity {
             boolean success = taskDatabaseHelper.deleteTask(selectedTask);
             taskTable.removeView(selectedRow);
         }
-        if (selectedCTask != null) {
-            boolean success = taskDatabaseHelper.deleteTask(selectedCTask);
-            completedTable.removeView(selectedCRow);
-        }
         /*if (success) {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
         }*/
-        taskTable.removeView(selectedRow);
+        if(taskSelected) {
+            taskTable.removeView(selectedRow);
+        }
+        if(completedTaskSelected) {
+            completedTable.removeView(selectedRow);
+        }
     }
 
     public void markComplete(View view) {
-        boolean success = taskDatabaseHelper.modifyComplete(selectedTask, true);
+        boolean success;
+        if(taskSelected) {
+            success = taskDatabaseHelper.modifyComplete(selectedTask, true);
+            selectedTask.setComplete(true);
+            taskTable.removeView(selectedRow);
+            completedTable.addView(selectedRow);
+            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+            selectedRow = null;
+            selectedTask = null;
+            //MainActivity.selectedTask = null;
+        }
         /*if (success) {
             Toast.makeText(this,  "Successfully marked complete.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
         }*/
-        taskTable.removeView(selectedRow);
-        completedTable.addView(selectedRow);
-        finish();
-        startActivity(getIntent());
     }
 
     public void markIncomplete(View view) {
-        boolean success = taskDatabaseHelper.modifyComplete(selectedCTask, false);
+        boolean success;
+        if(completedTaskSelected) {
+            success = taskDatabaseHelper.modifyComplete(selectedTask, false);
+            selectedTask.setComplete(false);
+            completedTable.removeView(selectedRow);
+            taskTable.addView(selectedRow);
+            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+            selectedRow = null;
+            selectedTask = null;
+            //MainActivity.selectedTask = null;
+            btn_moveToTasks.setClickable(false);
+        }
         /*if (success) {
             Toast.makeText(this,  "Successfully marked incomplete.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error marking incomplete.", Toast.LENGTH_SHORT).show();
         }*/
-        completedTable.removeView(selectedCRow);
-        taskTable.addView(selectedCRow);
-        finish();
-        startActivity(getIntent());
     }
 
     public void toMainActivity(View view) {
@@ -318,5 +331,10 @@ public class PDayActivity extends AppCompatActivity {
     public void toAddTaskActivity(View view) {
         Intent intent = new Intent(PDayActivity.this, AddTaskActivity.class);
         startActivity(intent);
+    }
+
+    public void openViewDialog(View view) {
+        ViewTaskDialog viewTaskDialog = new ViewTaskDialog(selectedTask);
+        viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
     }
 }
