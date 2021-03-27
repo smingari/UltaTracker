@@ -19,7 +19,7 @@ import com.example.ultratracker.TaskDatabaseHelper;
 
 public class TodoActivity extends AppCompatActivity {
     TableRow selectedRow;
-    Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete;
+    Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete, btn_view;
     TaskDatabaseHelper taskDatabaseHelper;
     TableLayout taskTable;
 
@@ -33,6 +33,7 @@ public class TodoActivity extends AppCompatActivity {
         btn_taskEdit = findViewById(R.id.todo_edit_button);
         btn_taskReminder = findViewById(R.id.todo_reminder_button);
         btn_taskComplete = findViewById(R.id.todo_complete_button);
+        btn_view = findViewById(R.id.todo_view_button);
 
         taskTable = findViewById(R.id.todo_table);
 
@@ -40,6 +41,8 @@ public class TodoActivity extends AppCompatActivity {
         btn_taskEdit.setVisibility(View.INVISIBLE);
         btn_taskReminder.setVisibility(View.INVISIBLE);
         btn_taskComplete.setVisibility(View.INVISIBLE);
+        btn_view.setVisibility(View.INVISIBLE);
+
 
         taskDatabaseHelper = new TaskDatabaseHelper(this);
         init_task_table();
@@ -101,6 +104,7 @@ public class TodoActivity extends AppCompatActivity {
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
+                    btn_view.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -159,5 +163,10 @@ public class TodoActivity extends AppCompatActivity {
     public void toEditTaskActivity(View view) {
         Intent intent = new Intent(TodoActivity.this, EditTaskActivity.class);
         startActivity(intent);
+    }
+
+    public void openViewDialog(View view) {
+        ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
+        viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
     }
 }

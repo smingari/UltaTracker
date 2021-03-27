@@ -116,13 +116,11 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
     }
 
     public void openDateDialog() {
-        System.out.println("open date dialog");
         DateSelectorDialog dateDialog = new DateSelectorDialog();
         dateDialog.show(getSupportFragmentManager(), "date dialog");
     }
 
     public void openTimeDialog() {
-        System.out.println("open time dialog");
         TimeSelectorDialog timeDialog = new TimeSelectorDialog();
         timeDialog.show(getSupportFragmentManager(), "time dialog");
     }

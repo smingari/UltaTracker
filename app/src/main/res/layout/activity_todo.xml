@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:onClick="openViewDialog"
     tools:context=".TodoActivity">
 
     <Button
@@ -39,9 +40,9 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="2dp"
+        android:onClick="toEditTaskActivity"
         android:text="@string/edit"
         android:visibility="visible"
-        android:onClick="toEditTaskActivity"
         app:layout_constraintBottom_toTopOf="@+id/todo_divider"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -112,8 +113,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
-        android:text="@string/complete"
         android:onClick="markComplete"
+        android:text="@string/complete"
         app:layout_constraintBottom_toBottomOf="@+id/todo_add_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/todo_scrollview" />
@@ -125,8 +126,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
         android:layout_marginTop="5dp"
-        android:text="@string/delete"
         android:onClick="deleteT"
+        android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="@+id/todo_add_button"
         app:layout_constraintStart_toEndOf="@+id/todo_add_button"
         app:layout_constraintTop_toBottomOf="@+id/todo_scrollview" />
@@ -154,5 +155,16 @@
         android:text="@string/add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/todo_scrollview" />
+
+    <Button
+        android:id="@+id/todo_view_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:onClick="openViewDialog"
+        android:text="@string/view"
+        app:layout_constraintBottom_toTopOf="@+id/todo_divider"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
