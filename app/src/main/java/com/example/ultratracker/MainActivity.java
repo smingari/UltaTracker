@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             TableRow row = new TableRow(this);
             row.setId(i);
 
-            row.setOnClickListener(new View.OnClickListener() {
+            /*row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (selectedRow == null) {
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     selectedTask = taskList.get(row.getId());
                 }
-            });
+            });*/
 
             TextView t0v = new TextView(this);
             t0v.setText("Task");
