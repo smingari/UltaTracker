@@ -24,7 +24,7 @@ import com.example.ultratracker.MainActivity;
 
 public class PDayActivity extends AppCompatActivity {
 
-    Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete, btn_moveToTasks;
+    Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete, btn_moveToTasks, btn_view;
 
     TableLayout taskTable;
     TableLayout completedTable;
@@ -49,6 +49,7 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskReminder = findViewById(R.id.set_reminder_button);
         btn_taskComplete = findViewById(R.id.mark_complete_button);
         btn_moveToTasks = findViewById(R.id.move_to_tasks_button);
+        btn_view = findViewById(R.id.pday_view_button);
 
         btn_taskAdd.setVisibility(View.VISIBLE);
         btn_taskDelete.setVisibility(View.INVISIBLE);
@@ -58,6 +59,7 @@ public class PDayActivity extends AppCompatActivity {
         //btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.grey));
         //btn_moveToTasks.setClickable(false);
         btn_moveToTasks.setVisibility(View.INVISIBLE);
+        btn_view.setVisibility(View.INVISIBLE);
 
         // Create the table of tasks programmatically
         taskDatabaseHelper = new TaskDatabaseHelper(this);
@@ -344,6 +346,7 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskReminder.setVisibility(View.INVISIBLE);
         btn_taskComplete.setVisibility(View.INVISIBLE);
         btn_taskEdit.setVisibility(View.INVISIBLE);
+        btn_view.setVisibility(View.INVISIBLE);
     }
 
     public void showButtons() {
@@ -351,5 +354,6 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskReminder.setVisibility(View.VISIBLE);
         btn_taskComplete.setVisibility(View.VISIBLE);
         btn_taskEdit.setVisibility(View.VISIBLE);
+        btn_view.setVisibility(View.VISIBLE);
     }
 }
