@@ -17,17 +17,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/current_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginLeft="139dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginRight="139dp"
+        android:text="@string/current_date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/edit_task_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:onClick="toEditTaskActivity"
         android:text="@string/edit"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/tasks_divider"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tasks_text"
@@ -35,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="82dp"
         android:layout_marginLeft="82dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
         android:text="@string/tasks"
@@ -56,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_button">
+        app:layout_constraintTop_toBottomOf="@+id/tasks_text">
 
 
         <HorizontalScrollView
@@ -139,27 +154,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
 
     <TextView
-        android:id="@+id/current_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="139dp"
-        android:layout_marginLeft="139dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="139dp"
-        android:layout_marginRight="139dp"
-        android:text="@string/current_date"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
-
-    <TextView
         android:id="@+id/completed_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="151dp"
         android:layout_marginLeft="151dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="151dp"
         android:layout_marginRight="151dp"
         android:layout_marginBottom="5dp"
@@ -257,5 +257,15 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed_scrollview" />
+
+    <Button
+        android:id="@+id/pday_view_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
