@@ -41,17 +41,22 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
         create_task_button = findViewById(R.id.create_task_button);
         edit_date_button = findViewById(R.id.edit_date);
         name_entry = findViewById(R.id.name_entry);
+        name_entry.setText(MainActivity.selectedTask.getName());
         date_display = findViewById(R.id.date_display);
+        date_display.setText(MainActivity.selectedTask.getDueDate());
+
         due_time_entry = findViewById(R.id.due_time_entry);
+        due_time_entry.setText(MainActivity.selectedTask.getDueTime());
         description_entry = findViewById(R.id.description_entry);
+        description_entry.setText(MainActivity.selectedTask.getDescription());
         priority_entry = findViewById(R.id.priority_entry);
+        priority_entry.setSelection(MainActivity.selectedTask.getPriority());
 
         TaskDatabaseHelper db = new TaskDatabaseHelper(EditTaskActivity.this);
 
         taskSelectedYear = MainActivity.selectedYear;
         taskSelectedMonth = MainActivity.selectedMonth;
         taskSelectedDay = MainActivity.selectedDay;
-        date_display.setText(taskSelectedMonth + "/" + taskSelectedDay + "/" + taskSelectedYear);
 
         create_task_button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -62,16 +67,26 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
                     String due_time = due_time_entry.getText().toString();
                     String description = description_entry.getText().toString();
 
-                    LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
+                    LocalDate syn_date;
+                    if(date_display.getText().equals(MainActivity.selectedTask.getDueDate())) {
+                        syn_date = LocalDate.parse(date_display.getText());
+                    } else {
+                        syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
+                    }
                     LocalTime syn_time = LocalTime.parse(due_time.length() < 5 ? "0" + due_time : due_time); //quick and dirty hack plz remove
 
-                    Task task = new Task(name, syn_date, syn_date, syn_time, description, priority, false);
-                    db.addOne(task);
+
+                    MainActivity.selectedTask.setName(name);
+                    MainActivity.selectedTask.setDueTime(syn_time);
+                    MainActivity.selectedTask.setDueDate(syn_date);
+                    MainActivity.selectedTask.setDescription(description);
+                    MainActivity.selectedTask.setPriority(priority);
+                    db.editTask(MainActivity.selectedTask);
                     toMainActivity(v);
-                    Toast.makeText(EditTaskActivity.this, "Successfully made task.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTaskActivity.this, "Successfully edited task.", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e) {
-                    Toast.makeText(EditTaskActivity.this, "Error creating task.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditTaskActivity.this, "Error editing task.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
