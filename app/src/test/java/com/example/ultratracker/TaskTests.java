@@ -26,12 +26,13 @@ public class TaskTests {
         t1 = LocalTime.of(10,14); // format is 10:14
     }
 
-    // KEY CHANGED SO THIS WILL ALWAYS FAIL
+
+    // WILL ALWAYS FAIL SINCE KEY IS NOW RANDOM
     // Name Alpha to run first
 //    @Test
 //    public void testAlphaCreateTaskWithEmptyConstructor() {
-//        assertEquals(0, task.getKey());
-//    }
+//        //assertEquals(0, task.getKey());
+
 
     /*
     Create a set of Task and check that the ID keys are correct and the Text field is correct
@@ -41,7 +42,9 @@ public class TaskTests {
         Task tt = new Task("Test 1", a1, d1, t1, "Creation", 1, false);
 
         // check that each task created as a unique key
+
         //assertEquals(2, tt.getKey()); // 1 since we have before each
+
 
 
         // check that each testTask is correct
