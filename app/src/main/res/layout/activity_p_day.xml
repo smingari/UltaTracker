@@ -13,7 +13,20 @@
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:text="@string/home_button"
+        android:onClick="toMainActivity"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/edit_task_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:onClick="toEditTaskActivity"
+        android:text="@string/edit"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -26,51 +39,222 @@
         android:layout_marginEnd="175dp"
         android:layout_marginRight="175dp"
         android:text="@string/tasks"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/home_button"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/tasks_scrollview"
-        android:layout_width="408dp"
+        android:layout_width="0dp"
         android:layout_height="220dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_button">
 
-        <!--<LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />-->
 
         <HorizontalScrollView
             android:id="@+id/hscrll1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayout1"
-            android:layout_width="fill_parent"
-            android:layout_gravity="center"
-            android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TableLayout
-                android:id="@+id/task_table"
-                android:layout_width="fill_parent"
+                <!--<RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
-                android:layout_centerHorizontal="true"
-                android:stretchColumns="*" >
-            </TableLayout>
-        </RelativeLayout></HorizontalScrollView>
+                android:layout_gravity="center"
+                android:orientation="vertical">-->
 
+                <TableLayout
+                    android:id="@+id/task_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="false"
+                    android:stretchColumns="*"></TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
 
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/add_task_button"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/add"
+        android:onClick="toAddTaskActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/delete"
+        android:onClick="deleteT"
+        app:layout_constraintStart_toEndOf="@+id/add_task_button"
+        app:layout_constraintBottom_toBottomOf="@+id/add_task_button"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
+
+    <Button
+        android:id="@+id/set_reminder_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:text="@string/reminder"
+        app:layout_constraintBottom_toBottomOf="@+id/add_task_button"
+        app:layout_constraintEnd_toStartOf="@+id/mark_complete_button"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
+
+    <Button
+        android:id="@+id/mark_complete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:text="@string/complete"
+        android:onClick="markComplete"
+        app:layout_constraintBottom_toBottomOf="@+id/add_task_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
+
+    <TextView
+        android:id="@+id/current_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginLeft="139dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="139dp"
+        android:layout_marginRight="139dp"
+        android:text="@string/current_date"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+
+    <TextView
+        android:id="@+id/completed_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151dp"
+        android:layout_marginLeft="151dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="151dp"
+        android:layout_marginRight="151dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/completed_tasks"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/completed_scrollview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+
+    <ScrollView
+        android:id="@+id/completed_scrollview"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintBottom_toTopOf="@+id/move_to_tasks_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed_textview">
+
+        <HorizontalScrollView
+            android:id="@+id/hscrll2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--<RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">-->
+
+                <TableLayout
+                    android:id="@+id/completed_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="false"
+                    android:stretchColumns="*"></TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/move_to_tasks_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginEnd="129dp"
+        android:layout_marginRight="129dp"
+        android:text="@string/move_to_tasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed_scrollview" />
+
+    <View
+        android:id="@+id/tasks_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tasks_scrollview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/tasks_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasks_scrollview" />
+
+    <View
+        android:id="@+id/completed_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/completed_scrollview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/completed_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completed_scrollview" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

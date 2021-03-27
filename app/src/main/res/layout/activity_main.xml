@@ -20,6 +20,7 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/todo"
+        android:onClick="toTodo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -35,36 +36,57 @@
         android:id="@+id/calendarView4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:fadingEdge="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/app_name"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/recent_scrollview"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/Notes_Button"
-        app:layout_constraintEnd_toStartOf="@+id/addEntryButton"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+
+        <HorizontalScrollView
+            android:id="@+id/hscrll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--<RelativeLayout
+                android:id="@+id/RelativeLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">-->
+
+                <TableLayout
+                    android:id="@+id/recent_table"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="false"
+                    android:stretchColumns="*"></TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView2"
@@ -72,108 +94,52 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="10dp"
         android:text="@string/recent_entries"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPlanner" />
+
+    <Button
+        android:id="@+id/addPlanner"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/planner"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView4" />
 
-    <LinearLayout
-        android:id="@+id/addPlannerContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addEntryButton"
-        app:layout_constraintEnd_toEndOf="@+id/addEntryButton">
-
-        <TextView
-            android:id="@+id/addPlannerText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/planner"
-            android:textSize="18sp"
-            android:visibility="invisible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addPlanner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:contentDescription="@string/add_planner_button"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            app:backgroundTint="@color/teal_700"
-            app:srcCompat="@android:drawable/ic_input_add" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/addHealthContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addEntryButton"
-        app:layout_constraintEnd_toEndOf="@+id/addEntryButton">
-
-        <TextView
-            android:id="@+id/addHealthText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/health"
-            android:textSize="18sp"
-            android:visibility="invisible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addHealth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:contentDescription="@string/add_health_button"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            app:backgroundTint="@color/teal_700"
-            app:srcCompat="@android:drawable/ic_input_add" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/addExerciseContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/addEntryButton"
-        app:layout_constraintEnd_toEndOf="@+id/addEntryButton">
-
-        <TextView
-            android:id="@+id/addExerciseText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@string/exercise"
-            android:textSize="18sp"
-            android:visibility="invisible" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addExercise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:contentDescription="@string/add_exercise_button"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            app:backgroundTint="@color/teal_700"
-            app:srcCompat="@android:drawable/ic_input_add" />
-    </LinearLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addEntryButton"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/addHealth"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="@string/add_button"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        android:text="@string/health"
+        app:layout_constraintEnd_toStartOf="@+id/addExercise"
+        app:layout_constraintStart_toEndOf="@+id/addPlanner"
+        app:layout_constraintTop_toTopOf="@+id/addPlanner" />
+
+    <Button
+        android:id="@+id/addExercise"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:layout_constraintTop_toTopOf="@+id/addPlanner" />
+
+    <View
+        android:id="@+id/recent_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/recent_scrollview"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/recent_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recent_scrollview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

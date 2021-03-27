@@ -15,4 +15,34 @@
     <string name="add_planner_button">add to planner button</string>
     <string name="tasks">Tasks</string>
     <string name="home_button">Home</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="reminder">Reminder</string>
+    <string name="complete">Complete</string>
+    <string name="completed_tasks">Completed Tasks</string>
+    <string name="move_to_tasks">Move to Tasks</string>
+    <string name="current_date">Current Date</string>
+    <string name="create_a_new_task">Create a New Task</string>
+    <string name="name">Name:</string>
+    <string name="enter_task_name">Task Name</string>
+    <string name="due_date">Due Date:</string>
+    <string name="enter_due_date">Due Date</string>
+    <string name="due_time">Due Time:</string>
+    <string name="enter_due_time">Due Time</string>
+    <string name="description">Description:</string>
+    <string name="enter_description_of_task">Description of Task</string>
+    <string name="priority">Priority:</string>
+    <string name="enter_priority_level_1_5">Priority Level (1-5)</string>
+    <string name="create_task">Create Task</string>
+    <string name="enter_due_time_11_59">Due Time (11:59)</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="upcoming_tasks">Upcoming Tasks</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="set">Set</string>
+    <string name="max_length_12_characters">*Max length = 12 characters</string>
+    <string name="edit_a_task">Edit This Task</string>
+    <string name="view">View</string>
 </resources>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditTaskActivity">
+
+    <TextView
+        android:id="@+id/create_task_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:text="@string/edit_a_task"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/create_task_textview" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="toMainActivity"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/create_task_button"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="toMainActivity"
+        android:text="@string/edit_task"
+        app:layout_constraintBottom_toBottomOf="@+id/cancel_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:gravity="end"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <EditText
+        android:id="@+id/name_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_task_name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/name_textview" />
+
+    <Button
+        android:id="@+id/edit_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_textview" />
+
+    <TextView
+        android:id="@+id/due_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/due_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/name_entry" />
+
+    <TextView
+        android:id="@+id/date_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_date"
+        app:layout_constraintEnd_toStartOf="@+id/edit_date"
+        app:layout_constraintStart_toStartOf="@+id/due_date_textview"
+        app:layout_constraintTop_toTopOf="@+id/edit_date" />
+
+    <TextView
+        android:id="@+id/due_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/due_time"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_date" />
+
+    <TextView
+        android:id="@+id/description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/description"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_time" />
+
+    <EditText
+        android:id="@+id/description_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/enter_description_of_task"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/description_textview" />
+
+    <TextView
+        android:id="@+id/priority_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/priority"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/description_entry"
+        app:layout_constraintTop_toBottomOf="@+id/description_entry" />
+
+    <Spinner
+        android:id="@+id/priority_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/priority_textview"
+        app:layout_constraintTop_toBottomOf="@+id/priority_textview" />
+
+    <TextView
+        android:id="@+id/due_time_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_time"
+        app:layout_constraintEnd_toStartOf="@+id/edit_time"
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toTopOf="@+id/edit_time" />
+
+    <Button
+        android:id="@+id/edit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

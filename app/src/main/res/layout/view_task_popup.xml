@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTaskActivity">
+
+    <TextView
+        android:id="@+id/due_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:gravity="end"
+        android:text="@string/due_date"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/due_date_textview" />
+
+    <TextView
+        android:id="@+id/due_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/due_time"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/date_display" />
+
+    <TextView
+        android:id="@+id/due_time_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_textview" />
+
+    <TextView
+        android:id="@+id/description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/description"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_display" />
+
+    <TextView
+        android:id="@+id/description_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/description_textview" />
+
+    <TextView
+        android:id="@+id/priority_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/priority"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/description_display" />
+
+    <TextView
+        android:id="@+id/priority_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/priority_textview"
+        app:layout_constraintTop_toBottomOf="@+id/priority_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
