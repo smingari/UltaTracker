@@ -20,17 +20,18 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditTaskActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener {
-    Button cancel_button, create_task_button, edit_date_button;
-    EditText name_entry, due_time_entry, description_entry;
-    TextView date_display;
+public class EditTaskActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
+    Button cancel_button, create_task_button, edit_date_button, edit_time_button;
+    EditText name_entry, description_entry;
+    TextView date_display, due_time_display;
     Spinner priority_entry;
 
-    int priority;
-
+    private int priority;
     private int taskSelectedYear;
     private int taskSelectedMonth;
     private int taskSelectedDay;
+    private int dueHour;
+    private int dueMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +41,21 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
         cancel_button = findViewById(R.id.cancel_button);
         create_task_button = findViewById(R.id.create_task_button);
         edit_date_button = findViewById(R.id.edit_date);
+        edit_time_button = findViewById(R.id.edit_time);
         name_entry = findViewById(R.id.name_entry);
-        name_entry.setText(MainActivity.selectedTask.getName());
         date_display = findViewById(R.id.date_display);
-        date_display.setText(MainActivity.selectedTask.getDueDate());
-
-        due_time_entry = findViewById(R.id.due_time_entry);
-        due_time_entry.setText(MainActivity.selectedTask.getDueTime());
+        due_time_display = findViewById(R.id.due_time_display);
         description_entry = findViewById(R.id.description_entry);
-        description_entry.setText(MainActivity.selectedTask.getDescription());
         priority_entry = findViewById(R.id.priority_entry);
+
+        name_entry.setText(MainActivity.selectedTask.getName());
+        date_display.setText(MainActivity.selectedTask.getDueDate());
+        description_entry.setText(MainActivity.selectedTask.getDescription());
         priority_entry.setSelection(MainActivity.selectedTask.getPriority());
+
+        String tempTime = MainActivity.selectedTask.getDueTime();
+        String[] tempTimeArray = tempTime.split(":");
+        applyTime(Integer.parseInt(tempTimeArray[0]), Integer.parseInt(tempTimeArray[1]));
 
         TaskDatabaseHelper db = new TaskDatabaseHelper(EditTaskActivity.this);
 
@@ -64,7 +69,6 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
             public void onClick(View v) {
                 try {
                     String name = name_entry.getText().toString();
-                    String due_time = due_time_entry.getText().toString();
                     String description = description_entry.getText().toString();
 
                     LocalDate syn_date;
@@ -73,8 +77,7 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
                     } else {
                         syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
                     }
-                    LocalTime syn_time = LocalTime.parse(due_time.length() < 5 ? "0" + due_time : due_time); //quick and dirty hack plz remove
-
+                    LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
                     MainActivity.selectedTask.setName(name);
                     MainActivity.selectedTask.setDueTime(syn_time);
@@ -94,10 +97,16 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
         edit_date_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                openDateDialog();
             }
         });
 
+        edit_time_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimeDialog();
+            }
+        });
         final List<Integer> priorities = new ArrayList<Integer>();
 
         priorities.add(1);
@@ -123,9 +132,16 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
         });
     }
 
-    public void openDialog() {
-        DateSelectorDialog exampleDialog = new DateSelectorDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    public void openDateDialog() {
+        System.out.println("open date dialog");
+        DateSelectorDialog dateDialog = new DateSelectorDialog();
+        dateDialog.show(getSupportFragmentManager(), "date dialog");
+    }
+
+    public void openTimeDialog() {
+        System.out.println("open time dialog");
+        TimeSelectorDialog timeDialog = new TimeSelectorDialog();
+        timeDialog.show(getSupportFragmentManager(), "time dialog");
     }
 
     @Override
@@ -136,8 +152,22 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
         date_display.setText(taskSelectedMonth + "/" + taskSelectedDay + "/" + taskSelectedYear);
     }
 
-    public void createTask() {
-
+    @Override
+    public void applyTime(int hour, int minute) {
+        dueHour = hour;
+        dueMinute = minute;
+        int displayHour;
+        String AMorPM;
+        System.out.println(hour + ":" + minute);
+        if(hour < 12) {
+            AMorPM = "AM";
+            displayHour = dueHour;
+        } else {
+            AMorPM = "PM";
+            displayHour = dueHour-12;
+        }
+        if(displayHour == 0) displayHour = 12;
+        due_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
     public void toPDay(View view) {

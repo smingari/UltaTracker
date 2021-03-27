@@ -31,7 +31,6 @@ public class TimeSelectorDialog extends AppCompatDialogFragment {
         time_picker = view.findViewById(R.id.time_picker);
 
         builder.setView(view);
-        //builder.setTitle("Set Time");
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}
