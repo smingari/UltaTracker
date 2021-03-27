@@ -27,7 +27,9 @@ public class PDayActivity extends AppCompatActivity {
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete, btn_moveToTasks;
 
     TableLayout taskTable;
+    TableLayout completedTable;
     TableRow selectedRow;
+    TableRow selectedCRow;
     TaskDatabaseHelper taskDatabaseHelper;
     Task selectedTask;
     Task selectedCTask;
@@ -124,11 +126,18 @@ public class PDayActivity extends AppCompatActivity {
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = row;
                     }
+                    if (selectedCTask != null) {
+                        selectedCRow.setBackgroundColor(getResources().getColor(R.color.white));
+                        selectedCTask = null;
+                        selectedCRow = null;
+                    }
                     selectedTask = taskList.get(row.getId());
                     btn_taskDelete.setVisibility(View.VISIBLE);
                     btn_taskReminder.setVisibility(View.VISIBLE);
                     btn_taskComplete.setVisibility(View.VISIBLE);
                     btn_taskEdit.setVisibility(View.VISIBLE);
+                    btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.grey));
+                    btn_moveToTasks.setClickable(false);
                 }
             });
 
@@ -155,7 +164,7 @@ public class PDayActivity extends AppCompatActivity {
     }
 
     public void init_completed_table() {
-        TableLayout taskTable = findViewById(R.id.completed_table);
+        completedTable = findViewById(R.id.completed_table);
 
         // Format selected date for task query
         String sMonth;
@@ -197,7 +206,7 @@ public class PDayActivity extends AppCompatActivity {
         taskTableHeader.addView(tv2);
 
         // Add header row to table
-        taskTable.addView(taskTableHeader);
+        completedTable.addView(taskTableHeader);
 
         // Add rows dynamically from database
         for (int i = 0; i < dbSize; i++) {
@@ -207,16 +216,25 @@ public class PDayActivity extends AppCompatActivity {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectedRow == null) {
-                        selectedRow = row;
-                        taskTable.setBackgroundColor(getResources().getColor(R.color.white));
+                    if (selectedCRow == null) {
+                        selectedCRow = row;
+                        completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     } else {
-                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+                        selectedCRow.setBackgroundColor(getResources().getColor(R.color.white));
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedRow = row;
+                        selectedCRow = row;
+                    }
+                    if (selectedTask != null) {
+                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+                        selectedTask = null;
+                        selectedRow = null;
                     }
                     selectedCTask = taskList.get(row.getId());
+                    btn_taskDelete.setVisibility(View.VISIBLE);
+                    btn_taskReminder.setVisibility(View.VISIBLE);
+                    btn_taskComplete.setVisibility(View.VISIBLE);
+                    btn_taskEdit.setVisibility(View.VISIBLE);
                     btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     btn_moveToTasks.setClickable(true);
                 }
@@ -239,30 +257,52 @@ public class PDayActivity extends AppCompatActivity {
             t3v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t3v);
 
-            taskTable.addView(row);
+            completedTable.addView(row);
         }
 
     }
 
     public void deleteT(View view) {
-        Toast.makeText(this,  selectedTask.getName(), Toast.LENGTH_SHORT).show();
-        boolean success = taskDatabaseHelper.deleteTask(selectedTask);
-        if (success) {
+        if (selectedTask != null) {
+            boolean success = taskDatabaseHelper.deleteTask(selectedTask);
+            taskTable.removeView(selectedRow);
+        }
+        if (selectedCTask != null) {
+            boolean success = taskDatabaseHelper.deleteTask(selectedCTask);
+            completedTable.removeView(selectedCRow);
+        }
+        /*if (success) {
             Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         taskTable.removeView(selectedRow);
     }
 
     public void markComplete(View view) {
         boolean success = taskDatabaseHelper.modifyComplete(selectedTask, true);
-        if (success) {
+        /*if (success) {
             Toast.makeText(this,  "Successfully marked complete.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
-        }
+        }*/
         taskTable.removeView(selectedRow);
+        completedTable.addView(selectedRow);
+        finish();
+        startActivity(getIntent());
+    }
+
+    public void markIncomplete(View view) {
+        boolean success = taskDatabaseHelper.modifyComplete(selectedCTask, false);
+        /*if (success) {
+            Toast.makeText(this,  "Successfully marked incomplete.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,  "Error marking incomplete.", Toast.LENGTH_SHORT).show();
+        }*/
+        completedTable.removeView(selectedCRow);
+        taskTable.addView(selectedCRow);
+        finish();
+        startActivity(getIntent());
     }
 
     public void toMainActivity(View view) {
