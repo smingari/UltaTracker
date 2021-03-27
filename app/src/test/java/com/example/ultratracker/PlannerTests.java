@@ -1,55 +1,125 @@
-//package com.example.ultratracker;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-//public class PlannerTests {
-//
-//    /*
-//    Create a set of Task and check that the ID keys are correct and the Text field is correct
-//     */
-//    @Test
-//    public void testCreateTask() {
-//        Task t1 = new Task("Test 1");
-//        Task t2 = new Task("Test 2");
-//        Task t3 = new Task("Test 3");
-//        Task t4 = new Task("Test 4");
-//
-//        // check that each task created as a unique key
-//        assertEquals(t1.getKey(), 0);
-//        assertEquals(t2.getKey(), 1);
-//        assertEquals(t3.getKey(), 2);
-//        assertEquals(t4.getKey(), 3);
-//
-//        // check that each testTask is correct
-//        assertEquals(t1.getTaskText(), "Test 1");
-//        assertEquals(t2.getTaskText(), "Test 2");
-//        assertEquals(t3.getTaskText(), "Test 3");
-//        assertEquals(t4.getTaskText(), "Test 4");
-//    }
-//
-//    @Test
-//    public void testSetTaskText() {
-//        Task t1 = new Task(null);
-//        t1.setTaskText("setTaskTextTest");
-//        assertEquals(t1.getTaskText(),  "setTaskTextTest");
-//    }
-//
-//    @Test
-//    public void testCreatePlanner() {
-//        Planner p1 = new Planner();
-//        Task t1 = new Task("Test 1");
-//        Task t2 = new Task("Test 2");
-//        Task t3 = new Task("Test 3");
-//        Task t4 = new Task("Test 4");
-//
-//
-//    }
-//    @Test
-//    public void testEditTask() {
-//
-//    }
-//    @Test
-//    public void testMarkAsComplete() {
-//
-//    }
-//
-//}
+package com.example.ultratracker;
+
+import androidx.test.InstrumentationRegistry;
+import androidx.test.core.app.ApplicationProvider;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.Context;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
+import static org.powermock.api.mockito.PowerMockito.mock;
+
+import static org.powermock.api.mockito.PowerMockito.doCallRealMethod;
+import static org.powermock.api.mockito.PowerMockito.mock;
+import static org.powermock.api.mockito.PowerMockito.when;
+
+
+
+@RunWith(MockitoJUnitRunner.class)
+public class PlannerTests {
+
+    @Mock
+    private Planner planner;
+
+    public TaskDatabaseHelper db;
+    private LocalTime testTime;
+
+    @Before
+    public void setUp() throws Exception {
+         db = Mockito.mock(TaskDatabaseHelper.class);
+         planner = new Planner(db);
+         testTime = LocalTime.now();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        db.close();
+    }
+
+    @Test
+    public void testPlannerConstructor() {
+        Planner newPlanner = new Planner(db);
+        List<Task>newTasks = new ArrayList<Task>();
+        assertEquals(newTasks, newPlanner.getAllTasks());
+    }
+
+    @Test
+    public void testAddTask(){
+        Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t1)).thenReturn(true);
+        assertEquals(true, planner.addTask(t1));
+        Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t2)).thenReturn(false);
+        assertEquals(false, planner.addTask(t2));
+    }
+
+    @Test
+    public void testGetAllTasks() {
+        LocalTime testTime = LocalTime.now();
+        Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        boolean temp = db.addOne(t1);
+        when(db.addOne(t1)).thenReturn(true);
+        planner.addTask(t1);
+        List<Task> l = db.getAll();
+        assertEquals(l, planner.getAllTasks());
+    }
+
+    @Test
+    public void testEditTask(){
+        Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t1)).thenReturn(true);
+        planner.addTask(t1);
+        when(db.updateAll(t1)).thenReturn(true);
+        assertEquals(true, planner.editTask(t1));
+        Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t2)).thenReturn(true);
+        planner.addTask(t2);
+        when(db.updateAll(t2)).thenReturn(false);
+        assertEquals(false, planner.editTask(t2));
+
+    }
+
+    @Test
+    public void testRemoveTask(){
+        Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t1)).thenReturn(true);
+        when(db.deleteTask(t1)).thenReturn(true);
+        planner.addTask(t1);
+        assertEquals(true, planner.removeTask(t1));
+        Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t2)).thenReturn(true);
+        when(db.deleteTask(t2)).thenReturn(false);
+        planner.addTask(t2);
+        assertEquals(false, planner.removeTask(t2));
+    }
+
+    @Test
+    public void testMarkAsComplete(){
+        Task t1 = new Task("name", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        planner.addTask(t1);
+        when(db.addOne(t1)).thenReturn(true);
+        when(db.updateAll(t1)).thenReturn(true);
+        planner.addTask(t1);
+        assertEquals(true, planner.markAsComplete(t1));
+        Task t2 = new Task("name2", LocalDate.now(), LocalDate.now(), testTime, "test", 1, false);
+        when(db.addOne(t2)).thenReturn(true);
+        when(db.updateAll(t2)).thenReturn(false);
+        planner.addTask(t2);
+        assertEquals(false, planner.markAsComplete(t2));
+    }
+
+
+
+}
+

@@ -35,7 +35,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     // Called first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + TASK_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String createTableStatement = "CREATE TABLE " + TASK_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_KEY + " INT, " + COLUMN_NAME + " TEXT, " + COLUMN_ASSIGNED_DATE + " TEXT, " + COLUMN_DUEDATE + " TEXT, " +
                 COLUMN_DUETIME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT, " + COLUMN_PRIORITY + " INT, " + COLUMN_COMPLETE + " BOOL)";
         db.execSQL(createTableStatement);
@@ -48,6 +48,9 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addOne (Task task) {
+
+        String queryString = "DELETE FROM " + TASK_TABLE + " WHERE " + COLUMN_KEY + " = " + task.getKey();
+
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -60,6 +63,13 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PRIORITY, task.getPriority());
         cv.put(COLUMN_COMPLETE, task.isComplete());
 
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()) {
+            cursor.close();
+            db.close();
+            return false;
+        }
+        cursor.close();
         long insert = db.insert(TASK_TABLE, null, cv);
         return insert != -1;
     }
