@@ -221,6 +221,7 @@
         android:layout_marginEnd="129dp"
         android:layout_marginRight="129dp"
         android:text="@string/move_to_tasks"
+        android:onClick="markIncomplete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/completed_scrollview" />
