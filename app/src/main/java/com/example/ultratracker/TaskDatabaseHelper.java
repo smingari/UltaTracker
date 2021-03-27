@@ -44,6 +44,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addOne (Task task) {
+
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
 
