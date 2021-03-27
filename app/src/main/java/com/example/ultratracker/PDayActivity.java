@@ -26,6 +26,7 @@ public class PDayActivity extends AppCompatActivity {
 
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete, btn_moveToTasks;
 
+    TableLayout taskTable;
     TableRow selectedRow;
     TaskDatabaseHelper taskDatabaseHelper;
     Task selectedTask;
@@ -62,7 +63,7 @@ public class PDayActivity extends AppCompatActivity {
     }
 
     public void init_task_table() {
-        TableLayout taskTable = findViewById(R.id.task_table);
+        taskTable = findViewById(R.id.task_table);
 
         // Format selected date for task query
         String sMonth;
@@ -251,12 +252,7 @@ public class PDayActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
         }
-        refresh(view);
-    }
-
-    public void refresh(View view) {
-        Intent intent = new Intent(PDayActivity.this, PDayActivity.class);
-        startActivity(intent);
+        taskTable.removeView(selectedRow);
     }
 
     public void markComplete(View view) {
@@ -266,7 +262,7 @@ public class PDayActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
         }
-        refresh(view);
+        taskTable.removeView(selectedRow);
     }
 
     public void toMainActivity(View view) {
