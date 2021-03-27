@@ -120,38 +120,15 @@
         app:layout_constraintStart_toStartOf="@+id/due_date_textview"
         app:layout_constraintTop_toBottomOf="@+id/edit_date" />
 
-    <EditText
-        android:id="@+id/due_time_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/enter_due_time_11_59"
-        android:inputType="time"
-        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
-        app:layout_constraintTop_toBottomOf="@+id/due_time_textview" />
-
-    <ToggleButton
-        android:id="@+id/am_toggle"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="@string/togglebutton"
-        android:textOff="@string/am"
-        android:textOn="@string/pm"
-        app:layout_constraintBottom_toBottomOf="@+id/due_time_entry"
-        app:layout_constraintStart_toEndOf="@+id/due_time_entry"
-        app:layout_constraintTop_toTopOf="@+id/due_time_entry" />
-
     <TextView
         android:id="@+id/description_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:gravity="end"
         android:text="@string/description"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/due_time_entry"
-        app:layout_constraintTop_toBottomOf="@+id/due_time_entry" />
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_time" />
 
     <EditText
         android:id="@+id/description_entry"
@@ -182,5 +159,27 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@+id/priority_textview"
         app:layout_constraintTop_toBottomOf="@+id/priority_textview" />
+
+    <TextView
+        android:id="@+id/due_time_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_time"
+        app:layout_constraintEnd_toStartOf="@+id/edit_time"
+        app:layout_constraintStart_toStartOf="@+id/due_time_textview"
+        app:layout_constraintTop_toTopOf="@+id/edit_time" />
+
+    <Button
+        android:id="@+id/edit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/due_time_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
