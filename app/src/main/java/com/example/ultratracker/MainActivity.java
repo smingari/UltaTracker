@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
         addPlanner.setBackgroundColor(getResources().getColor(R.color.purple_500));
         addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
         addExercise.setBackgroundColor(getResources().getColor(R.color.teal_200));
+
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String curDate = sdf.format(date.getTime());
+        String[] cDate = curDate.split("-");
+        selectedYear = Integer.parseInt(cDate[0]);
+        selectedMonth = Integer.parseInt(cDate[1]);
+        selectedDay = Integer.parseInt(cDate[2]);
 
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -152,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Date Created ");
+        tv2.setText(" Due Date ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
         taskTableHeader.addView(tv2);
 
