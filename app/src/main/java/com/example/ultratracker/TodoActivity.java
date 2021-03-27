@@ -21,6 +21,7 @@ public class TodoActivity extends AppCompatActivity {
     TableRow selectedRow;
     Button btn_taskAdd, btn_taskDelete, btn_taskEdit, btn_taskReminder, btn_taskComplete;
     TaskDatabaseHelper taskDatabaseHelper;
+    TableLayout taskTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class TodoActivity extends AppCompatActivity {
         btn_taskReminder = findViewById(R.id.todo_reminder_button);
         btn_taskComplete = findViewById(R.id.todo_complete_button);
 
+        taskTable = findViewById(R.id.todo_table);
+
         btn_taskDelete.setVisibility(View.INVISIBLE);
         btn_taskEdit.setVisibility(View.INVISIBLE);
         btn_taskReminder.setVisibility(View.INVISIBLE);
@@ -43,7 +46,7 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void init_task_table() {
-        TableLayout taskTable = findViewById(R.id.todo_table);
+
         List<Task> taskList = taskDatabaseHelper.getTodoList();
         int dbSize = taskDatabaseHelper.getTodoList().size();
 
@@ -130,7 +133,7 @@ public class TodoActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
         }*/
-        refresh(view);
+        taskTable.removeView(selectedRow);
     }
 
     public void markComplete(View view) {
@@ -140,7 +143,7 @@ public class TodoActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
         }
-        refresh(view);
+        taskTable.removeView(selectedRow);
     }
 
     public void toMainActivity(View view) {
@@ -155,11 +158,6 @@ public class TodoActivity extends AppCompatActivity {
 
     public void toEditTaskActivity(View view) {
         Intent intent = new Intent(TodoActivity.this, EditTaskActivity.class);
-        startActivity(intent);
-    }
-
-    public void refresh(View view) {
-        Intent intent = new Intent(TodoActivity.this, TodoActivity.class);
         startActivity(intent);
     }
 }
