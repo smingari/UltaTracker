@@ -22,6 +22,16 @@ public class Food {
         this.key = getRandomBetweenRange(1, 100000);
     }
 
+    public Food(String name, int cals, int protein, int carbs, int fat, int fiber, int key) {
+        this.name = name;
+        this.cals = cals;
+        this.protein = protein;
+        this.carbs = carbs;
+        this.fat = fat;
+        this.fiber = fiber;
+        this.key = key;
+    }
+
     // Getter methods
     public String getName() { return name; }
     public int getCals() { return cals; }

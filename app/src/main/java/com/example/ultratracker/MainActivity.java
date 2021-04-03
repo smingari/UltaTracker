@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     toPDay(view);
                 }
                 else if (healthMode) {
+                    toHDay(view);
                 }
                 else if (exerciseMode) {
                 }
@@ -231,6 +232,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void toPDay(View view) {
         Intent intent = new Intent(MainActivity.this, PDayActivity.class);
+        startActivity(intent);
+    }
+
+    public void toHDay(View view) {
+        Intent intent = new Intent(MainActivity.this, HDayActivity.class);
         startActivity(intent);
     }
 

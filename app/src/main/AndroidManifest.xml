@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UltraTracker">
-        <activity android:name=".TodoActivity"></activity>
+        <activity android:name=".HDayActivity"></activity>
+        <activity android:name=".TodoActivity" />
         <activity android:name=".AddTaskActivity" />
         <activity android:name=".PDayActivity" />
         <activity android:name=".MainActivity">

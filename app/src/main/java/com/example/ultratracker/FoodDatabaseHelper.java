@@ -5,11 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.ultratracker.MainActivity;
 
 public class FoodDatabaseHelper extends SQLiteOpenHelper {
     public static final String FOOD_TABLE = "FOOD_TABLE";
@@ -103,7 +106,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                 int fat = cursor.getInt(6);
                 int fiber = cursor.getInt(7);
 
-                Food newFood = new Food(name, cals, protein, carbs, fat, fiber);
+                Food newFood = new Food(name, cals, protein, carbs, fat, fiber, key);
                 //if (keyList.contains(newTask.getKey())) {
                 //    continue;
                 //}
@@ -118,5 +121,63 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return returnList;
+    }
+
+    // Returns all Food items sorted alphabetically
+    public Food[] getAllSorted() {
+        ArrayList<Food> returnList = new ArrayList<>();
+        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + FOOD_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        // move to the first result. If it is true then there is at least 1 value
+        if(cursor.moveToFirst()) {
+            // loop through cursor and create new food objects and put in return list
+            do{
+                int key = cursor.getInt(1);
+                String name = cursor.getString(2);
+                int cals = cursor.getInt(3);
+                int protein = cursor.getInt(4);
+                int carbs = cursor.getInt(5);
+                int fat = cursor.getInt(6);
+                int fiber = cursor.getInt(7);
+
+                Food newFood = new Food(name, cals, protein, carbs, fat, fiber, key);
+                //if (keyList.contains(newTask.getKey())) {
+                //    continue;
+                //}
+
+                keyList.add(newFood.getKey());
+                returnList.add(newFood);
+            } while (cursor.moveToNext());
+        }
+        else {
+
+        }
+        cursor.close();
+        db.close();
+
+        // Sort the list alphabetically
+        Food temp;
+        Food[] sortedList = new Food[returnList.size()];
+        int count = 0;
+        for (Food food: returnList) {
+            sortedList[count] = food;
+            count++;
+        }
+        for (int i = 0; i < sortedList.length; i++) {
+            for (int j = i + 1; j < sortedList.length; j++) {
+                if (sortedList[i].getName().compareTo(sortedList[j].getName()) > 0) {
+                    temp = sortedList[i];
+                    sortedList[i] = sortedList[j];
+                    sortedList[j] = temp;
+                }
+            }
+        }
+        return sortedList;
     }
 }
