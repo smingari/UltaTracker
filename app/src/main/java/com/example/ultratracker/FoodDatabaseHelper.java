@@ -22,6 +22,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CARBS = "CARBS";
     public static final String COLUMN_FAT = "FAT";
     public static final String COLUMN_FIBER = "FIBER";
+    public static final String COLUMN_DATE = "DATE";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_KEY = "KEYID";
 
@@ -32,8 +33,9 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     // Called first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " + COLUMN_KEY + " INT, " +
-                COLUMN_NAME + " TEXT, " + COLUMN_CALS + " INT, " + COLUMN_PROTEIN + " INT, " + COLUMN_CARBS + " INT, " + COLUMN_FAT + " INT, " + COLUMN_FIBER + " INT)";
+        String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_KEY + " INT, " + COLUMN_NAME + " TEXT, " + COLUMN_CALS + " INT, " + COLUMN_PROTEIN + " INT, " + COLUMN_CARBS + " INT, " +
+                COLUMN_FAT + " INT, " + COLUMN_FIBER + " INT, " + COLUMN_DATE + " Text) ";
         db.execSQL(createTableStatement);
     }
 
@@ -56,6 +58,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_CARBS, food.getCarbs());
         cv.put(COLUMN_FAT, food.getFat());
         cv.put(COLUMN_FIBER, food.getFiber());
+        cv.put(COLUMN_DATE, food.getDate());
 
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()) {
@@ -84,7 +87,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<Food> getAll() {
+    public Food[] getByDate(String date) {
         List<Food> returnList = new ArrayList<>();
         List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
 
@@ -94,25 +97,34 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(queryString, null);
 
+        int key;
+        String name;
+        int cals;
+        int protein;
+        int carbs;
+        int fat;
+        int fiber;
+        String assignedDate;
         // move to the first result. If it is true then there is at least 1 value
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             // loop through cursor and create new food objects and put in return list
-            do{
-                int key = cursor.getInt(1);
-                String name = cursor.getString(2);
-                int cals = cursor.getInt(3);
-                int protein = cursor.getInt(4);
-                int carbs = cursor.getInt(5);
-                int fat = cursor.getInt(6);
-                int fiber = cursor.getInt(7);
+            do {
+                assignedDate = cursor.getString(8);
+                if (assignedDate.equals(date)) {
+                    key = cursor.getInt(1);
+                    name = cursor.getString(2);
+                    cals = cursor.getInt(3);
+                    protein = cursor.getInt(4);
+                    carbs = cursor.getInt(5);
+                    fat = cursor.getInt(6);
+                    fiber = cursor.getInt(7);
 
-                Food newFood = new Food(name, cals, protein, carbs, fat, fiber, key);
-                //if (keyList.contains(newTask.getKey())) {
-                //    continue;
-                //}
+                    Food newFood = new Food(name, cals, protein, carbs, fat, fiber, date, key);
+                    //if (keyList.contains(newTask.getKey())) { continue; }
+                    keyList.add(newFood.getKey());
+                    returnList.add(newFood);
+                }
 
-                keyList.add(newFood.getKey());
-                returnList.add(newFood);
             } while (cursor.moveToNext());
         }
         else {
@@ -120,7 +132,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
-        return returnList;
+        return sortList(returnList);
     }
 
     // Returns all Food items sorted alphabetically
@@ -145,8 +157,9 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
                 int carbs = cursor.getInt(5);
                 int fat = cursor.getInt(6);
                 int fiber = cursor.getInt(7);
+                String date = cursor.getString(8);
 
-                Food newFood = new Food(name, cals, protein, carbs, fat, fiber, key);
+                Food newFood = new Food(name, cals, protein, carbs, fat, fiber, date, key);
                 //if (keyList.contains(newTask.getKey())) {
                 //    continue;
                 //}
@@ -160,12 +173,18 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         db.close();
+        return sortList(returnList);
+    }
+
+    public Food[] sortList(List<Food> foodList) {
+        // Check if foodList is empty
+        if (foodList.isEmpty()) { return null; }
 
         // Sort the list alphabetically
         Food temp;
-        Food[] sortedList = new Food[returnList.size()];
+        Food[] sortedList = new Food[foodList.size()];
         int count = 0;
-        for (Food food: returnList) {
+        for (Food food: foodList) {
             sortedList[count] = food;
             count++;
         }

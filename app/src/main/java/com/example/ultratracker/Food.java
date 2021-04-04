@@ -1,6 +1,7 @@
 package com.example.ultratracker;
 
 
+import java.time.LocalDate;
 
 public class Food {
     private String name;
@@ -9,26 +10,29 @@ public class Food {
     private int carbs;
     private int fat;
     private int fiber;
+    private LocalDate date;
     private int key;
 
     // Constructor method
-    public Food(String name, int cals, int protein, int carbs, int fat, int fiber) {
+    public Food(String name, int cals, int protein, int carbs, int fat, int fiber, LocalDate date) {
         this.name = name;
         this.cals = cals;
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
         this.fiber = fiber;
+        this.date = date;
         this.key = getRandomBetweenRange(1, 100000);
     }
 
-    public Food(String name, int cals, int protein, int carbs, int fat, int fiber, int key) {
+    public Food(String name, int cals, int protein, int carbs, int fat, int fiber, String date, int key) {
         this.name = name;
         this.cals = cals;
         this.protein = protein;
         this.carbs = carbs;
         this.fat = fat;
         this.fiber = fiber;
+        this.date = LocalDate.parse(date);
         this.key = key;
     }
 
@@ -39,6 +43,9 @@ public class Food {
     public int getCarbs() { return carbs; }
     public int getFat() { return fat; }
     public int getFiber() { return fiber; }
+    public String getDate() {
+        return date.toString();
+    }
     public int getKey() { return key; }
 
     // Setter methods
@@ -48,6 +55,7 @@ public class Food {
     public void setCarbs(int carbs) { this.carbs = carbs; }
     public void setFat(int fat) { this.fat = fat; }
     public void setFiber(int fiber) { this.fiber = fiber; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     // Generates random number for key
     public static int getRandomBetweenRange(double min, double max){

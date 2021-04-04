@@ -45,4 +45,6 @@
     <string name="max_length_12_characters">*Max length = 12 characters</string>
     <string name="edit_a_task">Edit This Task</string>
     <string name="view">View</string>
+    <string name="meal_planner">Meal Planner</string>
+    <string name="add_meal">Add Meal</string>
 </resources>
