@@ -35,6 +35,8 @@ public class HDayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_day);
+        TextView date = (TextView)findViewById(R.id.current_date_h);
+        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
 
         db = new FoodDatabaseHelper(this);
         init_meal_table();

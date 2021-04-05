@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         plannerMode = true; // Main screen defaults to planner mode upon startup
         healthMode = false;
         exerciseMode = false;
-        addPlanner.setBackgroundColor(getResources().getColor(R.color.purple_500));
+        addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_700));
         addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
         addExercise.setBackgroundColor(getResources().getColor(R.color.teal_200));
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 plannerMode = true; healthMode = false; exerciseMode = false;
-                addPlanner.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 addExercise.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 //Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 plannerMode = false; healthMode = true; exerciseMode = false;
                 addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                addHealth.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                addHealth.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 addExercise.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 //Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
             }
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 plannerMode = false; healthMode = false; exerciseMode = true;
                 addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                addExercise.setBackgroundColor(getResources().getColor(R.color.purple_500));
+                addExercise.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 //Toast.makeText(MainActivity.this, "Select A Date", Toast.LENGTH_SHORT).show();
             }
         });
