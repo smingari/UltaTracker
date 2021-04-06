@@ -123,13 +123,182 @@
 
     <Button
         android:id="@+id/add_meal_button"
-        android:layout_width="wrap_content"
+        android:layout_width="90dp"
         android:layout_height="40dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:text="@string/add_meal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meal_divider2" />
+
+    <Button
+        android:id="@+id/edit_meal_button"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:text="@string/edit"
+        app:layout_constraintBottom_toBottomOf="@+id/add_meal_button"
+        app:layout_constraintEnd_toStartOf="@+id/delete_meal_button"
+        app:layout_constraintStart_toEndOf="@+id/add_meal_button" />
+
+    <Button
+        android:id="@+id/delete_meal_button"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="@+id/add_meal_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/total_nutrients_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginLeft="96dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginRight="97dp"
+        android:text="@string/nutrients_consumed_today"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_meal_button" />
+
+    <View
+        android:id="@+id/nutrients_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_nutrients_header" />
+
+    <TextView
+        android:id="@+id/total_calories_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/calories_g"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nutrients_divider" />
+
+    <TextView
+        android:id="@+id/total_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/total_calories_text"
+        app:layout_constraintStart_toEndOf="@+id/total_calories_text" />
+
+    <TextView
+        android:id="@+id/total_protein_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/protein_g"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/total_calories_text"
+        app:layout_constraintEnd_toEndOf="@+id/total_calories_text"
+        tools:layout_editor_absoluteX="21dp" />
+
+    <TextView
+        android:id="@+id/total_protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/total_protein_text"
+        app:layout_constraintStart_toEndOf="@+id/total_protein_text" />
+
+    <TextView
+        android:id="@+id/total_carbs_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/carbs_g"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/total_protein_text"
+        app:layout_constraintEnd_toEndOf="@+id/total_calories_text"
+        tools:layout_editor_absoluteX="21dp" />
+
+    <TextView
+        android:id="@+id/total_carbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/total_carbs_text"
+        app:layout_constraintStart_toEndOf="@+id/total_carbs_text" />
+
+    <TextView
+        android:id="@+id/total_fat_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/fat_g"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/total_carbs_text"
+        app:layout_constraintEnd_toEndOf="@+id/total_calories_text"
+        tools:layout_editor_absoluteX="22dp" />
+
+    <TextView
+        android:id="@+id/total_fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/total_fat_text"
+        app:layout_constraintStart_toEndOf="@+id/total_fat_text" />
+
+    <TextView
+        android:id="@+id/total_fiber_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/fiber_g"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/total_fat_text"
+        app:layout_constraintEnd_toEndOf="@+id/total_calories_text"
+        tools:layout_editor_absoluteX="22dp" />
+
+    <TextView
+        android:id="@+id/total_fiber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/_0"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/total_fiber_text"
+        app:layout_constraintStart_toEndOf="@+id/total_fiber_text" />
+
+    <View
+        android:id="@+id/nutrients_divider2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total_fiber_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

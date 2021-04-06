@@ -60,5 +60,12 @@
     <string name="fiber">Fiber</string>
     <string name="enter_fiber">Enter Fiber</string>
     <string name="create_food">Create Food</string>
+    <string name="nutrients_consumed_today">Nutrients Consumed Today</string>
+    <string name="calories_g">Calories (g):</string>
+    <string name="protein_g">Protein (g):</string>
+    <string name="carbs_g">Carbs (g):</string>
+    <string name="fat_g">Fat (g):</string>
+    <string name="fiber_g">Fiber (g):</string>
+    <string name="_0">0</string>
 
 </resources>
