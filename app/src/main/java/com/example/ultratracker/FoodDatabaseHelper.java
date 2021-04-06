@@ -5,14 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.ultratracker.MainActivity;
 
 public class FoodDatabaseHelper extends SQLiteOpenHelper {
     public static final String FOOD_TABLE = "FOOD_TABLE";
@@ -26,18 +24,6 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_KEY = "KEYID";
 
-    public static final String MEAL_TABLE = "MEAL_TABLE";
-    public static final String COLUMN_TOTAL_NAME = "TOTAL_NAME";
-    public static final String COLUMN_TOTAL_CALS = "TOTAL_CALS";
-    public static final String COLUMN_TOTAL_PROTEIN = "TOTAL_PROTEIN";
-    public static final String COLUMN_TOTAL_CARBS = "TOTAL_CARBS";
-    public static final String COLUMN_TOTAL_FAT = "TOTAL_FAT";
-    public static final String COLUMN_TOTAL_FIBER = "TOTAL_FIBER";
-    public static final String COLUMN_TOTAL_DATE = "TOTAL_DATE";
-    public static final String COLUMN_TOTAL_LIST = "TOTAL_LIST";
-    public static final String COLUMN_TOTAL_ID = "TOTAL_ID";
-    public static final String COLUMN_TOTAL_KEY = "TOTAL_KEYID";
-
     public FoodDatabaseHelper(@Nullable Context context) {
         super(context, "food.db", null, 1);
     }
@@ -45,11 +31,6 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     // Called first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createMealTableStatement = "CREATE TABLE " + MEAL_TABLE + " (" + COLUMN_TOTAL_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_TOTAL_KEY + " INT, " + COLUMN_TOTAL_NAME + " TEXT, " + COLUMN_TOTAL_CALS + " INT, " + COLUMN_TOTAL_PROTEIN + " INT, " + COLUMN_TOTAL_CARBS + " INT, " +
-                COLUMN_TOTAL_FAT + " INT, " + COLUMN_TOTAL_FIBER + " INT, " + COLUMN_TOTAL_DATE + " Text) ";
-        db.execSQL(createMealTableStatement);
-
         String createTableStatement = "CREATE TABLE " + FOOD_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_KEY + " INT, " + COLUMN_NAME + " TEXT, " + COLUMN_CALS + " INT, " + COLUMN_PROTEIN + " INT, " + COLUMN_CARBS + " INT, " +
                 COLUMN_FAT + " INT, " + COLUMN_FIBER + " INT, " + COLUMN_DATE + " Text) ";
@@ -63,7 +44,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addFood (Food food) {
-        String queryString = "DELETE FROM " + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + food.getKey();
+        String queryString = "SELECT * FROM " + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + food.getKey();
 
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
@@ -76,34 +57,6 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_FAT, food.getFat());
         cv.put(COLUMN_FIBER, food.getFiber());
         cv.put(COLUMN_DATE, food.getDate());
-
-        Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return false;
-        }
-        cursor.close();
-        long insert = db.insert(FOOD_TABLE, null, cv);
-        return insert != -1;
-    }
-
-    public boolean addMeal (Meal meal) {
-        String queryString = "DELETE FROM " + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + meal.getKey();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_TOTAL_KEY, meal.getKey());
-        cv.put(COLUMN_TOTAL_NAME, meal.getName());
-        cv.put(COLUMN_TOTAL_CALS, meal.getCals());
-        cv.put(COLUMN_TOTAL_PROTEIN, meal.getProtein());
-        cv.put(COLUMN_TOTAL_CARBS, meal.getCarbs());
-        cv.put(COLUMN_TOTAL_FAT, meal.getFat());
-        cv.put(COLUMN_TOTAL_FIBER, meal.getFiber());
-        cv.put(COLUMN_TOTAL_DATE, meal.getDate());
-        //cv.put(COLUMN_TOTAL_LIST, meal.getFoodList());
-        // TODO: Figure out how to add a list to
 
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()) {
@@ -244,4 +197,5 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         }
         return sortedList;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.ultratracker;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Meal {
@@ -12,7 +13,8 @@ public class Meal {
     private int fiber;
     private LocalDate date;
     private int key;
-    private List<Food> foodList;
+    private String mealName;
+    private List<Food> foodList = new ArrayList<>();
 
     // Constructor method
     public Meal(String name, int cals, int protein, int carbs, int fat, int fiber, LocalDate date, List<Food> foodList) {
@@ -23,11 +25,12 @@ public class Meal {
         this.fat = fat;
         this.fiber = fiber;
         this.date = date;
-        this.foodList = foodList;
+        this.mealName = mealName;
+        for (Food food: foodList) { this.foodList.add(food); }
         this.key = getRandomBetweenRange(1, 100000);
     }
 
-    public Meal(String name, int cals, int protein, int carbs, int fat, int fiber, String date, List<Food> foodList, int key) {
+    public Meal(String name, int cals, int protein, int carbs, int fat, int fiber, String date, String mealName, List<Food> foodList, int key) {
         this.name = name;
         this.cals = cals;
         this.protein = protein;
@@ -35,7 +38,8 @@ public class Meal {
         this.fat = fat;
         this.fiber = fiber;
         this.date = LocalDate.parse(date);
-        this.foodList = foodList;
+        this.mealName = mealName;
+        for (Food food: foodList) { this.foodList.add(food); }
         this.key = key;
     }
 
@@ -46,8 +50,9 @@ public class Meal {
     public int getCarbs() { return carbs; }
     public int getFat() { return fat; }
     public int getFiber() { return fiber; }
-    public String getDate() {
-        return date.toString();
+    public String getDate() { return date.toString(); }
+    public String getMealName() {
+        return mealName;
     }
     public List<Food> getFoodList() {
         return foodList;
@@ -62,9 +67,12 @@ public class Meal {
     public void setFat(int fat) { this.fat = fat; }
     public void setFiber(int fiber) { this.fiber = fiber; }
     public void setDate(LocalDate date) { this.date = date; }
+    public void setMealName(String mealName) {
+        this.mealName = mealName;
+    }
 
-    public void addFood(Food food) { this.foodList.add(food); }
-    public void deleteFood(Food food) { this.foodList.remove(food); }
+    public void addToMeal(Food food) { foodList.add(food); }
+    public void deleteFromMeal(Food food) { foodList.remove(food); }
 
     // Generates random number for key
     public static int getRandomBetweenRange(double min, double max){

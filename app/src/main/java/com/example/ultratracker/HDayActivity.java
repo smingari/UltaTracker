@@ -13,6 +13,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class HDayActivity extends AppCompatActivity {
     TableLayout mealTable;
     TableRow selectedRow;
     FoodDatabaseHelper db;
+    MealDatabaseHelper mdb;
 
     boolean foodSelected;
 
@@ -56,6 +58,46 @@ public class HDayActivity extends AppCompatActivity {
         viewButton.setVisibility(View.INVISIBLE);
 
         db = new FoodDatabaseHelper(this);
+        mdb = new MealDatabaseHelper(this);
+
+        // Testing meal database retrieval
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sMonth;
+                String sDay;
+                if (MainActivity.selectedMonth < 10) {
+                    sMonth = "0" + MainActivity.selectedMonth;
+                } else { sMonth = String.valueOf(MainActivity.selectedMonth); }
+                if (MainActivity.selectedDay < 10) {
+                    sDay = "0" + MainActivity.selectedDay;
+                } else { sDay = String.valueOf(MainActivity.selectedDay); }
+                LocalDate thisDate = LocalDate.parse(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+
+                List<Food> firstList = new ArrayList<>();
+                Meal meal1 = new Meal("test1", 0, 0, 0, 0, 0, thisDate, firstList);
+                Food apple = new Food("apple", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
+                Food banana = new Food("banana", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
+                meal1.addToMeal(apple);
+                meal1.addToMeal(banana);
+                for (Food food: meal1.getFoodList()) {
+                    Toast.makeText(HDayActivity.this, food.getName(), Toast.LENGTH_SHORT).show();
+                    mdb.addMeal(food);
+                }
+
+                List<Food> secondList = new ArrayList<>();
+                Meal meal2 = new Meal("test2", 0, 0, 0, 0, 0, thisDate, secondList);
+                Food pear = new Food("pear", 0, 0, 0, 0, 0, thisDate.toString(), meal2.getName(), meal2.getKey());
+                Food grape = new Food("grape", 0, 0, 0, 0, 0, thisDate.toString(), meal2.getName(), meal2.getKey());
+                meal2.getFoodList().add(pear);
+                meal2.getFoodList().add(grape);
+                for (Food food: meal2.getFoodList()) { mdb.addMeal(food); }
+
+                //Toast.makeText(HDayActivity.this, "about to query database", Toast.LENGTH_SHORT).show();
+                List<Meal> meals = mdb.getMealsByDate(thisDate.toString());
+            }
+        });
+
         init_meal_table();
     }
 
