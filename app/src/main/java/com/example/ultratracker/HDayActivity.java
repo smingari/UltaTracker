@@ -114,9 +114,9 @@ public class HDayActivity extends AppCompatActivity {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
 
-        Food[] foodList = db.getByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+        List<Meal> foodList = mdb.getMealsByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
         int dbSize;
-        if (foodList != null) { dbSize = foodList.length; }
+        if (foodList != null) { dbSize = foodList.size(); }
         else { dbSize = 0; }
         //Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
 
@@ -128,21 +128,21 @@ public class HDayActivity extends AppCompatActivity {
         // First column header
         TextView tv0 = new TextView(this);
         tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv0.setText(" Food ");
+        tv0.setText(" Meal ");
         tv0.setGravity(Gravity.CENTER_HORIZONTAL);
         mealTableHeader.addView(tv0);
 
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Calories (g) ");
+        tv1.setText(" Amount Eaten ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         mealTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Fat (g) ");
+        tv2.setText(" Calories ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
         mealTableHeader.addView(tv2);
 
@@ -183,24 +183,23 @@ public class HDayActivity extends AppCompatActivity {
                 });
 
                 TextView t1v = new TextView(this);
-                String foodName = foodList[i].getName();
-                if (foodName.length() > 12) {
-                    foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + "..";
+                String mealName = foodList.get(i).getName();
+                if (mealName.length() > 12) {
+                    mealName = (mealName.substring(0, Math.min(mealName.length(), 12))) + "..";
                 }
-                t1v.setText(foodName);
+                t1v.setText(mealName);
                 t1v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(foodList[i].getCals());
+                t2v.setText(String.valueOf(foodList.size()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                t3v.setText(foodList[i].getFat());
+                t3v.setText(String.valueOf(foodList.get(i).getCals()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
-
                 mealTable.addView(row);
             }
         }

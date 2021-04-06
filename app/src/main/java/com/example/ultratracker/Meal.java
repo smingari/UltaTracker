@@ -15,6 +15,7 @@ public class Meal {
     private int key;
     private String mealName;
     private List<Food> foodList = new ArrayList<>();
+    private int listSize = 0;
 
     // Constructor method
     public Meal(String name, int cals, int protein, int carbs, int fat, int fiber, LocalDate date, List<Food> foodList) {
@@ -26,7 +27,10 @@ public class Meal {
         this.fiber = fiber;
         this.date = date;
         this.mealName = mealName;
-        for (Food food: foodList) { this.foodList.add(food); }
+        for (Food food: foodList) {
+            this.foodList.add(food);
+            listSize++;
+        }
         this.key = getRandomBetweenRange(1, 100000);
     }
 
@@ -39,7 +43,10 @@ public class Meal {
         this.fiber = fiber;
         this.date = LocalDate.parse(date);
         this.mealName = mealName;
-        for (Food food: foodList) { this.foodList.add(food); }
+        for (Food food: foodList) {
+            this.foodList.add(food);
+            listSize++;
+        }
         this.key = key;
     }
 
@@ -71,7 +78,10 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public void addToMeal(Food food) { foodList.add(food); }
+    public void addToMeal(Food food) {
+        foodList.add(food);
+        listSize++;
+    }
     public void deleteFromMeal(Food food) { foodList.remove(food); }
 
     // Generates random number for key

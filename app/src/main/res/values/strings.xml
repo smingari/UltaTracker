@@ -71,5 +71,6 @@
     <string name="AddCycling">Add Cycling</string>
     <string name="AddWeightlifting">Add Weightlifting</string>
     <string name="AddRunning">Add Running</string>
+    <string name="calories_">Calories:</string>
 
 </resources>
