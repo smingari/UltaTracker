@@ -67,5 +67,10 @@
     <string name="fat_g">Fat (g):</string>
     <string name="fiber_g">Fiber (g):</string>
     <string name="_0">0</string>
+    <string name="ExerciseTracker">Exercise Tracker</string>
+    <string name="AddCycling">Add Cycling</string>
+    <string name="AddWeightlifting">Add Weightlifting</string>
+    <string name="AddWeightlifting">Add Weightlifting</string>
+    <string name="AddRunning">Add Running</string>
 
 </resources>
