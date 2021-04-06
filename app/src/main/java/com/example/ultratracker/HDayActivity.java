@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HDayActivity extends AppCompatActivity {
-    Button testButton;
+    Button addButton, editButton, deleteButton, viewButton;
 
     int totalCals = 0;
     int totalProtein = 0;
@@ -47,6 +47,13 @@ public class HDayActivity extends AppCompatActivity {
         fat.setText(String.valueOf(totalFat));
         TextView fiber = (TextView)findViewById(R.id.total_fiber);
         fiber.setText(String.valueOf(totalFiber));
+
+        addButton = findViewById(R.id.add_meal_button);
+        editButton = findViewById(R.id.edit_meal_button);
+        deleteButton = findViewById(R.id.delete_meal_button);
+        viewButton = findViewById(R.id.hday_view_button2);
+
+        viewButton.setVisibility(View.INVISIBLE);
 
         db = new FoodDatabaseHelper(this);
         init_meal_table();
@@ -119,6 +126,7 @@ public class HDayActivity extends AppCompatActivity {
                             row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                             selectedRow = row;
                         }
+                        viewButton.setVisibility(View.VISIBLE);
                         //MainActivity.selectedTask = taskList.get(row.getId());
                         //isComplete = MainActivity.selectedTask.isComplete();
                         //foodSelected = !isComplete;
