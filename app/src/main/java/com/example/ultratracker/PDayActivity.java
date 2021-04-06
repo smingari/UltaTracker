@@ -80,8 +80,8 @@ public class PDayActivity extends AppCompatActivity {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
 
-        List<Task> taskList = taskDatabaseHelper.getByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
-        int dbSize = taskDatabaseHelper.getByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay).size();
+        List<Task> taskList = taskDatabaseHelper.getByDateAndCompletion(MainActivity.selectedYear + "-" + sMonth + "-" + sDay, 0);
+        int dbSize = taskList.size();
 
         // Set up table header
         TableRow taskTableHeader = new TableRow(this);
@@ -178,8 +178,8 @@ public class PDayActivity extends AppCompatActivity {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
 
-        List<Task> taskList = taskDatabaseHelper.getByDateCompleted(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
-        int dbSize = taskDatabaseHelper.getByDateCompleted(MainActivity.selectedYear + "-" + sMonth + "-" + sDay).size();
+        List<Task> taskList = taskDatabaseHelper.getByDateAndCompletion(MainActivity.selectedYear + "-" + sMonth + "-" + sDay, 1);
+        int dbSize = taskList.size();
 
         // Set up table header
         TableRow taskTableHeader = new TableRow(this);

@@ -1,5 +1,6 @@
 package com.example.ultratracker;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -49,7 +50,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addOne (Task task) {
 
-        String queryString = "DELETE FROM " + TASK_TABLE + " WHERE " + COLUMN_KEY + " = " + task.getKey();
+        String queryString = "SELECT * FROM " + TASK_TABLE + " WHERE " + COLUMN_KEY + " = " + task.getKey();
 
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
@@ -112,7 +113,6 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     public List<Task> getAll() {
         List<Task> returnList = new ArrayList<>();
-        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
 
         // get data from the database
         String queryString = "SELECT * FROM " + TASK_TABLE;
@@ -138,13 +138,10 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                 //    continue;
                 //}
 
-                keyList.add(newTask.getKey());
                 returnList.add(newTask);
             } while (cursor.moveToNext());
         }
-        else {
 
-        }
         cursor.close();
         db.close();
         return returnList;
@@ -152,7 +149,6 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     public List<Task> getTodoList() {
         List<Task> returnList = new ArrayList<>();
-        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
 
         // get data from the database
         String queryString = "SELECT * FROM " + TASK_TABLE;
@@ -161,7 +157,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         Calendar date = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String curDate = sdf.format(date.getTime());
         String[] cDate = curDate.split("-");
         int curYear = Integer.parseInt(cDate[0]);
@@ -192,29 +188,25 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
                         //    continue;
                         //}
 
-                        keyList.add(newTask.getKey());
                         returnList.add(newTask);
                     }
                 }
             } while (cursor.moveToNext());
         }
-        else {
 
-        }
         cursor.close();
         db.close();
         return returnList;
     }
 
-    public List<Task> getByDate(String date) {
+    public List<Task> getByDateAndCompletion(String date, int completedSelection) {
         List<Task> returnList = new ArrayList<>();
-        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
 
         // get data from the database
-        String queryString = "SELECT * FROM " + TASK_TABLE;
+        String queryString = "SELECT * FROM " + TASK_TABLE + " WHERE " + COLUMN_DUEDATE + " = ? AND " + COLUMN_COMPLETE + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(queryString, null);
+        Cursor cursor = db.rawQuery(queryString, new String[] {date, Integer.toString(completedSelection)});
 
         int key;
         String name;
@@ -226,77 +218,21 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         boolean complete;
         // move to the first result. If it is true then there is at least 1 value
         if (cursor.moveToFirst()) {
-            // loop through cursor and create new food objects and put in return list
             do {
                 dueDate = cursor.getString(4);
                 complete = cursor.getInt(8) == 1;
-                if (dueDate.equals(date) && !complete) {
-                    key = cursor.getInt(1);
-                    name = cursor.getString(2);
-                    assignedDate = cursor.getString(3);
-                    dueTime = cursor.getString(5);
-                    description = cursor.getString(6);
-                    priority = cursor.getInt(7);
+                key = cursor.getInt(1);
+                name = cursor.getString(2);
+                assignedDate = cursor.getString(3);
+                dueTime = cursor.getString(5);
+                description = cursor.getString(6);
+                priority = cursor.getInt(7);
 
-                    Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
-                    if (keyList.contains(newTask.getKey())) { continue; }
-                    keyList.add(newTask.getKey());
-                    returnList.add(newTask);
-                }
-
-            } while (cursor.moveToNext());
+                Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, complete, key);
+                returnList.add(newTask);
+            } while(cursor.moveToNext());
         }
-        else {
 
-        }
-        cursor.close();
-        db.close();
-        return returnList;
-    }
-
-    public List<Task> getByDateCompleted(String date) {
-        List<Task> returnList = new ArrayList<>();
-        List<Integer> keyList = new ArrayList<>(); // so we don't store dupes
-
-        // get data from the database
-        String queryString = "SELECT * FROM " + TASK_TABLE;
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        int key;
-        String name;
-        String assignedDate;
-        String dueDate;
-        String dueTime;
-        String description;
-        int priority;
-        boolean complete;
-        // move to the first result. If it is true then there is at least 1 value
-        if (cursor.moveToFirst()) {
-            // loop through cursor and create new food objects and put in return list
-            do {
-                dueDate = cursor.getString(4);
-                complete = cursor.getInt(8) == 1;
-                if (dueDate.equals(date) && complete) {
-                    key = cursor.getInt(1);
-                    name = cursor.getString(2);
-                    assignedDate = cursor.getString(3);
-                    dueTime = cursor.getString(5);
-                    description = cursor.getString(6);
-                    priority = cursor.getInt(7);
-
-                    Task newTask = new Task(name, assignedDate, dueDate, dueTime, description, priority, true, key);
-                    if (keyList.contains(newTask.getKey())) { continue; }
-                    keyList.add(newTask.getKey());
-                    returnList.add(newTask);
-                }
-
-            } while (cursor.moveToNext());
-        }
-        else {
-
-        }
         cursor.close();
         db.close();
         return returnList;
@@ -304,11 +240,10 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean modifyComplete(Task task, boolean bool) {
         // get data from the database
-        String queryString = "SELECT * FROM " + TASK_TABLE;
+        String queryString = "SELECT * FROM " + TASK_TABLE + " WHERE " + COLUMN_KEY + " = " + task.getKey();
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Find user
-        int key;
         String name;
         String assignedDate;
         String dueDate;
@@ -318,39 +253,32 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
             // Loop through results and create new customer objects
-            do {
-                key = cursor.getInt(1);
-                if (key == task.getKey()) {
-                    name = cursor.getString(2);
-                    assignedDate = cursor.getString(3);
-                    dueDate = cursor.getString(4);
-                    dueTime = cursor.getString(5);
-                    description = cursor.getString(6);
-                    priority = cursor.getInt(7);
+            name = cursor.getString(2);
+            assignedDate = cursor.getString(3);
+            dueDate = cursor.getString(4);
+            dueTime = cursor.getString(5);
+            description = cursor.getString(6);
+            priority = cursor.getInt(7);
 
-                    ContentValues cv = new ContentValues();
-                    cv.put(COLUMN_KEY, key);
-                    cv.put(COLUMN_NAME, name);
-                    cv.put(COLUMN_ASSIGNED_DATE, assignedDate);
-                    cv.put(COLUMN_DUEDATE, dueDate);
-                    cv.put(COLUMN_DUETIME, dueTime);
-                    cv.put(COLUMN_DESCRIPTION, description);
-                    cv.put(COLUMN_PRIORITY, priority);
-                    cv.put(COLUMN_COMPLETE, bool);
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_KEY, task.getKey());
+            cv.put(COLUMN_NAME, name);
+            cv.put(COLUMN_ASSIGNED_DATE, assignedDate);
+            cv.put(COLUMN_DUEDATE, dueDate);
+            cv.put(COLUMN_DUETIME, dueTime);
+            cv.put(COLUMN_DESCRIPTION, description);
+            cv.put(COLUMN_PRIORITY, priority);
+            cv.put(COLUMN_COMPLETE, bool);
 
-                    String[] whereArgs = {String.valueOf(task.getKey())};
-                    int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
-                    if (success > 0) {
-                        db.close();
-                        cursor.close();
-                        return true;
-                    }
-                    //break;
-                }
-            } while (cursor.moveToNext());
-        } else {
-            // Failed
+            String[] whereArgs = {String.valueOf(task.getKey())};
+            int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
+            if (success > 0) {
+                db.close();
+                cursor.close();
+                return true;
+            }
         }
+
         db.close();
         cursor.close();
         return false;
@@ -358,11 +286,10 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean editTask(Task task) {
         // get data from the database
-        String queryString = "SELECT * FROM " + TASK_TABLE;
+        String queryString = "SELECT * FROM " + TASK_TABLE + " WHERE " + COLUMN_KEY + " = " + task.getKey();
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Find user
-        int key;
         String name;
         String assignedDate;
         String dueDate;
@@ -372,39 +299,31 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         boolean complete;
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
-            // Loop through results and create new customer objects
-            do {
-                key = cursor.getInt(1);
-                if (key == task.getKey()) {
-                    name = task.getName();
-                    assignedDate = task.getAssignedDate();
-                    dueDate = task.getDueDate();
-                    dueTime = task.getDueTime();
-                    description = task.getDescription();
-                    priority = task.getPriority();
-                    complete = task.isComplete();
+            name = task.getName();
+            assignedDate = task.getAssignedDate();
+            dueDate = task.getDueDate();
+            dueTime = task.getDueTime();
+            description = task.getDescription();
+            priority = task.getPriority();
+            complete = task.isComplete();
 
-                    ContentValues cv = new ContentValues();
-                    cv.put(COLUMN_KEY, key);
-                    cv.put(COLUMN_NAME, name);
-                    cv.put(COLUMN_ASSIGNED_DATE, assignedDate);
-                    cv.put(COLUMN_DUEDATE, dueDate);
-                    cv.put(COLUMN_DUETIME, dueTime);
-                    cv.put(COLUMN_DESCRIPTION, description);
-                    cv.put(COLUMN_PRIORITY, priority);
-                    cv.put(COLUMN_COMPLETE, complete);
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_KEY, task.getKey());
+            cv.put(COLUMN_NAME, name);
+            cv.put(COLUMN_ASSIGNED_DATE, assignedDate);
+            cv.put(COLUMN_DUEDATE, dueDate);
+            cv.put(COLUMN_DUETIME, dueTime);
+            cv.put(COLUMN_DESCRIPTION, description);
+            cv.put(COLUMN_PRIORITY, priority);
+            cv.put(COLUMN_COMPLETE, complete);
 
-                    String[] whereArgs = {String.valueOf(task.getKey())};
-                    int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
-                    if (success > 0) {
-                        db.close();
-                        cursor.close();
-                        return true;
-                    }
-                }
-            } while (cursor.moveToNext());
-        } else {
-            // Failed
+            String[] whereArgs = {String.valueOf(task.getKey())};
+            int success = db.update(TASK_TABLE, cv, "keyid=?", whereArgs);
+            if (success > 0) {
+                db.close();
+                cursor.close();
+                return true;
+            }
         }
         db.close();
         cursor.close();
