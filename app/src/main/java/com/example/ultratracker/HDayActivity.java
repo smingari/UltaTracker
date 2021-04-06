@@ -37,6 +37,16 @@ public class HDayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_h_day);
         TextView date = (TextView)findViewById(R.id.current_date_h);
         date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
+        TextView cals = (TextView)findViewById(R.id.total_calories);
+        cals.setText(String.valueOf(totalCals));
+        TextView protein = (TextView)findViewById(R.id.total_protein);
+        protein.setText(String.valueOf(totalProtein));
+        TextView carbs = (TextView)findViewById(R.id.total_carbs);
+        carbs.setText(String.valueOf(totalCarbs));
+        TextView fat = (TextView)findViewById(R.id.total_fat);
+        fat.setText(String.valueOf(totalFat));
+        TextView fiber = (TextView)findViewById(R.id.total_fiber);
+        fiber.setText(String.valueOf(totalFiber));
 
         db = new FoodDatabaseHelper(this);
         init_meal_table();
@@ -59,7 +69,7 @@ public class HDayActivity extends AppCompatActivity {
         int dbSize;
         if (foodList != null) { dbSize = foodList.length; }
         else { dbSize = 0; }
-        Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
 
         // Set up table header
         TableRow mealTableHeader = new TableRow(this);

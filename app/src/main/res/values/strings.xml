@@ -47,4 +47,11 @@
     <string name="view">View</string>
     <string name="meal_planner">Meal Planner</string>
     <string name="add_meal">Add Meal</string>
+    <string name="nutrients_consumed_today">Nutrients Consumed Today</string>
+    <string name="calories_g">Calories (g):</string>
+    <string name="protein_g">Protein (g):</string>
+    <string name="carbs_g">Carbs (g):</string>
+    <string name="fat_g">Fat (g):</string>
+    <string name="fiber_g">Fiber (g):</string>
+    <string name="_0">0</string>
 </resources>
