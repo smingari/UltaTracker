@@ -37,18 +37,6 @@ public class HDayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_h_day);
-        TextView date = (TextView)findViewById(R.id.current_date_h);
-        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
-        TextView cals = (TextView)findViewById(R.id.total_calories);
-        cals.setText(String.valueOf(totalCals));
-        TextView protein = (TextView)findViewById(R.id.total_protein);
-        protein.setText(String.valueOf(totalProtein));
-        TextView carbs = (TextView)findViewById(R.id.total_carbs);
-        carbs.setText(String.valueOf(totalCarbs));
-        TextView fat = (TextView)findViewById(R.id.total_fat);
-        fat.setText(String.valueOf(totalFat));
-        TextView fiber = (TextView)findViewById(R.id.total_fiber);
-        fiber.setText(String.valueOf(totalFiber));
 
         addButton = findViewById(R.id.add_meal_button);
         editButton = findViewById(R.id.edit_meal_button);
@@ -74,7 +62,7 @@ public class HDayActivity extends AppCompatActivity {
                 } else { sDay = String.valueOf(MainActivity.selectedDay); }
                 LocalDate thisDate = LocalDate.parse(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
 
-                List<Food> firstList = new ArrayList<>();
+                /**List<Food> firstList = new ArrayList<>();
                 Meal meal1 = new Meal("test1", 0, 0, 0, 0, 0, thisDate, firstList);
                 Food apple = new Food("apple", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
                 Food banana = new Food("banana", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
@@ -91,6 +79,14 @@ public class HDayActivity extends AppCompatActivity {
                 Food grape = new Food("grape", 0, 0, 0, 0, 0, thisDate.toString(), meal2.getName(), meal2.getKey());
                 meal2.getFoodList().add(pear);
                 meal2.getFoodList().add(grape);
+                for (Food food: meal2.getFoodList()) { mdb.addMeal(food); }**/
+
+                List<Food> secondList = new ArrayList<>();
+                Meal meal2 = new Meal("test3", 0, 0, 0, 0, 0, thisDate, secondList);
+                Food pear = new Food("chez", 300, 25, 15, 30, 3, thisDate.toString(), meal2.getName(), meal2.getKey());
+                Food grape = new Food("pitsa", 700, 60, 72, 80, 12, thisDate.toString(), meal2.getName(), meal2.getKey());
+                meal2.getFoodList().add(pear);
+                meal2.getFoodList().add(grape);
                 for (Food food: meal2.getFoodList()) { mdb.addMeal(food); }
 
                 //Toast.makeText(HDayActivity.this, "about to query database", Toast.LENGTH_SHORT).show();
@@ -99,6 +95,19 @@ public class HDayActivity extends AppCompatActivity {
         });
 
         init_meal_table();
+
+        TextView date = (TextView)findViewById(R.id.current_date_h);
+        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
+        TextView cals = (TextView)findViewById(R.id.total_calories);
+        cals.setText(String.valueOf(totalCals));
+        TextView protein = (TextView)findViewById(R.id.total_protein);
+        protein.setText(String.valueOf(totalProtein));
+        TextView carbs = (TextView)findViewById(R.id.total_carbs);
+        carbs.setText(String.valueOf(totalCarbs));
+        TextView fat = (TextView)findViewById(R.id.total_fat);
+        fat.setText(String.valueOf(totalFat));
+        TextView fiber = (TextView)findViewById(R.id.total_fiber);
+        fiber.setText(String.valueOf(totalFiber));
     }
 
     public void init_meal_table() {
@@ -119,6 +128,14 @@ public class HDayActivity extends AppCompatActivity {
         if (foodList != null) { dbSize = foodList.size(); }
         else { dbSize = 0; }
         Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
+
+        for (Meal meal: foodList) {
+            totalCals += meal.getCals();
+            totalProtein += meal.getProtein();
+            totalCarbs += meal.getCarbs();
+            totalFat += meal.getFat();
+            totalFiber += meal.getFiber();
+        }
 
         // Set up table header
         TableRow mealTableHeader = new TableRow(this);

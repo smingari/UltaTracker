@@ -163,7 +163,21 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
 
         for (int i = 0; i < mealKeys.size(); i++) {
             List<Food> foods = hashMap.get(mealKeys.get(i));
-            Meal meal= new Meal(foods.get(0).getMealName(), 10, 8, 7, 9, 3, LocalDate.parse(foods.get(0).getDate()), foods);
+            int totalCals = 0;
+            int totalProtein = 0;
+            int totalCarbs = 0;
+            int totalFat = 0;
+            int totalFiber = 0;
+
+            for (Food food: foods) {
+                totalCals += food.getCals();
+                totalProtein += food.getProtein();
+                totalCarbs += food.getCarbs();
+                totalFat += food.getFat();
+                totalFiber += food.getFiber();
+            }
+
+            Meal meal= new Meal(foods.get(0).getMealName(), totalCals, totalProtein, totalCarbs, totalFat, totalFiber, LocalDate.parse(foods.get(0).getDate()), foods);
             mealList.add(meal);
         }
 
