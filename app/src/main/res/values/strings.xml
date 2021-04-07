@@ -73,5 +73,7 @@
     <string name="AddRunning">Add Running</string>
     <string name="calories_">Calories:</string>
     <string name="create_a_new_meal">Create a New Meal</string>
+    <string name="add_to_meal">Add To Meal</string>
+    <string name="food_bank">Food Bank</string>
 
 </resources>

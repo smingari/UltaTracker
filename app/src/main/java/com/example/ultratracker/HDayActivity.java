@@ -50,7 +50,7 @@ public class HDayActivity extends AppCompatActivity {
         mdb = new MealDatabaseHelper(this);
 
         // Testing meal database retrieval
-        addButton.setOnClickListener(new View.OnClickListener() {
+        /**addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sMonth;
@@ -63,7 +63,7 @@ public class HDayActivity extends AppCompatActivity {
                 } else { sDay = String.valueOf(MainActivity.selectedDay); }
                 LocalDate thisDate = LocalDate.parse(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
 
-                /**List<Food> firstList = new ArrayList<>();
+                List<Food> firstList = new ArrayList<>();
                 Meal meal1 = new Meal("test1", 0, 0, 0, 0, 0, thisDate, firstList);
                 Food apple = new Food("apple", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
                 Food banana = new Food("banana", 0, 0, 0, 0, 0, thisDate.toString(), meal1.getName(), meal1.getKey());
@@ -80,7 +80,7 @@ public class HDayActivity extends AppCompatActivity {
                 Food grape = new Food("grape", 0, 0, 0, 0, 0, thisDate.toString(), meal2.getName(), meal2.getKey());
                 meal2.getFoodList().add(pear);
                 meal2.getFoodList().add(grape);
-                for (Food food: meal2.getFoodList()) { mdb.addMeal(food); }**/
+                for (Food food: meal2.getFoodList()) { mdb.addMeal(food); }
 
                 List<Food> secondList = new ArrayList<>();
                 Meal meal2 = new Meal("test3", 0, 0, 0, 0, 0, thisDate, secondList);
@@ -93,7 +93,7 @@ public class HDayActivity extends AppCompatActivity {
                 //Toast.makeText(HDayActivity.this, "about to query database", Toast.LENGTH_SHORT).show();
                 List<Meal> meals = mdb.getMealsByDate(thisDate.toString());
             }
-        });
+        });**/
 
         init_meal_table();
 
@@ -235,6 +235,11 @@ public class HDayActivity extends AppCompatActivity {
 
     public void toMainActivity(View view) {
         Intent intent = new Intent(HDayActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void toAddMealActivity(View view) {
+        Intent intent = new Intent(HDayActivity.this, AddMealActivity.class);
         startActivity(intent);
     }
 
