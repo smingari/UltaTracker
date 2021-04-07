@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'jacoco'
 }
 
 android {
@@ -28,6 +29,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
 }
 
 dependencies {
@@ -46,6 +55,8 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:2.27.0'
+
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -66,4 +77,29 @@ task helloExecution { task ->
             executable 'ls'
         }
     }
+}
+
+task createTestReport(type: JacocoReport, dependsOn: ['testDevDebugUnitTest']) {
+    group = "Reporting"
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class',
+                      '**/R$*.class',
+                      '**/BuildConfig.*',
+                      '**/*$ViewInjector*.*',
+                      '**/*$ViewBinder*.*',
+                      '**/*$MembersInjector*.*',
+                      '**/Manifest*.*',
+                      '**/*Test*.*',
+                      'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/dev/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.from(files([mainSrc]))
+    classDirectories.from(files([debugTree]))
+    executionData.from(files("${project.buildDir}/jacoco/testDevDebugUnitTest.exec"))
 }
