@@ -177,7 +177,7 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
                 totalFiber += food.getFiber();
             }
 
-            Meal meal= new Meal(foods.get(0).getMealName(), totalCals, totalProtein, totalCarbs, totalFat, totalFiber, LocalDate.parse(foods.get(0).getDate()), foods);
+            Meal meal= new Meal(foods.get(0).getMealName(), totalCals, totalProtein, totalCarbs, totalFat, totalFiber, foods.get(0).getDate(), foods.get(0).getMealName(), foods, foods.get(0).getMealKey());
             mealList.add(meal);
         }
 

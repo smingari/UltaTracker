@@ -28,10 +28,11 @@ public class HDayActivity extends AppCompatActivity {
 
     TableLayout mealTable;
     TableRow selectedRow;
+    Meal selectedMeal;
     FoodDatabaseHelper db;
     MealDatabaseHelper mdb;
 
-    boolean foodSelected;
+    boolean mealSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,6 @@ public class HDayActivity extends AppCompatActivity {
         int dbSize;
         if (foodList != null) { dbSize = foodList.size(); }
         else { dbSize = 0; }
-        Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
 
         for (Meal meal: foodList) {
             totalCals += meal.getCals();
@@ -186,7 +186,8 @@ public class HDayActivity extends AppCompatActivity {
                             selectedRow = row;
                         }
                         viewButton.setVisibility(View.VISIBLE);
-                        //MainActivity.selectedTask = taskList.get(row.getId());
+                        selectedMeal = foodList.get(row.getId());
+                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
                         //isComplete = MainActivity.selectedTask.isComplete();
                         //foodSelected = !isComplete;
                         //completedTaskSelected = isComplete;
@@ -220,6 +221,16 @@ public class HDayActivity extends AppCompatActivity {
                 mealTable.addView(row);
             }
         }
+    }
+
+    public void deleteMeal(View view) {
+        if (selectedMeal != null) {
+            //Toast.makeText(HDayActivity.this, String.valueOf(selectedMeal.getKey()), Toast.LENGTH_SHORT).show();
+            boolean success = mdb.deleteMeal(selectedMeal);
+            mealTable.removeView(selectedRow);
+        }
+        if (mealSelected) { mealTable.removeView(selectedRow); }
+        viewButton.setVisibility(View.INVISIBLE);;
     }
 
     public void toMainActivity(View view) {
