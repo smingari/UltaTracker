@@ -230,7 +230,7 @@ public class HDayActivity extends AppCompatActivity {
             mealTable.removeView(selectedRow);
         }
         if (mealSelected) { mealTable.removeView(selectedRow); }
-        viewButton.setVisibility(View.INVISIBLE);;
+        viewButton.setVisibility(View.INVISIBLE);
     }
 
     public void toMainActivity(View view) {

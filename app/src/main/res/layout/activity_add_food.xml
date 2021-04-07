@@ -57,12 +57,12 @@
         android:id="@+id/calories_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/calories_"
         android:textSize="18sp"
-        android:text="@string/calories"
-        app:layout_constraintTop_toBottomOf="@+id/foodname_entry"
-        app:layout_constraintStart_toStartOf="@id/create_food_textview"
         app:layout_constraintBottom_toTopOf="@id/calories_entry"
-        />
+        app:layout_constraintStart_toStartOf="@id/create_food_textview"
+        app:layout_constraintTop_toBottomOf="@+id/foodname_entry" />
 
     <EditText
         android:id="@+id/calories_entry"
@@ -80,12 +80,12 @@
         android:id="@+id/protein_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/protein_g"
         android:textSize="18sp"
-        android:text="@string/protein"
-        app:layout_constraintTop_toBottomOf="@+id/calories_entry"
-        app:layout_constraintStart_toStartOf="@id/create_food_textview"
         app:layout_constraintBottom_toTopOf="@id/protein_entry"
-        />
+        app:layout_constraintStart_toStartOf="@id/create_food_textview"
+        app:layout_constraintTop_toBottomOf="@+id/calories_entry" />
 
     <EditText
         android:id="@+id/protein_entry"
@@ -103,12 +103,12 @@
         android:id="@+id/carbs_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/carbs_g"
         android:textSize="18sp"
-        android:text="@string/carbs"
-        app:layout_constraintTop_toBottomOf="@+id/protein_entry"
-        app:layout_constraintStart_toStartOf="@id/create_food_textview"
         app:layout_constraintBottom_toTopOf="@id/carbs_entry"
-        />
+        app:layout_constraintStart_toStartOf="@id/create_food_textview"
+        app:layout_constraintTop_toBottomOf="@+id/protein_entry" />
 
     <EditText
         android:id="@+id/carbs_entry"
@@ -126,12 +126,12 @@
         android:id="@+id/fat_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/fat_g"
         android:textSize="18sp"
-        android:text="@string/fat"
-        app:layout_constraintTop_toBottomOf="@+id/carbs_entry"
-        app:layout_constraintStart_toStartOf="@id/create_food_textview"
         app:layout_constraintBottom_toTopOf="@id/fat_entry"
-        />
+        app:layout_constraintStart_toStartOf="@id/create_food_textview"
+        app:layout_constraintTop_toBottomOf="@+id/carbs_entry" />
 
     <EditText
         android:id="@+id/fat_entry"
@@ -141,7 +141,7 @@
         android:hint="@string/enter_fat"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/carbs_entry"
+        app:layout_constraintTop_toBottomOf="@+id/fat_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
 
@@ -149,12 +149,12 @@
         android:id="@+id/fiber_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/fiber_g"
         android:textSize="18sp"
-        android:text="@string/fiber"
-        app:layout_constraintTop_toBottomOf="@+id/fat_entry"
-        app:layout_constraintStart_toStartOf="@id/create_food_textview"
         app:layout_constraintBottom_toTopOf="@id/fiber_entry"
-        />
+        app:layout_constraintStart_toStartOf="@id/create_food_textview"
+        app:layout_constraintTop_toBottomOf="@+id/fat_entry" />
 
     <EditText
         android:id="@+id/fiber_entry"
