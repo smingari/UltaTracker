@@ -1,12 +1,10 @@
 package com.example.ultratracker;
 
-import androidx.test.InstrumentationRegistry;
-import androidx.test.core.app.ApplicationProvider;
+
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.Context;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -17,11 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-
-import static org.powermock.api.mockito.PowerMockito.mock;
-
-import static org.powermock.api.mockito.PowerMockito.doCallRealMethod;
-import static org.powermock.api.mockito.PowerMockito.mock;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 
