@@ -27,10 +27,7 @@ public class Meal {
         this.fiber = fiber;
         this.date = date;
         this.mealName = mealName;
-        for (Food food: foodList) {
-            this.foodList.add(food);
-            listSize++;
-        }
+        for (Food food: foodList) { this.foodList.add(food); }
         this.key = getRandomBetweenRange(1, 100000);
     }
 
@@ -43,10 +40,7 @@ public class Meal {
         this.fiber = fiber;
         this.date = LocalDate.parse(date);
         this.mealName = mealName;
-        for (Food food: foodList) {
-            this.foodList.add(food);
-            listSize++;
-        }
+        for (Food food: foodList) { this.foodList.add(food); }
         this.key = key;
     }
 
@@ -78,10 +72,7 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public void addToMeal(Food food) {
-        foodList.add(food);
-        listSize++;
-    }
+    public void addToMeal(Food food) { foodList.add(food); }
     public void deleteFromMeal(Food food) { foodList.remove(food); }
 
     // Generates random number for key

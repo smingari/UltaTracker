@@ -47,7 +47,7 @@ public class Food {
         this.fat = fat;
         this.fiber = fiber;
         this.date = LocalDate.parse(date);
-        this. mealName = mealName;
+        this.mealName = mealName;
         this.key = getRandomBetweenRange(1, 100000);
         this.mealKey = mealKey;
     }
@@ -61,7 +61,7 @@ public class Food {
         this.fat = fat;
         this.fiber = fiber;
         this.date = LocalDate.parse(date);
-        this. mealName = mealName;
+        this.mealName = mealName;
         this.key = key;
         this.mealKey = mealKey;
     }

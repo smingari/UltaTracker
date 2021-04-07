@@ -118,7 +118,7 @@ public class HDayActivity extends AppCompatActivity {
         int dbSize;
         if (foodList != null) { dbSize = foodList.size(); }
         else { dbSize = 0; }
-        //Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,  "Successfully queried database", Toast.LENGTH_SHORT).show();
 
         // Set up table header
         TableRow mealTableHeader = new TableRow(this);
@@ -192,7 +192,7 @@ public class HDayActivity extends AppCompatActivity {
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(String.valueOf(foodList.size()));
+                t2v.setText(String.valueOf(foodList.get(i).getFoodList().size()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 

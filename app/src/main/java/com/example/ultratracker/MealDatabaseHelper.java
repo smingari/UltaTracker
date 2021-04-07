@@ -8,7 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MealDatabaseHelper extends SQLiteOpenHelper {
@@ -144,40 +146,27 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Meal> foodToMeals (List<Food> foodList) {
-        if (foodList.isEmpty() || foodList == null) { return null; }
-
+        HashMap<Integer, List<Food>> hashMap = new HashMap<Integer, List<Food>>();
         List<Meal> mealList = new ArrayList<>();
+        List<Integer> mealKeys = new ArrayList<>();
 
-        // Iterate through foodList
-        while (!foodList.isEmpty()) {
-            List<Food> foods = new ArrayList<>();
-            Food firstFood = foodList.get(0);
-            foods.add(firstFood);
-
-            int totalCals = firstFood.getCals();
-            int totalProtein = firstFood.getProtein();
-            int totalCarbs = firstFood.getCarbs();
-            int totalFat = firstFood.getFat();
-            int totalFiber = firstFood.getFiber();
-
-            Meal meal= new Meal(firstFood.getName(), totalCals, totalProtein, totalCarbs, totalFat, totalFiber, firstFood.getDate(), firstFood.getMealName(), foods, firstFood.getKey());
-            foodList.remove(0);
-
-            // Iterate through foodList searching for foods sharing one key (meal)
-            for (Food food : foodList) {
-                if (food.getKey() == firstFood.getKey()) {
-                    totalCals += food.getCals();
-                    totalProtein += food.getProtein();
-                    totalCarbs += food.getCarbs();
-                    totalFat += food.getFat();
-                    totalFiber += food.getFiber();
-                    meal.getFoodList().add(food);
-                    foodList.remove(food);
-                }
+        for (Food food: foodList) {
+            if (!hashMap.containsKey(food.getMealKey())) {
+                List<Food> list = new ArrayList<>();
+                list.add(food);
+                hashMap.put(food.getMealKey(), list);
+                mealKeys.add(food.getMealKey());
+            } else {
+                hashMap.get(food.getMealKey()).add(food);
             }
+        }
 
+        for (int i = 0; i < mealKeys.size(); i++) {
+            List<Food> foods = hashMap.get(mealKeys.get(i));
+            Meal meal= new Meal(foods.get(0).getMealName(), 10, 8, 7, 9, 3, LocalDate.parse(foods.get(0).getDate()), foods);
             mealList.add(meal);
         }
+
         return mealList;
     }
 }
