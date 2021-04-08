@@ -26,21 +26,13 @@ public class WeightLiftingWorkoutUnitTest {
     public void setUp() {
         d1 = LocalDate.of(2021,4,20); // format is 2021-04-20
         t1 = LocalTime.of(10,14); // format is 10:14
-        exerType = "bench";
+        exerType = "weightlifting";
         sets = 3;
         cal = 400;
         exerciseList = new ArrayList<Weightlifting>();
 
-        // non exercise args
-        w1 = new WeightliftingWorkout(exerciseList);
-
         // exercise args
-        w2 = new WeightliftingWorkout(exerType, d1, t1, cal, sets, exerciseList);
-    }
-
-    @Test
-    public void testNonExerciseConstructor() {
-        assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
+        w2 = new WeightliftingWorkout(exerType, d1, t1, cal, exerciseList);
     }
 
     @Test
@@ -49,7 +41,6 @@ public class WeightLiftingWorkoutUnitTest {
         assertEquals("Test completedDate", d1.toString(), w2.getCompletedDate());
         assertEquals("Test duration", t1.toString(), w2.getDuration());
         assertEquals("Test caloriesBurned", cal, w2.getCaloriesBurned());
-        assertEquals("Test sets", sets, w2.getSets());
         assertEquals("Test exerciseList", exerciseList, w2.getExerciseList());
     }
 }
