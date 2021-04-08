@@ -16,4 +16,12 @@ public class WeightliftingWorkout extends Exercise {
         super(exerciseType, completedDate, duration, caloriesBurned, sets);
         this.exerciseList = exerciseList;
     }
+
+    public List<Weightlifting> getExerciseList() {
+        return exerciseList;
+    }
+
+    public void setExerciseList(List<Weightlifting> exerciseList) {
+        this.exerciseList = exerciseList;
+    }
 }
