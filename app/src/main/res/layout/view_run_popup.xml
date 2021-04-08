@@ -7,7 +7,7 @@
     tools:context=".AddTaskActivity">
 
     <TextView
-        android:id="@+id/completed_date_textview"
+        android:id="@+id/run_completed_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -19,97 +19,97 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/completed_date_display"
+        android:id="@+id/run_completed_date_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/completed_date_textview"
-        app:layout_constraintTop_toBottomOf="@+id/completed_date_textview" />
+        app:layout_constraintStart_toStartOf="@+id/run_completed_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_completed_date_textview" />
 
     <TextView
-        android:id="@+id/duration_textview"
+        android:id="@+id/run_duration_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
         android:text="Duration: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/completed_date_textview"
-        app:layout_constraintTop_toBottomOf="@+id/completed_date_display" />
+        app:layout_constraintStart_toStartOf="@+id/run_completed_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_completed_date_display" />
 
     <TextView
-        android:id="@+id/duration_display"
+        android:id="@+id/run_duration_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/duration_textview"
-        app:layout_constraintTop_toBottomOf="@+id/duration_textview" />
+        app:layout_constraintStart_toStartOf="@+id/run_duration_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_duration_textview" />
 
     <TextView
-        android:id="@+id/calories_textview"
+        android:id="@+id/run_calories_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
         android:text="Calories: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/duration_textview"
-        app:layout_constraintTop_toBottomOf="@+id/duration_display" />
+        app:layout_constraintStart_toStartOf="@+id/run_duration_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_duration_display" />
 
     <TextView
-        android:id="@+id/calories_display"
+        android:id="@+id/run_calories_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/calories_textview"
-        app:layout_constraintTop_toBottomOf="@+id/calories_textview" />
+        app:layout_constraintStart_toStartOf="@+id/run_calories_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_calories_textview" />
 
     <TextView
-        android:id="@+id/distance_textview"
+        android:id="@+id/run_distance_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
         android:text="Distance: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/calories_textview"
-        app:layout_constraintTop_toBottomOf="@+id/calories_display" />
+        app:layout_constraintStart_toStartOf="@+id/run_calories_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_calories_display" />
 
     <TextView
-        android:id="@+id/distance_display"
+        android:id="@+id/run_distance_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/distance_textview"
-        app:layout_constraintTop_toBottomOf="@+id/distance_textview" />
+        app:layout_constraintStart_toStartOf="@+id/run_distance_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_distance_textview" />
 
     <TextView
-        android:id="@+id/pace_textview"
+        android:id="@+id/run_pace_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
         android:text="Pace: "
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/distance_textview"
-        app:layout_constraintTop_toBottomOf="@+id/distance_display" />
+        app:layout_constraintStart_toStartOf="@+id/run_distance_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_distance_display" />
 
     <TextView
-        android:id="@+id/pace_display"
+        android:id="@+id/run_pace_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/distance_textview"
-        app:layout_constraintTop_toBottomOf="@+id/distance_textview" />
+        app:layout_constraintStart_toStartOf="@+id/run_distance_textview"
+        app:layout_constraintTop_toBottomOf="@+id/run_distance_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

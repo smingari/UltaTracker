@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ViewRunDialog extends AppCompatDialogFragment {
+public class ViewRideDialog extends AppCompatDialogFragment {
     TextView completed_time_display, duration_display, calories_display, distance_display, pace_display;
 
-    Run run;
-    public ViewRunDialog(Run run) {
-        this.run = run;
+    Ride ride;
+    public ViewRideDialog(Ride ride) {
+        this.ride = ride;
     }
 
     @NonNull
@@ -25,16 +25,16 @@ public class ViewRunDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.view_run_popup, null);
+        View view = inflater.inflate(R.layout.view_ride_popup, null);
 
-        completed_time_display = view.findViewById(R.id.completed_date_display);
-        duration_display = view.findViewById(R.id.duration_display);
-        calories_display = view.findViewById(R.id.calories_display);
-        distance_display = view.findViewById(R.id.distance_display);
-        pace_display = view.findViewById(R.id.pace_display);
+        completed_time_display = view.findViewById(R.id.ride_completed_date_display);
+        duration_display = view.findViewById(R.id.ride_duration_display);
+        calories_display = view.findViewById(R.id.ride_calories_display);
+        distance_display = view.findViewById(R.id.ride_distance_display);
+        pace_display = view.findViewById(R.id.ride_pace_display);
 
         builder.setView(view);
-        builder.setTitle(run.getExerciseType());
+        builder.setTitle(ride.getExerciseType());
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}

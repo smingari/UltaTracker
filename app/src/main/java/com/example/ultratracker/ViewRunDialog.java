@@ -27,11 +27,11 @@ public class ViewRunDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.view_run_popup, null);
 
-        completed_time_display = view.findViewById(R.id.completed_date_display);
-        duration_display = view.findViewById(R.id.duration_display);
-        calories_display = view.findViewById(R.id.calories_display);
-        distance_display = view.findViewById(R.id.distance_display);
-        pace_display = view.findViewById(R.id.pace_display);
+        completed_time_display = view.findViewById(R.id.run_completed_date_display);
+        duration_display = view.findViewById(R.id.run_duration_display);
+        calories_display = view.findViewById(R.id.run_calories_display);
+        distance_display = view.findViewById(R.id.run_distance_display);
+        pace_display = view.findViewById(R.id.run_pace_display);
 
         builder.setView(view);
         builder.setTitle(run.getExerciseType());
