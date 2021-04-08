@@ -34,40 +34,20 @@ class Exercise {
         return exerciseType;
     }
 
-    public void setExerciseType(String exerciseType) {
-        this.exerciseType = exerciseType;
+    public String getCompletedDate() {
+        return completedDate.toString();
     }
 
-    public LocalDate getCompletedDate() {
-        return completedDate;
-    }
-
-    public void setCompletedDate(LocalDate completedDate) {
-        this.completedDate = completedDate;
-    }
-
-    public LocalTime getDuration() {
-        return duration;
-    }
-
-    public void setDuration(LocalTime duration) {
-        this.duration = duration;
+    public String getDuration() {
+        return duration.toString();
     }
 
     public int getCaloriesBurned() {
         return caloriesBurned;
     }
 
-    public void setCaloriesBurned(int caloriesBurned) {
-        this.caloriesBurned = caloriesBurned;
-    }
-
     public int getSets() {
         return sets;
-    }
-
-    public void setSets(int sets) {
-        this.sets = sets;
     }
 
     public int getKey() {

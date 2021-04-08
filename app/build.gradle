@@ -24,6 +24,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
+            debuggable true
 //            testCoverageEnable true
         }
     }
@@ -84,32 +85,6 @@ task helloExecution { task ->
 }
 
 task createTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
-//    group = "Reporting"
-//
-//        reports {
-//            xml.enabled = true
-//            html.enabled = true
-//        }
-//
-//    def fileFilter = ['**/R.class',
-//                      '**/R$*.class',
-//                      '**/BuildConfig.*',
-//                      '**/*$ViewInjector*.*',
-//                      '**/*$ViewBinder*.*',
-//                      '**/*$MembersInjector*.*',
-//                      '**/Manifest*.*',
-//                      '**/*Test*.*',
-//                      'android/**/*.*']
-//    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/dev/debug", excludes: fileFilter)
-//    def mainSrc = "${project.projectDir}/src/main/java"
-//
-//    sourceDirectories.from(files([mainSrc]))
-//    classDirectories.from(files([debugTree]))
-//    //executionData.from(files("${project.buildDir}/jacoco/testDebugUnitTest.exec"))
-//    executionData.from(fileTree(dir: project.buildDir, includes: [
-//            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
-//    ]))
-
     group "Reporting"
     description "Generate Jacoco coverage reports."
 
