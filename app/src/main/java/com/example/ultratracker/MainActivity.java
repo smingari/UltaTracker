@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button addHealth;
     Button addExercise;
     CalendarView cal;
+    public static Meal newMeal;
     public static int selectedYear;
     public static int selectedMonth;
     public static int selectedDay;
@@ -67,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
         selectedYear = Integer.parseInt(cDate[0]);
         selectedMonth = Integer.parseInt(cDate[1]);
         selectedDay = Integer.parseInt(cDate[2]);
+
+        String sMonth;
+        String sDay;
+        if (selectedMonth < 10) {
+            sMonth = "0" + selectedMonth;
+        } else { sMonth = String.valueOf(selectedMonth); }
+        if (selectedDay < 10) {
+            sDay = "0" + selectedDay;
+        } else { sDay = String.valueOf(selectedDay); }
+
+        List<Food> foodList = new ArrayList<>();
+        newMeal = new Meal("newMeal", 0, 0, 0, 0, 0, LocalDate.parse(selectedYear + "-" + sMonth + "-" + sDay), foodList);
 
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
