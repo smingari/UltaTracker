@@ -19,7 +19,7 @@ public class MealUnitTest {
     private LocalDate d1;
     private String name, mealName;
     private List<Food> foodList;
-    private Meal m2;
+    private Meal m1, m2;
 
     @Before
     public void setup() throws Exception {
@@ -32,17 +32,14 @@ public class MealUnitTest {
         name = "Dinner";
         mealName = "Lunch";
         foodList = new ArrayList<Food>();
+        // no key arg
+        m1 = new Meal(name, cal, protein, carb, fat, fiber, d1, foodList);
+        // with key arg
+        m2 = new Meal(name, cal, protein, carb, fat, fiber, d1.toString(), mealName, foodList, 2);
     }
 
     @Test
     public void testConstructors() {
-        // no key arg
-        Meal m1 = new Meal(name, cal, protein, carb, fat, fiber, d1, foodList);
-
-        // with key arg
-        Meal m2 = new Meal(name, cal, protein, carb, fat, fiber, d1.toString(), mealName, foodList, 2);
-
-
         assertEquals("Test name on non arg constructor", name, m1.getName());
         assertEquals("Test cal on non arg constructor", cal, m1.getCals());
         assertEquals("Test protein on non arg constructor", protein, m1.getProtein());
@@ -66,7 +63,7 @@ public class MealUnitTest {
 
     @Test
     public void testRideSetter() {
-        Meal m2 = new Meal(name, cal, protein, carb, fat, fiber, d1.toString(), mealName, foodList, 2);
+
         assertEquals("Test name on regular constructor", name, m2.getName());
         assertEquals("Test cal on regular constructor", cal, m2.getCals());
         assertEquals("Test protein regular arg constructor", protein, m2.getProtein());
@@ -105,5 +102,11 @@ public class MealUnitTest {
         assertEquals("Test d1 on regular constructor", "2021-04-22", m2.getDate());
         assertEquals("Test mealName on regular constructor", mealName1, m2.getMealName());
 
+    }
+
+    @Test
+    public void testMealToString() {
+        assertEquals("test toString on regular constructor", "Dinner, 700, 10, 20, 2, 15", m1.toString());
+        assertEquals("test toString on regular constructor", "Dinner, 700, 10, 20, 2, 15", m2.toString());
     }
 }

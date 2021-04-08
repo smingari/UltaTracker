@@ -18,4 +18,20 @@ public class Run extends Exercise {
         this.distance = distance;
         this.pace = pace;
     }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getPace() {
+        return pace;
+    }
+
+    public void setPace(double pace) {
+        this.pace = pace;
+    }
 }
