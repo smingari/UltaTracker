@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'jacoco'
 }
 
 android {
@@ -22,11 +23,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+//            testCoverageEnable true
+        }
     }
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
     }
 }
 
@@ -46,6 +59,8 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:2.27.0'
+
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -61,9 +76,76 @@ dependencies {
 
 task helloExecution { task ->
     doLast {
-        println("hello")
+        println("${project.projectDir}")
+        println("${buildDir}")
         exec {
             executable 'ls'
         }
     }
 }
+
+task createTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    group "Reporting"
+    description "Generate Jacoco coverage reports."
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        html.destination file("${rootProject.buildDir}/coverage-report")
+    }
+
+    def fileFilter = ['**/R.class',
+                      '**/R2.class',
+                      '**/R$*.class',
+                      '**/BuildConfig.*',
+                      '**/Manifest*.*',
+                      '**/*Test*.*',
+                      '**/AutoValue_*.*',
+                      '**/*JavascriptBridge.class',
+                      '**/*JsonObjectMapper*.*',
+                      '**/*MembersInjector*.*',
+                      '**/*$InjectAdapter.class',
+                      '**/*$ModuleAdapter.class',
+                      '**/*View.class',
+                      '**/*Activity*.*',
+                      '**/*Fragment*.*',
+                      '**/views/**',
+                      '**/viewholder/**',
+                      '**/viewholders/**',
+                      '**/wrapper/**',
+                      '**/orientation/**',
+                      '**/ktx/**',
+                      '**/decorator/**',
+                      '**/*$ViewInjector*.class',
+                      '**/*$ViewHolder*.class',
+                      '**/*$Viewholder*.class',
+                      '**/*ViewBinding*.*',
+                      '**/Dao*.class',
+                      '**/*Component*.*',
+                      '**/*Module*.*',
+                      '**/*Injector*.*',
+                      'android/**/*.*',
+                      '**/io/**',
+                      '**/apache/**',
+                      '**/sharing/**']
+
+    def javaClasses = fileTree(dir: "$project.buildDir/intermediates/javac/debug", excludes: fileFilter)
+    def kotlinClasses = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def javaSrc = "$project.projectDir/src/main/java"
+    def kotlinSrc = "$project.projectDir/src/main/java"
+    def execution = fileTree(dir: project.buildDir,
+            includes: ['jacoco/testDebugUnitTest.exec'])
+
+    sourceDirectories.from(files([javaSrc, kotlinSrc]))
+    classDirectories.from(files([javaClasses, kotlinClasses]))
+
+    print execution
+
+    executionData.from(files(execution))
+
+    doLast() {
+        print "file://${reports.html.destination}/index.html"
+    }
+}
+
+

@@ -69,7 +69,7 @@ public class TaskDatabaseTests {
     public void addATaskToDataBaseAndCheck() {
         db.addOne(tt);
         List<Task> list =  db.getAll();
-        assertEquals("Creation", list.get(0).getDescription());
+        assertEquals("Test 1", list.get(0).getName());
 
     }
 

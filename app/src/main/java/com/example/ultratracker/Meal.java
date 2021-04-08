@@ -15,7 +15,7 @@ public class Meal {
     private int key;
     private String mealName;
     private List<Food> foodList = new ArrayList<>();
-    private int listSize = 0;
+    //private int listSize = 0;
 
     // Constructor method
     public Meal(String name, int cals, int protein, int carbs, int fat, int fiber, LocalDate date, List<Food> foodList) {
