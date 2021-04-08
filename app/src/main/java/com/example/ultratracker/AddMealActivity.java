@@ -114,7 +114,6 @@ public class AddMealActivity extends AppCompatActivity {
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isComplete;
                         if (selectedRow == null) {
                             selectedRow = row;
                             //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
@@ -128,16 +127,6 @@ public class AddMealActivity extends AppCompatActivity {
                         mealSelected = true;
                         showButtons();
                         selectedFood = meal.getFoodList().get(row.getId());
-                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
-                        //isComplete = MainActivity.selectedTask.isComplete();
-                        //foodSelected = !isComplete;
-                        //completedTaskSelected = isComplete;
-                        //showButtons();
-                        //if(isComplete) {
-                        //btn_moveToTasks.setVisibility(View.VISIBLE);
-                        //} else {
-                        //btn_moveToTasks.setVisibility(View.INVISIBLE);
-                        //}
                     }
                 });
 
@@ -172,7 +161,7 @@ public class AddMealActivity extends AppCompatActivity {
         int dbSize;
         if (foods != null && foods.length != 0) { dbSize = foods.length; }
         else { dbSize = 0; }
-        Toast.makeText(AddMealActivity.this, String.valueOf(dbSize), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(AddMealActivity.this, String.valueOf(dbSize), Toast.LENGTH_SHORT).show();
 
         // Set up table header
         TableRow listTableHeader = new TableRow(this);
@@ -212,7 +201,6 @@ public class AddMealActivity extends AppCompatActivity {
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isComplete;
                         if (selectedRow == null) {
                             selectedRow = row;
                             //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
@@ -227,16 +215,6 @@ public class AddMealActivity extends AppCompatActivity {
                         mealSelected = false;
                         addToMealButton.setVisibility(View.VISIBLE);
                         selectedFood = foods[row.getId()];
-                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
-                        //isComplete = MainActivity.selectedTask.isComplete();
-                        //foodSelected = !isComplete;
-                        //completedTaskSelected = isComplete;
-                        //showButtons();
-                        //if(isComplete) {
-                        //btn_moveToTasks.setVisibility(View.VISIBLE);
-                        //} else {
-                        //btn_moveToTasks.setVisibility(View.INVISIBLE);
-                        //}
                     }
                 });
 
@@ -266,9 +244,50 @@ public class AddMealActivity extends AppCompatActivity {
     public void addToMeal(View view) {
         if (bankSelected) {
             MainActivity.newMeal.getFoodList().add(selectedFood);
-            createTable.addView(selectedRow); // TODO: Fix bug with adding food to meal with bank (this line throws error)
+
+            TableRow newRow = new TableRow(this);
+            newRow.setId(MainActivity.newMeal.getFoodList().size());
+
+            newRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(AddMealActivity.this, "Handling on click", Toast.LENGTH_SHORT).show();
+                    if (selectedRow == null) {
+                        selectedRow = newRow;
+                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
+                        newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                    } else {
+                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+                        newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
+                        selectedRow = newRow;
+                    }
+                    Toast.makeText(AddMealActivity.this, "Out of if statement", Toast.LENGTH_SHORT).show();
+                    bankSelected = false;
+                    mealSelected = true;
+                    showButtons();
+                    selectedFood = MainActivity.newMeal.getFoodList().get(newRow.getId());
+                }
+            });
+
+            TextView t1v = new TextView(this);
+            String foodName = selectedFood.getName();
+            if (foodName.length() > 12) { foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + ".."; }
+            t1v.setText(foodName);
+            t1v.setGravity(Gravity.CENTER_HORIZONTAL);
+            newRow.addView(t1v);
+
+            TextView t2v = new TextView(this);
+            t2v.setText(String.valueOf(selectedFood.getCals()));
+            t2v.setGravity(Gravity.CENTER_HORIZONTAL);
+            newRow.addView(t2v);
+
+            TextView t3v = new TextView(this);
+            t3v.setText(String.valueOf(selectedFood.getFat()));
+            t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+            newRow.addView(t3v);
+            createTable.addView(newRow);
+
             selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-            MainActivity.newMeal.getFoodList().add(selectedFood);
             selectedRow = null;
             selectedFood = null;
             addToMealButton.setVisibility(View.INVISIBLE);
