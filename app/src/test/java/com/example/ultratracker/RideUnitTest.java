@@ -30,24 +30,19 @@ public class RideUnitTest {
 
     @Test
     public void testConstructors() {
-        Ride r1 = new Ride(distance1, pace1);
-        Ride r2 = new Ride("Bike", d1, t1, 200, 2, distance2, pace2);
-
-        assertEquals("Test distance on small constructor", distance1, r1.getDistance(), 0.01);
-        assertEquals("Test pace on small constructor", pace1, r1.getPace(), 0.01);
+        Ride r2 = new Ride("Bike", d1, t1, 200,  distance2, pace2);
 
         assertEquals("Test Exercise Type", "Bike", r2.getExerciseType());
         assertEquals("Test completed Date", d1.toString(), r2.getCompletedDate());
         assertEquals("Test Duration", t1.toString(), r2.getDuration());
         assertEquals("Test Calories", 200, r2.getCaloriesBurned());
-        assertEquals("Test Sets", 2, r2.getSets());
         assertEquals("Test Distance", distance2, r2.getDistance(), 0.01);
         assertEquals("Test Pace", pace2, r2.getPace(), 0.01);
 
     }
     @Test
     public void testRideSetter() {
-        Ride r1 = new Ride(distance1, pace1);
+        Ride r1 = new Ride("Bike", d1, t1, 200,  distance2, pace2);
         // Test the setters
         r1.setDistance(12.1);
         r1.setPace(5.5);
