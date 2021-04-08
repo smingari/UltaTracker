@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="164dp"
         android:layout_marginLeft="164dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="165dp"
         android:layout_marginRight="165dp"
         android:text="@string/create_a_new_meal"
@@ -106,13 +106,13 @@
 
     <Button
         android:id="@+id/add_food_button"
-        android:layout_width="90dp"
+        android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:text="@string/add_meal"
         android:onClick="toAddFoodActivity"
+        android:text="Add New Food"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_divider2" />
 
@@ -144,7 +144,7 @@
         android:id="@+id/list_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="100dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -223,6 +223,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="2dp"
         android:text="@string/add_to_meal"
+        android:onClick="addToMeal"
         app:layout_constraintBottom_toTopOf="@+id/list_divider"
         app:layout_constraintStart_toStartOf="parent" />
 

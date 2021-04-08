@@ -16,7 +16,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
     EditText foodname_entry, calories_entry, protein_entry, fat_entry, carbs_entry, fiber_entry;
 
-    private LocalDate date;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,15 @@ public class AddFoodActivity extends AppCompatActivity {
         cancel_button = findViewById(R.id.cancel_button);
         create_food_button = findViewById(R.id.create_food_button);
 
-        date = LocalDate.now();
+        String sMonth;
+        String sDay;
+        if (MainActivity.selectedMonth < 10) {
+            sMonth = "0" + MainActivity.selectedMonth;
+        } else { sMonth = String.valueOf(MainActivity.selectedMonth); }
+        if (MainActivity.selectedDay < 10) {
+            sDay = "0" + MainActivity.selectedDay;
+        } else { sDay = String.valueOf(MainActivity.selectedDay); }
+        date = (MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
 
         FoodDatabaseHelper db = new FoodDatabaseHelper(AddFoodActivity.this);
 
@@ -50,7 +58,8 @@ public class AddFoodActivity extends AppCompatActivity {
                     int fat = Integer.parseInt(fat_entry.getText().toString());
                     int fiber = Integer.parseInt(fiber_entry.getText().toString());
 
-                    Food newFood = new Food(foodName, calories, protein, carbs, fat, fiber, date);
+                    Food newFood = new Food(foodName, calories, protein, carbs, fat, fiber, LocalDate.parse(date));
+                    MainActivity.newMeal.getFoodList().add(newFood);
                     db.addFood(newFood);
                     toAddMealActivity(v);
 
