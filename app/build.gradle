@@ -90,7 +90,7 @@ task helloExecution { task ->
     }
 }
 
-task createTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task createTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'connectedDebugAndroidTest']) {
     group "Reporting"
     description "Generate Jacoco coverage reports."
 

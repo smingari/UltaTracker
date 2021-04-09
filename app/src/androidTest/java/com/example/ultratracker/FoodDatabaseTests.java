@@ -58,15 +58,9 @@ public class FoodDatabaseTests {
         f4 = new Food(name4, cals4, protein4, carbs4, fat4, fiber4, d4);
     }
 
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.ultratracker", appContext.getPackageName());
-    }
 
     @Test
-    public void addATaskToDataBaseAndCheck() {
+    public void addAFoodToDataBaseAndCheck() {
         db.addFood(f1);
         list =  db.getAllSorted();
         assertEquals(name1, list[0].getName());
