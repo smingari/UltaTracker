@@ -39,7 +39,7 @@ public class WeightLiftingWorkoutUnitTest {
     public void testExerciseConstructor() {
         assertEquals("Test exerciseType", exerType, w2.getExerciseType());
         assertEquals("Test completedDate", d1.toString(), w2.getCompletedDate());
-        assertEquals("Test duration", t1.toString(), w2.getDuration());
+        assertEquals("Test duration", t1.toString(), w2.getCompletedTime());
         assertEquals("Test caloriesBurned", cal, w2.getCaloriesBurned());
         assertEquals("Test exerciseList", exerciseList, w2.getExerciseList());
     }

@@ -2,7 +2,6 @@ package com.example.ultratracker;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -79,7 +78,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
         cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
         cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
-        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
+        cv.put(COLUMN_EXERCISE_DURATION, ww.getCompletedTime());
         cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
         for(Weightlifting w : ww.getExerciseList()) {
             addWeightlifting(w, ww.getKey());
@@ -116,7 +115,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_KEY, ride.getKey());
         cv1.put(COLUMN_EXERCISE_TYPE, "Ride");
         cv1.put(COLUMN_EXERCISE_DATE, ride.getCompletedDate());
-        cv1.put(COLUMN_EXERCISE_DURATION, ride.getDuration());
+        cv1.put(COLUMN_EXERCISE_DURATION, ride.getCompletedTime());
         cv1.put(COLUMN_EXERCISE_CALS, ride.getCaloriesBurned());
 
         return db.insert(EXERCISE_TABLE, null, cv) != -1;
@@ -136,7 +135,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_KEY, run.getKey());
         cv1.put(COLUMN_EXERCISE_TYPE, "Run");
         cv1.put(COLUMN_EXERCISE_DATE, run.getCompletedDate());
-        cv1.put(COLUMN_EXERCISE_DURATION, run.getDuration());
+        cv1.put(COLUMN_EXERCISE_DURATION, run.getCompletedTime());
         cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
 
         return db.insert(EXERCISE_TABLE, null, cv) != -1;
