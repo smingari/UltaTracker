@@ -17,6 +17,7 @@ public class RideUnitTest {
     private double pace1, pace2;
     private LocalTime t1;
     private LocalDate d1;
+    private int duration;
 
     @Before
     public void setup() throws Exception {
@@ -24,13 +25,14 @@ public class RideUnitTest {
         t1 = LocalTime.of(10,14); // format is 10:14
         distance1 = 10.1;
         distance2 = 10.2;
+        duration = 30;
         pace1 = 2.5;
         pace2 = 2.6;
     }
 
     @Test
     public void testConstructors() {
-        Ride r2 = new Ride(d1, t1, 200,  distance2, pace2);
+        Ride r2 = new Ride(d1, t1, duration, 200,  distance2, pace2);
 
         assertEquals("Test Exercise Type", "Ride", r2.getExerciseType());
         assertEquals("Test completed Date", d1.toString(), r2.getCompletedDate());
@@ -42,7 +44,7 @@ public class RideUnitTest {
     }
     @Test
     public void testRideSetter() {
-        Ride r1 = new Ride(d1, t1, 200,  distance2, pace2);
+        Ride r1 = new Ride(d1, t1, duration, 200,  distance2, pace2);
         // Test the setters
         r1.setDistance(12.1);
         r1.setPace(5.5);
