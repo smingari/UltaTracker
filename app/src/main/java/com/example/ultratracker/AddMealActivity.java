@@ -167,7 +167,7 @@ public class AddMealActivity extends AppCompatActivity {
     public void init_list_table() {
         listTable = findViewById(R.id.list_table);
 
-        Food[] foods = db.getByDate(curDate);
+        Food[] foods = db.getAllSorted();
         int dbSize;
         if (foods != null && foods.length != 0) { dbSize = foods.length; }
         else { dbSize = 0; }
@@ -316,10 +316,12 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     public void createNewMeal(View view) {
-        // Check if meal name was entered
         String newMealName = mealEntry.getText().toString();
-        if (newMealName.matches("")) {
+        boolean isNew = mdb.checkByDateAndName(curDate, newMealName);
+        if (newMealName.matches("")) { // Check if meal name was entered
             Toast.makeText(this, "You did not name your meal.", Toast.LENGTH_SHORT).show();
+        } else if (!isNew) { // Check if meal name already exists
+            Toast.makeText(this, "This meal name already exists.", Toast.LENGTH_SHORT).show();
         } else {
             // Add food items to meal database
             for (Food food : MainActivity.newMeal.getFoodList()) {

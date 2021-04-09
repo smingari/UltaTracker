@@ -46,7 +46,7 @@ public class HDayActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.delete_meal_button);
         viewButton = findViewById(R.id.hday_view_button2);
 
-        viewButton.setVisibility(View.INVISIBLE);
+        hideButtons();
 
         db = new FoodDatabaseHelper(this);
         mdb = new MealDatabaseHelper(this);
@@ -191,7 +191,7 @@ public class HDayActivity extends AppCompatActivity {
                             row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                             selectedRow = row;
                         }
-                        viewButton.setVisibility(View.VISIBLE);
+                        showButtons();
                         selectedMeal = foodList.get(row.getId());
                         //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
                         //isComplete = MainActivity.selectedTask.isComplete();
@@ -236,7 +236,7 @@ public class HDayActivity extends AppCompatActivity {
             mealTable.removeView(selectedRow);
         }
         if (mealSelected) { mealTable.removeView(selectedRow); }
-        viewButton.setVisibility(View.INVISIBLE);
+        hideButtons();
     }
 
     public void toMainActivity(View view) {
@@ -252,5 +252,17 @@ public class HDayActivity extends AppCompatActivity {
     public void openViewDialog(View view) {
         ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
         viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
+    }
+
+    public void hideButtons() {
+        viewButton.setVisibility(View.INVISIBLE);
+        editButton.setVisibility(View.INVISIBLE);
+        deleteButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void showButtons() {
+        viewButton.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
     }
 }

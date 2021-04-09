@@ -145,6 +145,21 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
         return mealList;
     }
 
+    public boolean checkByDateAndName(String date, String name) {
+        // get data from the database
+        String queryString = "SELECT * FROM " + MEAL_TABLE + " WHERE " + COLUMN_MEAL_DATE + " = ? AND " + COLUMN_MEAL_NAME + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {date, name});
+
+        // move to the first result. If it is true then there is at least 1 value
+        if (cursor.moveToFirst()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public List<Meal> foodToMeals (List<Food> foodList) {
         HashMap<Integer, List<Food>> hashMap = new HashMap<Integer, List<Food>>();
         List<Meal> mealList = new ArrayList<>();
