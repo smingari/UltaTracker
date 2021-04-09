@@ -8,13 +8,13 @@ public class Ride extends Exercise {
     private double distance;
     private double pace;
 
-    public Ride(String exerciseType, LocalDate completedDate, LocalTime duration, int caloriesBurned, double distance, double pace) {
+    public Ride(LocalDate completedDate, LocalTime duration, int caloriesBurned, double distance, double pace) {
         super("Ride", completedDate, duration, caloriesBurned);
         this.distance = distance;
         this.pace = pace;
     }
 
-    public Ride(String exerciseType, String completedDate, String duration, int caloriesBurned, double distance, double pace) {
+    public Ride(String completedDate, String duration, int caloriesBurned, double distance, double pace) {
         super("Ride", completedDate, duration, caloriesBurned);
         this.distance = distance;
         this.pace = pace;

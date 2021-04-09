@@ -112,7 +112,9 @@ public class EDayActivity extends AppCompatActivity {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
 
-        List<Exercise> exerciseList = e_db.getByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+        // TODO FIX THIS
+        
+        List<Exercise> exerciseList = e_db.getExercisesByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
         int dbSize;
         if (exerciseList != null) { dbSize = exerciseList.size(); }
         else { dbSize = 0; }

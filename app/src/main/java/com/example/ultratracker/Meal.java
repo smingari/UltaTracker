@@ -72,6 +72,7 @@ public class Meal {
         this.mealName = mealName;
     }
 
+    public void addToMeal(Food food) { foodList.add(food); }
     // Generates random number for key
     public static int getRandomBetweenRange(double min, double max){
         double x = (Math.random()*((max-min)+1))+min;

@@ -20,10 +20,11 @@ public class TaskTests {
 
     @Before
     public void setUp() throws Exception {
-        task = new Task();
+
         d1 = LocalDate.of(2021,4,20); // format is 2021-04-20
         a1 = LocalDate.of(2021,4,19); // format is 2021-04-19
         t1 = LocalTime.of(10,14); // format is 10:14
+        task = new Task(d1, 1);
     }
 
     // WILL ALWAYS FAIL SINCE KEY IS NOW RANDOM

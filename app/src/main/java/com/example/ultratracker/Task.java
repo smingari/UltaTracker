@@ -43,9 +43,11 @@ public class Task {
 
     // default constructor
     // Times are all default for an hour in the same day
-    public Task() {
-        this.key = generateKey(this.dueDate.toString(), this.priority);
+    public Task(LocalDate dueDate, int priority) {
+        this.priority = priority;
+        this.key = generateKey(dueDate.toString(), priority);
         this.complete = false;
+
     }
 
     public static int generateKey(String date, int prio) {
