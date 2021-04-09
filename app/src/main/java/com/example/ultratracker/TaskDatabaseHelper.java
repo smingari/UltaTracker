@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Calendar;
 import java.util.List;
 
@@ -142,6 +143,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        returnList = sortTasks(returnList);
         cursor.close();
         db.close();
         return returnList;
@@ -194,6 +196,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        returnList = sortTasks(returnList);
         cursor.close();
         db.close();
         return returnList;
@@ -233,6 +236,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
+        returnList = sortTasks(returnList);
         cursor.close();
         db.close();
         return returnList;
@@ -329,4 +333,32 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         return false;
     }
+
+    public List<Task> sortTasks (List<Task> taskList) {
+        HashMap<Integer, List<Task>> hashMap = new HashMap<Integer, List<Task>>(500000);
+        List<Task> returnList = new ArrayList<>();
+        //List<Integer> taskKeys = new ArrayList<>();
+
+        for (Task task: taskList) {
+            if (!hashMap.containsKey(task.getKey())) {
+                List<Task> list = new ArrayList<>();
+                list.add(task);
+                hashMap.put(task.getKey(), list);
+                // taskKeys.add(task.getKey());
+            } else {
+                hashMap.get(task.getKey()).add(task);
+            }
+        }
+
+        for (int i = 0; i < 500000; i++) {
+            if (hashMap.get(i) != null) {
+                List<Task> tasks = hashMap.get(i);
+                for (int j = 0; j < tasks.size(); j++) {
+                    returnList.add(tasks.get(j));
+                }
+            }
+        }
+        return returnList;
+    }
 }
+

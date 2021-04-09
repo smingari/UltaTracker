@@ -24,7 +24,7 @@ public class Task {
         this.description = description;
         this.priority = priority;
         this.complete = complete;
-        this.key = getRandomBetweenRange(1, 100000);
+        this.key = generateKey(this.dueDate.toString(), this.priority);
     }
 
     // Constructor for db list since we don't want to increase the keys
@@ -44,13 +44,17 @@ public class Task {
     // default constructor
     // Times are all default for an hour in the same day
     public Task() {
-        this.key = getRandomBetweenRange(1, 100000);
+        this.key = generateKey(this.dueDate.toString(), this.priority);
         this.complete = false;
     }
 
-    public static int getRandomBetweenRange(double min, double max){
-        double x = (Math.random()*((max-min)+1))+min;
-        return (int) x;
+    public static int generateKey(String date, int prio) {
+        double x = (Math.random()*((99)+1))+1;
+        return ((Integer.parseInt(date.substring(0, 4)) * 95) + (Integer.parseInt(date.substring(5, 7)) * 15600) +
+                (Integer.parseInt(date.substring(8, 10)) * 501) + (prio * 100) + ((int) x));
+       // double x = (Math.random()*((1000000-1)+1))+1;
+        //return (int) x;
+
     }
 
     public String getName() {
