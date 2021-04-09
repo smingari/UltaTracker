@@ -9,7 +9,7 @@ public class WeightliftingWorkout extends Exercise {
     List<Weightlifting> exerciseList;
 
     public WeightliftingWorkout(String exerciseType, LocalDate completedDate, LocalTime duration, int caloriesBurned, List<Weightlifting> exerciseList) {
-        super(exerciseType, completedDate, duration, caloriesBurned);
+        super("Weightlifting", completedDate, duration, caloriesBurned);
         this.exerciseList = exerciseList;
     }
 

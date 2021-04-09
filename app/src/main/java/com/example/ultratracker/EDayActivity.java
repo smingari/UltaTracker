@@ -112,6 +112,7 @@ public class EDayActivity extends AppCompatActivity {
     }
 
     public void init_meal_table() {
+        /*
         Table = findViewById(R.id.meal_table);
 
         // Format selected date for task query
@@ -214,9 +215,11 @@ public class EDayActivity extends AppCompatActivity {
                 mealTable.addView(row);
             }
         }
+         */
     }
 
     public void deleteMeal(View view) {
+        /*
         if (selectedMeal != null) {
             //Toast.makeText(HDayActivity.this, String.valueOf(selectedMeal.getKey()), Toast.LENGTH_SHORT).show();
             boolean success = mdb.deleteMeal(selectedMeal);
@@ -224,6 +227,7 @@ public class EDayActivity extends AppCompatActivity {
         }
         if (mealSelected) { mealTable.removeView(selectedRow); }
         viewButton.setVisibility(View.INVISIBLE);
+         */
     }
 
     public void toMainActivity(View view) {

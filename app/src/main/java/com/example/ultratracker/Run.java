@@ -9,7 +9,7 @@ public class Run extends Exercise {
     private double pace;
 
     public Run(String exerciseType, LocalDate completedDate, LocalTime duration, int caloriesBurned, double distance, double pace) {
-        super(exerciseType, completedDate, duration, caloriesBurned);
+        super("Run", completedDate, duration, caloriesBurned);
         this.distance = distance;
         this.pace = pace;
     }
