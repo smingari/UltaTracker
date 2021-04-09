@@ -12,6 +12,7 @@
         <activity android:name=".AddMealActivity"></activity>
         <activity android:name=".AddFoodActivity"></activity>
         <activity android:name=".HDayActivity" />
+        <activity android:name=".EditFoodActivity"/>
         <activity android:name=".TodoActivity" />
         <activity android:name=".AddTaskActivity" />
         <activity android:name=".PDayActivity" />

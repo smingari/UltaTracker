@@ -198,4 +198,50 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
         return sortedList;
     }
 
+    public boolean editFood(Food food){
+        String queryString = "SELECT * FROM" + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + food.getKey();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String name;
+        int cals;
+        int protein;
+        int carbs;
+        int fat;
+        int fiber;
+        String date;
+
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            name = food.getName();
+            cals = food.getCals();
+            protein = food.getProtein();
+            carbs = food.getCarbs();
+            fat = food.getFat();
+            fiber = food.getFiber();
+            date = food.getDate();
+
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_KEY, food.getKey());
+            cv.put(COLUMN_NAME, name);
+            cv.put(COLUMN_CALS, cals);
+            cv.put(COLUMN_PROTEIN, protein);
+            cv.put(COLUMN_CARBS, carbs);
+            cv.put(COLUMN_FAT, fat);
+            cv.put(COLUMN_FIBER, fiber);
+            cv.put(COLUMN_DATE, date);
+
+            String[] whereArgs = {String.valueOf(food.getKey())};
+            int success = db.update(FOOD_TABLE, cv, "keyid=?", whereArgs);
+            if(success > 0){
+                db.close();
+                cursor.close();
+                return true;
+            }
+        }
+
+        db.close();
+        cursor.close();
+        return  false;
+    }
+
 }

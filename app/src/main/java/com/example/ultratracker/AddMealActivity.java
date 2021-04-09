@@ -26,7 +26,7 @@ public class AddMealActivity extends AppCompatActivity {
     TableLayout createTable;
     TableLayout listTable;
     TableRow selectedRow;
-    Food selectedFood;
+    public static Food selectedFood;
     List<Food> foodList;
     FoodDatabaseHelper db;
     MealDatabaseHelper mdb;
@@ -72,6 +72,7 @@ public class AddMealActivity extends AppCompatActivity {
 
         init_create_table();
         init_list_table();
+
     }
 
     public void init_create_table() {
@@ -337,6 +338,12 @@ public class AddMealActivity extends AppCompatActivity {
 
     public void toAddFoodActivity(View view) {
         Intent intent = new Intent(AddMealActivity.this, AddFoodActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void toEditFoodActivity(View view){
+        Intent intent = new Intent(AddMealActivity.this, EditFoodActivity.class);
         startActivity(intent);
     }
 
