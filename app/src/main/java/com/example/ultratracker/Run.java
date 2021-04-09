@@ -14,6 +14,12 @@ public class Run extends Exercise {
         this.pace = pace;
     }
 
+    public Run(String exerciseType, String completedDate, String duration, int caloriesBurned, double distance, double pace) {
+        super("Run", completedDate, duration, caloriesBurned);
+        this.distance = distance;
+        this.pace = pace;
+    }
+
     public double getDistance() {
         return distance;
     }

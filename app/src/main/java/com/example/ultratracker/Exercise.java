@@ -20,10 +20,12 @@ class Exercise {
         this.key = getRandomBetweenRange(1, 100000);
     }
 
-    // Default constructor
-    public Exercise() {
-        this.exerciseType = "";
-        this.caloriesBurned = 0;
+    // Constructor with date and duration as strings
+    public Exercise(String exerciseType, String completedDate, String duration, int caloriesBurned) {
+        this.exerciseType = exerciseType;
+        this.completedDate = LocalDate.parse(completedDate);
+        this.duration = LocalTime.parse(duration);
+        this.caloriesBurned = caloriesBurned;
         this.key = getRandomBetweenRange(1, 100000);
     }
 

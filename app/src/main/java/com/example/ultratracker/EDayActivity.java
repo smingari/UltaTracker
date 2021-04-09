@@ -46,8 +46,7 @@ public class EDayActivity extends AppCompatActivity {
 
         viewButton.setVisibility(View.INVISIBLE);
 
-        //db = new FoodDatabaseHelper(this);
-        //mdb = new MealDatabaseHelper(this);
+        e_db = new ExerciseDatabaseHelper(this);
 
         // Testing meal database retrieval
         /**addButton.setOnClickListener(new View.OnClickListener() {
@@ -97,23 +96,11 @@ public class EDayActivity extends AppCompatActivity {
 
         init_meal_table();
 
-/*        TextView date = (TextView)findViewById(R.id.current_date_h);
-        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
-        TextView cals = (TextView)findViewById(R.id.total_calories);
-        cals.setText(String.valueOf(totalCals));
-        TextView protein = (TextView)findViewById(R.id.total_protein);
-        protein.setText(String.valueOf(totalProtein));
-        TextView carbs = (TextView)findViewById(R.id.total_carbs);
-        carbs.setText(String.valueOf(totalCarbs));
-        TextView fat = (TextView)findViewById(R.id.total_fat);
-        fat.setText(String.valueOf(totalFat));
-        TextView fiber = (TextView)findViewById(R.id.total_fiber);
-        fiber.setText(String.valueOf(totalFiber));*/
     }
 
     public void init_meal_table() {
-        /*
-        Table = findViewById(R.id.meal_table);
+
+        exerciseTable = findViewById(R.id.meal_table);
 
         // Format selected date for task query
         String sMonth;
@@ -125,9 +112,9 @@ public class EDayActivity extends AppCompatActivity {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
 
-        List<Meal> foodList = mdb.getMealsByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+        List<Exercise> exerciseList = e_db.getByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
         int dbSize;
-        if (foodList != null) { dbSize = foodList.size(); }
+        if (exerciseList != null) { dbSize = exerciseList.size(); }
         else { dbSize = 0; }
 
 
@@ -139,7 +126,7 @@ public class EDayActivity extends AppCompatActivity {
         // First column header
         TextView tv0 = new TextView(this);
         tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv0.setText(" Meal ");
+        tv0.setText(" Exercise ");
         tv0.setGravity(Gravity.CENTER_HORIZONTAL);
         mealTableHeader.addView(tv0);
 
@@ -158,7 +145,7 @@ public class EDayActivity extends AppCompatActivity {
         mealTableHeader.addView(tv2);
 
         // Add header row to table
-        mealTable.addView(mealTableHeader);
+        exerciseTable.addView(mealTableHeader);
 
         // Add rows dynamically from database
         if (dbSize != 0) {
@@ -180,7 +167,7 @@ public class EDayActivity extends AppCompatActivity {
                             selectedRow = row;
                         }
                         viewButton.setVisibility(View.VISIBLE);
-                        selectedMeal = foodList.get(row.getId());
+                        selectedExercise = exerciseList.get(row.getId());
                         //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
                         //isComplete = MainActivity.selectedTask.isComplete();
                         //foodSelected = !isComplete;
@@ -195,27 +182,27 @@ public class EDayActivity extends AppCompatActivity {
                 });
 
                 TextView t1v = new TextView(this);
-                String mealName = foodList.get(i).getName();
-                if (mealName.length() > 12) {
-                    mealName = (mealName.substring(0, Math.min(mealName.length(), 12))) + "..";
+                String exerciseType = exerciseList.get(i).getExerciseType();
+                if (exerciseType.length() > 12) {
+                    exerciseType = (exerciseType.substring(0, Math.min(exerciseType.length(), 12))) + "..";
                 }
-                t1v.setText(mealName);
+                t1v.setText(exerciseType);
                 t1v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(String.valueOf(foodList.get(i).getFoodList().size()));
+                //t2v.setText(String.valueOf(exerciseList.get(i).getFoodList().size()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                t3v.setText(String.valueOf(foodList.get(i).getCals()));
+                //t3v.setText(String.valueOf(foodList.get(i).getCals()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
-                mealTable.addView(row);
+                exerciseTable.addView(row);
             }
         }
-         */
+
     }
 
     public void deleteMeal(View view) {
