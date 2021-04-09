@@ -22,16 +22,16 @@ import java.util.List;
 
 public class AddRunActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
     Button cancel_button, create_run_button, edit_date_button, edit_time_button;
-    EditText name_entry, description_entry;
-    TextView date_display, due_time_display;
-    Spinner priority_entry;
+    EditText duration_entry, distance_entry, bw_entry;
+    TextView date_display, completed_time_display;
 
-    private int priority;
+
     private int taskSelectedYear;
     private int taskSelectedMonth;
     private int taskSelectedDay;
     private int dueHour;
-    private int dueMinute;
+    private int dueMinute, caloriesBurned;
+    private double bodyweight, pace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +40,15 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
 
         cancel_button = findViewById(R.id.cancel_button);
         create_run_button = findViewById(R.id.create_run_button);
-        edit_date_button = findViewById(R.id.edit_date);
+        edit_date_button = findViewById(R.id.add_run_edit_date);
         edit_time_button = findViewById(R.id.edit_time);
-        name_entry = findViewById(R.id.name_entry);
-        date_display = findViewById(R.id.date_display);
-        due_time_display = findViewById(R.id.due_time_display);
-        description_entry = findViewById(R.id.description_entry);
-        priority_entry = findViewById(R.id.priority_entry);
+        duration_entry = findViewById(R.id.add_run_duration);
+        date_display = findViewById(R.id.add_run_completed_date_textview);
+        completed_time_display = findViewById(R.id.add_run_completed_time_textview);
+        distance_entry = findViewById(R.id.add_run_distance);
+        bw_entry = findViewById(R.id.add_bw);
 
-        TaskDatabaseHelper db = new TaskDatabaseHelper(AddRunActivity.this);
+        ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(AddRunActivity.this);
 
         applyTime(12,0);
         taskSelectedYear = MainActivity.selectedYear;
@@ -61,16 +61,21 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
             @Override
             public void onClick(View v) {
                 try {
-                    String name = name_entry.getText().toString();
-                    String description = description_entry.getText().toString();
+
+                    // Get bodyweight and pace information and calculate.
+                    bodyweight = Double.parseDouble(bw_entry.getText().toString());
+                    pace = Double.parseDouble(distance_entry.getText().toString()) / Double.parseDouble(duration_entry.getText().toString());
+                    caloriesBurned = (int)(bodyweight * pace);
 
                     LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
                     LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
-                    Task task = new Task(name, syn_date, syn_date, syn_time, description, priority, false);
-                    db.addOne(task);
+                    Run run = new Run(syn_date, syn_time, Integer.parseInt(duration_entry.getText().toString()), caloriesBurned,
+                                                            Double.parseDouble(distance_entry.getText().toString()), pace);
+
+                    e_db.addRun(run);
                     toMainActivity(v);
-                    Toast.makeText(AddRunActivity.this, "Successfully made task.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRunActivity.this, "Successfully added run.", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e) {
                     Toast.makeText(AddRunActivity.this, "Error creating task.", Toast.LENGTH_SHORT).show();
@@ -92,27 +97,6 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
             }
         });
 
-        final List<Integer> priorities = new ArrayList<Integer>();
-
-        priorities.add(1);
-        priorities.add(2);
-        priorities.add(3);
-        priorities.add(4);
-        priorities.add(5);
-
-        ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, priorities);
-        priority_entry.setAdapter(dataAdapter);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        priority_entry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                priority = priorities.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
     }
 
     public void openDateDialog() {
@@ -148,7 +132,7 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
             displayHour = dueHour-12;
         }
         if(displayHour == 0) displayHour = 12;
-        due_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
+        completed_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
     public void toPDay(View view) {
