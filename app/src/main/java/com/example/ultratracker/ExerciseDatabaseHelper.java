@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,16 +50,20 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     // Called first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createExerciseTableStatement = "CREATE TABLE " + EXERCISE_TABLE + " (" + COLUMN_EXERCISE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+        String createExerciseTableStatement = "CREATE TABLE IF NOT EXISTS " + EXERCISE_TABLE + " (" + COLUMN_EXERCISE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_EXERCISE_KEY + " INT, " + COLUMN_EXERCISE_TYPE + " TEXT, " + COLUMN_EXERCISE_DATE + " Text, " + COLUMN_EXERCISE_TIME + " Text, " +
-                COLUMN_EXERCISE_TIME + " INT, " + COLUMN_EXERCISE_CALS + " INT) ";
-        String createWeightliftingTableStatement = "CREATE TABLE " + WEIGHTLIFTING_TABLE + " (" + COLUMN_WEIGHTLIFTING_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_EXERCISE_DURATION + " INT, " + COLUMN_EXERCISE_CALS + " INT) ";
+        String createWeightliftingTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHTLIFTING_TABLE + " (" + COLUMN_WEIGHTLIFTING_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " + COLUMN_WEIGHTLIFTING_REPS + " INT, " +
                 COLUMN_WEIGHTLIFTING_WEIGHT + " INT " + ")";
-        String createRideTableStatement = "CREATE TABLE " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+        String createRideTableStatement = "CREATE TABLE IF NOT EXISTS " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
-        String createRunTableStatement = "CREATE TABLE " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+        String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " DOUBLE, " + COLUMN_RUN_PACE + " DOUBLE " + ")";
+        //db.execSQL("DROP TABLE IF EXISTS " + EXERCISE_TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS " + WEIGHTLIFTING_TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS " + RIDE_TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS " + RUN_TABLE);
         db.execSQL(createExerciseTableStatement);
         db.execSQL(createWeightliftingTableStatement);
         db.execSQL(createRideTableStatement);
@@ -311,11 +316,49 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean editRide(Ride ride) {
-        return false;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_RIDE_KEY, ride.getKey());
+        cv.put(COLUMN_RIDE_DISTANCE, ride.getDistance());
+        cv.put(COLUMN_RIDE_PACE, ride.getPace());
+        if(db.update(RIDE_TABLE, cv, COLUMN_RIDE_KEY + "=", new String[]{String.valueOf(ride.getKey())}) == -1) return false;
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put(COLUMN_EXERCISE_KEY, ride.getKey());
+        cv1.put(COLUMN_EXERCISE_TYPE, "Ride");
+        cv1.put(COLUMN_EXERCISE_DATE, ride.getCompletedDate());
+        cv1.put(COLUMN_EXERCISE_TIME, ride.getCompletedTime());
+        cv1.put(COLUMN_EXERCISE_DURATION, ride.getDuration());
+        cv1.put(COLUMN_EXERCISE_CALS, ride.getCaloriesBurned());
+
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(ride.getKey())});
+        db.close();
+        return update != -1;
     }
 
     public boolean editRun(Run run) {
-        return false;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_RUN_KEY, run.getKey());
+        cv.put(COLUMN_RUN_DISTANCE, run.getDistance());
+        cv.put(COLUMN_RUN_PACE, run.getPace());
+        if(db.update(RUN_TABLE, cv, COLUMN_RUN_KEY + "=", new String[]{String.valueOf(run.getKey())}) == -1) return false;
+
+        ContentValues cv1 = new ContentValues();
+
+        cv1.put(COLUMN_EXERCISE_KEY, run.getKey());
+        cv1.put(COLUMN_EXERCISE_TYPE, "Run");
+        cv1.put(COLUMN_EXERCISE_DATE, run.getCompletedDate());
+        cv1.put(COLUMN_EXERCISE_TIME, run.getCompletedTime());
+        cv1.put(COLUMN_EXERCISE_DURATION, run.getDuration());
+        cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
+
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(run.getKey())});
+        db.close();
+        return update != -1;
     }
 
     public List<Exercise> getAll() {
