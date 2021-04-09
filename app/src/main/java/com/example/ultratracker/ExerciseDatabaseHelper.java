@@ -165,4 +165,8 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public boolean editRun(Run run) {
         return false;
     }
+
+    public List<Exercise> getAll() {
+        return null;
+    }
 }

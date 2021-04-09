@@ -19,12 +19,6 @@ public class EDayActivity extends AppCompatActivity {
     Button editButton;
     Button deleteButton, viewButton;
 
-    /*int totalCals = 0;
-    int totalProtein = 0;
-    int totalCarbs = 0;
-    int totalFat = 0;
-    int totalFiber = 0;*/
-
     TableLayout exerciseTable;
     TableRow selectedRow;
     Exercise selectedExercise;
@@ -42,7 +36,7 @@ public class EDayActivity extends AppCompatActivity {
         addWWButton = findViewById(R.id.add_weightlifting_button);
         //editButton = findViewById(R.id.edit_meal_button);
         //deleteButton = findViewById(R.id.delete_meal_button);
-        //viewButton = findViewById(R.id.hday_view_button2);
+        viewButton = findViewById(R.id.eday_view_button2);
 
         viewButton.setVisibility(View.INVISIBLE);
 
@@ -94,13 +88,15 @@ public class EDayActivity extends AppCompatActivity {
             }
         });**/
 
-        init_meal_table();
+        init_exercise_table();
 
+        TextView date = (TextView)findViewById(R.id.current_date_e);
+        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
     }
 
-    public void init_meal_table() {
+    public void init_exercise_table() {
 
-        exerciseTable = findViewById(R.id.meal_table);
+        exerciseTable = findViewById(R.id.exercise_table);
 
         // Format selected date for task query
         String sMonth;
@@ -121,33 +117,33 @@ public class EDayActivity extends AppCompatActivity {
 
 
         // Set up table header
-        TableRow mealTableHeader = new TableRow(this);
+        TableRow exerciseTableHeader = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        mealTableHeader.setLayoutParams(lp);
+        exerciseTableHeader.setLayoutParams(lp);
 
         // First column header
         TextView tv0 = new TextView(this);
         tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv0.setText(" Exercise ");
         tv0.setGravity(Gravity.CENTER_HORIZONTAL);
-        mealTableHeader.addView(tv0);
+        exerciseTableHeader.addView(tv0);
 
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Amount Eaten ");
+        tv1.setText(" Duration ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
-        mealTableHeader.addView(tv1);
+        exerciseTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Calories ");
+        tv2.setText(" Calories Burned ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
-        mealTableHeader.addView(tv2);
+        exerciseTableHeader.addView(tv2);
 
         // Add header row to table
-        exerciseTable.addView(mealTableHeader);
+        exerciseTable.addView(exerciseTableHeader);
 
         // Add rows dynamically from database
         if (dbSize != 0) {
@@ -224,8 +220,8 @@ public class EDayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toAddMealActivity(View view) {
-        Intent intent = new Intent(EDayActivity.this, AddMealActivity.class);
+    public void toAddRunActivity(View view) {
+        Intent intent = new Intent(EDayActivity.this, AddRunActivity.class);
         startActivity(intent);
     }
 
