@@ -32,6 +32,7 @@ public class AddMealActivity extends AppCompatActivity {
     MealDatabaseHelper mdb;
 
     String curDate;
+    Meal originalMeal;
 
     boolean mealSelected;
     boolean bankSelected;
@@ -63,6 +64,7 @@ public class AddMealActivity extends AppCompatActivity {
         hideButtons();
         addToMealButton.setVisibility(View.INVISIBLE);
         editButton.setVisibility(View.INVISIBLE);
+        if (HDayActivity.inEdit) { originalMeal = MainActivity.newMeal; }
         displayCreate();
 
         foodList = new ArrayList<>();
@@ -316,6 +318,9 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     public void createNewMeal(View view) {
+        // Check if in edit mode
+        if (HDayActivity.inEdit) { mdb.deleteMeal(originalMeal); }
+
         String newMealName = mealEntry.getText().toString();
         boolean isNew = mdb.checkByDateAndName(curDate, newMealName);
         if (newMealName.matches("")) { // Check if meal name was entered
@@ -355,6 +360,12 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     public void displayCreate() {
+        // Check if in edit mode
+        if (HDayActivity.inEdit) {
+            createButton.setText("Update");
+            mealEntry.setText(MainActivity.newMeal.getName());
+        }
+
         if (MainActivity.newMeal.getFoodList().isEmpty()) {
             createButton.setVisibility(View.INVISIBLE);
             mealName.setVisibility(View.INVISIBLE);

@@ -19,6 +19,7 @@ public class WeightLiftingWorkoutUnitTest {
     private int sets, cal;
     private LocalDate d1;
     private LocalTime t1;
+    private int duration;
     private List<Weightlifting> exerciseList;
 
 
@@ -29,30 +30,44 @@ public class WeightLiftingWorkoutUnitTest {
         exerType = "Weightlifting";
         sets = 3;
         cal = 400;
+        duration = 10;
         exerciseList = new ArrayList<Weightlifting>();
 
-        w1 = new WeightliftingWorkout(d1.toString(), t1.toString(), cal, exerciseList);
+
+        w1 = new WeightliftingWorkout(d1.toString(), t1.toString(), duration, cal, exerciseList);
 
         // exercise args
-        w2 = new WeightliftingWorkout(d1, t1, cal, exerciseList);
+        w2 = new WeightliftingWorkout(d1, t1, duration, cal, exerciseList);
     }
 
     @Test
-    public void testExerciseConstructorNonString() {
+
+    public void testExerciseConstructor() {
+        assertEquals("Test exerciseType", exerType, w1.getExerciseType());
+        assertEquals("Test completedDate", d1.toString(), w1.getCompletedDate());
+        assertEquals("Test duration", t1.toString(), w1.getCompletedTime());
+        assertEquals("Test caloriesBurned", cal, w1.getCaloriesBurned());
+        assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
+        assertEquals("Test exerciseList", duration, w1.getDuration());
+
         assertEquals("Test exerciseType", exerType, w2.getExerciseType());
         assertEquals("Test completedDate", d1.toString(), w2.getCompletedDate());
-        assertEquals("Test duration", t1.toString(), w2.getDuration());
+        assertEquals("Test completedTime", t1.toString(), w2.getCompletedTime());
+        assertEquals("Test duration", duration, w2.getDuration());
         assertEquals("Test caloriesBurned", cal, w2.getCaloriesBurned());
         assertEquals("Test exerciseList", exerciseList, w2.getExerciseList());
     }
 
     @Test
+
     public void testExerciseConstructorString() {
         assertEquals("Test exerciseType", exerType, w1.getExerciseType());
         assertEquals("Test completedDate", d1.toString(), w1.getCompletedDate());
-        assertEquals("Test duration", t1.toString(), w1.getDuration());
+        assertEquals("Test completedTime", t1.toString(), w1.getCompletedTime());
         assertEquals("Test caloriesBurned", cal, w1.getCaloriesBurned());
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
+        assertEquals("Test duration", duration, w1.getDuration());
+
     }
 
     @Test
@@ -62,6 +77,15 @@ public class WeightLiftingWorkoutUnitTest {
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
         assertEquals(1, w1.getExerciseList().size());
         assertEquals("Bench", w1.getExerciseList().get(0).getExerciseName());
+
+        assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
+
+        exerciseList.add(new Weightlifting("Row", 2, 5, 100));
+        w1.setExerciseList(exerciseList);
+
+        assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
+        assertEquals("Test exerciseList", "Row", w1.getExerciseList().get(1).getExerciseName());
+        assertEquals("Test exerciseList", 2, w1.getExerciseList().size());
 
     }
 }

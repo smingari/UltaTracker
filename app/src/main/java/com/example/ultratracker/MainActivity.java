@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toEDay(View view) {
-        Intent intent = new Intent(MainActivity.this, HDayActivity.class);
+        Intent intent = new Intent(MainActivity.this, EDayActivity.class);
         startActivity(intent);
     }
 
