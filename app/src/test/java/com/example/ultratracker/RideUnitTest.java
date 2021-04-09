@@ -17,6 +17,7 @@ public class RideUnitTest {
     private double pace1, pace2;
     private LocalTime t1;
     private LocalDate d1;
+    private Ride r1, r2;
 
     @Before
     public void setup() throws Exception {
@@ -26,6 +27,9 @@ public class RideUnitTest {
         distance2 = 10.2;
         pace1 = 2.5;
         pace2 = 2.6;
+
+        r1 = new Ride(d1, t1, 200,  distance2, pace2);
+        r2 = new Ride(d1.toString(), t1.toString(), 200,  distance2, pace2);
     }
 
     @Test
@@ -42,7 +46,6 @@ public class RideUnitTest {
     }
     @Test
     public void testRideSetter() {
-        Ride r1 = new Ride(d1, t1, 200,  distance2, pace2);
         // Test the setters
         r1.setDistance(12.1);
         r1.setPace(5.5);

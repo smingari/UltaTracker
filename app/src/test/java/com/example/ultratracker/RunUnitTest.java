@@ -27,15 +27,13 @@ public class RunUnitTest {
         distance2 = 10.2;
         pace1 = 2.5;
         pace2 = 2.6;
-
-
+        r1 = new Run(d1, t1, 200, distance2, pace2);
+        r2 = new Run(d1.toString(), t1.toString(), 200, distance2, pace2);
     }
 
     @Test
     public void testConstructors() {
         // Exercise args
-        r2 = new Run("Run", d1, t1, 200, distance2, pace2);
-
         assertEquals("Test Exercise Type", "Run", r2.getExerciseType());
         assertEquals("Test completed Date", d1.toString(), r2.getCompletedDate());
         assertEquals("Test Duration", t1.toString(), r2.getDuration());
@@ -46,8 +44,6 @@ public class RunUnitTest {
     }
     @Test
     public void testRunSetter() {
-        r1 = new Run("Run", d1, t1, 200, distance2, pace2);
-
         // Test the setters
         r1.setDistance(12.1);
         r1.setPace(5.5);
