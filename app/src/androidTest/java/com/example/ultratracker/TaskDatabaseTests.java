@@ -59,14 +59,8 @@ public class TaskDatabaseTests {
 
 
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.ultratracker", appContext.getPackageName());
-    }
-
-    @Test
     public void addATaskToDataBaseAndCheck() {
+        tearDown();  // Reset after UI tests
         db.addOne(tt);
         List<Task> list =  db.getAll();
         assertEquals("Test 1", list.get(0).getName());
