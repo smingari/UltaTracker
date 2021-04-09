@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddMealActivity extends AppCompatActivity {
-    Button addButton, editButton, deleteButton, viewButton, addToMealButton;
+    Button addButton, editButton, deleteButton, viewButton, addToMealButton, createButton;
+    TextView mealName;
+    EditText mealEntry;
 
     TableLayout createTable;
     TableLayout listTable;
@@ -53,9 +56,14 @@ public class AddMealActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.delete_food_button);
         viewButton = findViewById(R.id.add_meal_view_button);
         addToMealButton = findViewById(R.id.add_to_meal_button);
+        createButton = findViewById(R.id.create_meal_button);
+        mealName = findViewById(R.id.meal_name_text);
+        mealEntry = findViewById(R.id.meal_name_entry);
 
         hideButtons();
         addToMealButton.setVisibility(View.INVISIBLE);
+        editButton.setVisibility(View.INVISIBLE);
+        displayCreate();
 
         foodList = new ArrayList<>();
 
@@ -116,7 +124,6 @@ public class AddMealActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (selectedRow == null) {
                             selectedRow = row;
-                            //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                             row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         } else {
                             selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
@@ -126,6 +133,8 @@ public class AddMealActivity extends AppCompatActivity {
                         bankSelected = false;
                         mealSelected = true;
                         showButtons();
+                        addToMealButton.setVisibility(View.INVISIBLE);
+                        editButton.setVisibility(View.INVISIBLE);
                         selectedFood = meal.getFoodList().get(row.getId());
                     }
                 });
@@ -203,7 +212,6 @@ public class AddMealActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (selectedRow == null) {
                             selectedRow = row;
-                            //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                             row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         } else {
                             selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
@@ -214,6 +222,7 @@ public class AddMealActivity extends AppCompatActivity {
                         bankSelected = true;
                         mealSelected = false;
                         addToMealButton.setVisibility(View.VISIBLE);
+                        editButton.setVisibility(View.VISIBLE);
                         selectedFood = foods[row.getId()];
                     }
                 });
@@ -243,28 +252,26 @@ public class AddMealActivity extends AppCompatActivity {
 
     public void addToMeal(View view) {
         if (bankSelected) {
-            MainActivity.newMeal.getFoodList().add(selectedFood);
-
             TableRow newRow = new TableRow(this);
             newRow.setId(MainActivity.newMeal.getFoodList().size());
+            MainActivity.newMeal.getFoodList().add(selectedFood);
 
             newRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(AddMealActivity.this, "Handling on click", Toast.LENGTH_SHORT).show();
                     if (selectedRow == null) {
                         selectedRow = newRow;
-                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                         newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
                     } else {
                         selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
                         newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = newRow;
                     }
-                    Toast.makeText(AddMealActivity.this, "Out of if statement", Toast.LENGTH_SHORT).show();
                     bankSelected = false;
                     mealSelected = true;
                     showButtons();
+                    addToMealButton.setVisibility(View.INVISIBLE);
+                    editButton.setVisibility(View.INVISIBLE);
                     selectedFood = MainActivity.newMeal.getFoodList().get(newRow.getId());
                 }
             });
@@ -291,6 +298,8 @@ public class AddMealActivity extends AppCompatActivity {
             selectedRow = null;
             selectedFood = null;
             addToMealButton.setVisibility(View.INVISIBLE);
+            editButton.setVisibility(View.INVISIBLE);
+            displayCreate();
         }
     }
 
@@ -301,6 +310,23 @@ public class AddMealActivity extends AppCompatActivity {
             selectedRow = null;
             selectedFood = null;
             hideButtons();
+            displayCreate();
+        }
+    }
+
+    public void createNewMeal(View view) {
+        // Check if meal name was entered
+        String newMealName = mealEntry.getText().toString();
+        if (newMealName.matches("")) {
+            Toast.makeText(this, "You did not name your meal.", Toast.LENGTH_SHORT).show();
+        } else {
+            // Add food items to meal database
+            for (Food food : MainActivity.newMeal.getFoodList()) {
+                Food newFood = new Food(food.getName(), food.getCals(), food.getProtein(), food.getCarbs(), food.getFat(), food.getFiber(), curDate, mealEntry.getText().toString(), MainActivity.newMeal.getKey());
+                mdb.addMeal(newFood);
+            }
+            Intent intent = new Intent(AddMealActivity.this, HDayActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -319,15 +345,25 @@ public class AddMealActivity extends AppCompatActivity {
         viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
     }
 
+    public void displayCreate() {
+        if (MainActivity.newMeal.getFoodList().isEmpty()) {
+            createButton.setVisibility(View.INVISIBLE);
+            mealName.setVisibility(View.INVISIBLE);
+            mealEntry.setVisibility(View.INVISIBLE);
+        } else {
+            createButton.setVisibility(View.VISIBLE);
+            mealName.setVisibility(View.VISIBLE);
+            mealEntry.setVisibility(View.VISIBLE);
+        }
+    }
+
     public void hideButtons() {
         viewButton.setVisibility(View.INVISIBLE);
-        editButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
     }
 
     public void showButtons() {
         viewButton.setVisibility(View.VISIBLE);
-        editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
     }
 }

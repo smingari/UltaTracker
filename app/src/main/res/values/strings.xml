@@ -75,5 +75,11 @@
     <string name="create_a_new_meal">Create a New Meal</string>
     <string name="add_to_meal">Add To Meal</string>
     <string name="food_bank">Food Bank</string>
+    <string name="add_new_food">Add New Food</string>
+    <string name="edit_food">Edit Food</string>
+    <string name="delete_food">Delete Food</string>
+    <string name="meal_name">Meal Name:</string>
+    <string name="enter_meal_s_name">Enter meal\'s name</string>
+    <string name="create">Create</string>
 
 </resources>

@@ -32,6 +32,8 @@ public class HDayActivity extends AppCompatActivity {
     FoodDatabaseHelper db;
     MealDatabaseHelper mdb;
 
+    String curDate;
+
     boolean mealSelected;
 
     @Override
@@ -48,6 +50,20 @@ public class HDayActivity extends AppCompatActivity {
 
         db = new FoodDatabaseHelper(this);
         mdb = new MealDatabaseHelper(this);
+
+        // Format selected date
+        String sMonth;
+        String sDay;
+        if (MainActivity.selectedMonth < 10) {
+            sMonth = "0" + MainActivity.selectedMonth;
+        } else { sMonth = String.valueOf(MainActivity.selectedMonth); }
+        if (MainActivity.selectedDay < 10) {
+            sDay = "0" + MainActivity.selectedDay;
+        } else { sDay = String.valueOf(MainActivity.selectedDay); }
+        curDate = MainActivity.selectedYear + "-" + sMonth + "-" + sDay;
+
+        List<Food> foodList = new ArrayList<>();
+        MainActivity.newMeal = new Meal("newMeal", 0, 0, 0, 0, 0, LocalDate.parse(curDate), foodList);
 
         // Testing meal database retrieval
         /**addButton.setOnClickListener(new View.OnClickListener() {
@@ -114,17 +130,7 @@ public class HDayActivity extends AppCompatActivity {
     public void init_meal_table() {
         mealTable = findViewById(R.id.meal_table);
 
-        // Format selected date for task query
-        String sMonth;
-        String sDay;
-        if (MainActivity.selectedMonth < 10) {
-            sMonth = "0" + MainActivity.selectedMonth;
-        } else { sMonth = String.valueOf(MainActivity.selectedMonth); }
-        if (MainActivity.selectedDay < 10) {
-            sDay = "0" + MainActivity.selectedDay;
-        } else { sDay = String.valueOf(MainActivity.selectedDay); }
-
-        List<Meal> foodList = mdb.getMealsByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+        List<Meal> foodList = mdb.getMealsByDate(curDate);
         int dbSize;
         if (foodList != null) { dbSize = foodList.size(); }
         else { dbSize = 0; }
