@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
@@ -54,9 +55,9 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " + COLUMN_WEIGHTLIFTING_REPS + " INT, " +
                 COLUMN_WEIGHTLIFTING_WEIGHT + " INT " + ")";
         String createRideTableStatement = "CREATE TABLE " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " INT, " + COLUMN_RIDE_PACE + " INT " + ")";
+                COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
         String createRunTableStatement = "CREATE TABLE " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " INT, " + COLUMN_RUN_PACE + " INT " + ")";
+                COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " DOUBLE, " + COLUMN_RUN_PACE + " DOUBLE " + ")";
         db.execSQL(createExerciseTableStatement);
         db.execSQL(createWeightliftingTableStatement);
         db.execSQL(createRideTableStatement);
@@ -69,7 +70,134 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
 
     public List<Exercise> getExercisesByDate(String date) {
-        return null;
+        List<Exercise> returnList = new ArrayList<>();
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + EXERCISE_TABLE + " WHERE " + COLUMN_EXERCISE_DATE + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {date});
+
+        int key;
+        String exerciseType;
+        String completedDate;
+        String duration;
+        int caloriesBurned;
+
+        // move to the first result. If it is true then there is at least 1 value
+        if (cursor.moveToFirst()) {
+            do {
+                key = cursor.getInt(1);
+                exerciseType = cursor.getString(2);
+                completedDate = cursor.getString(3);
+                duration = cursor.getString(4);
+                caloriesBurned = cursor.getInt(5);
+
+                switch (exerciseType) {
+                    case "Ride":
+                        Ride ride = getRide(key, completedDate, duration, caloriesBurned);
+                        returnList.add(ride);
+                        break;
+                    case "Run":
+                        Run run = getRun(key, completedDate, duration, caloriesBurned);
+                        returnList.add(run);
+                        break;
+                    case "Weightlifting":
+                        WeightliftingWorkout ww = getWeightliftingWorkout(key, completedDate, duration, caloriesBurned);
+                        returnList.add(ww);
+                        break;
+                    default:
+                        Exercise e = new Exercise(exerciseType, completedDate, duration, caloriesBurned);
+                        e.setKey(key);
+                        break;
+                }
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+    public Ride getRide(int key, String completedDate, String duration, int caloriesBurned) {
+        Ride ride = null;
+        String queryString = "SELECT * FROM " + RIDE_TABLE + " WHERE " + COLUMN_RIDE_KEY + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(key)});
+
+        double distance;
+        double pace;
+
+        if (cursor.moveToFirst()) {
+            distance = cursor.getDouble(2);
+            pace = cursor.getDouble(3);
+            ride = new Ride(completedDate, duration, caloriesBurned, distance, pace);
+            ride.setKey(key);
+        }
+
+        cursor.close();
+        db.close();
+        return ride;
+    }
+
+    public Run getRun(int key, String completedDate, String duration, int caloriesBurned) {
+        Run run = null;
+        String queryString = "SELECT * FROM " + RUN_TABLE + " WHERE " + COLUMN_RUN_KEY + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(key)});
+
+        double distance;
+        double pace;
+
+        if (cursor.moveToFirst()) {
+            distance = cursor.getDouble(2);
+            pace = cursor.getDouble(3);
+            run = new Run(completedDate, duration, caloriesBurned, distance, pace);
+            run.setKey(key);
+        }
+
+        cursor.close();
+        db.close();
+        return run;
+    }
+
+    public WeightliftingWorkout getWeightliftingWorkout(int key, String completedDate, String duration, int caloriesBurned) {
+        WeightliftingWorkout ww;
+        List<Weightlifting> wlList = getWeightlifting(key);
+        ww = new WeightliftingWorkout(completedDate, duration, caloriesBurned, wlList);
+        ww.setKey(key);
+        return ww;
+    }
+
+    public List<Weightlifting> getWeightlifting(int key) {
+        ArrayList<Weightlifting> wlList = new ArrayList<>();
+        Weightlifting curWeightlifting;
+        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WEIGHTLIFTING_KEY + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(key)});
+
+        String name;
+        int sets;
+        int reps;
+        int weight;
+
+        if (cursor.moveToFirst()) {
+            do {
+                name = cursor.getString(2);
+                sets = cursor.getInt(3);
+                reps = cursor.getInt(4);
+                weight = cursor.getInt(5);
+                curWeightlifting = new Weightlifting(name, sets, reps, weight);
+                wlList.add(curWeightlifting);
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return wlList;
     }
 
     public boolean addWeightliftingWorkout(WeightliftingWorkout ww) {
