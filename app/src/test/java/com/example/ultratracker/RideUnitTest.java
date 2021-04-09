@@ -34,7 +34,7 @@ public class RideUnitTest {
 
         assertEquals("Test Exercise Type", "Ride", r2.getExerciseType());
         assertEquals("Test completed Date", d1.toString(), r2.getCompletedDate());
-        assertEquals("Test Duration", t1.toString(), r2.getDuration());
+        assertEquals("Test Duration", t1.toString(), r2.getCompletedTime());
         assertEquals("Test Calories", 200, r2.getCaloriesBurned());
         assertEquals("Test Distance", distance2, r2.getDistance(), 0.01);
         assertEquals("Test Pace", pace2, r2.getPace(), 0.01);
