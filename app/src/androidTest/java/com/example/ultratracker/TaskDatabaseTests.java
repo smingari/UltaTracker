@@ -125,24 +125,24 @@ public class TaskDatabaseTests {
     }
 
 // getbydate is gone
-//    @Test
-//    public void testGetByDate() {
-//        db.addOne(tt);
-//        db.addOne(tt2);
-//        db.addOne(tt3);
-//        db.addOne(tt4);
-//        list =  db.getAll();
-//        assertEquals(4, list.size());
-//        assertEquals("Test 1", list.get(0).getName());
-//        assertEquals("Test 2", list.get(1).getName());
-//        assertEquals("Test 3", list.get(2).getName());
-//        assertEquals("Test 4", list.get(3).getName());
-//
-//        list = db.getByDate(d3.toString());
-//        assertEquals(1, list.size());
-//        assertEquals("Test 3", list.get(0).getName());
-//
-//    }
+    @Test
+    public void testGetByDate() {
+        db.addOne(tt);
+        db.addOne(tt2);
+        db.addOne(tt3);
+        db.addOne(tt4);
+        list =  db.getAll();
+        assertEquals(4, list.size());
+        assertEquals("Test 1", list.get(0).getName());
+        assertEquals("Test 2", list.get(1).getName());
+        assertEquals("Test 3", list.get(2).getName());
+        assertEquals("Test 4", list.get(3).getName());
+
+        list = db.getByDateAndCompletion(d3.toString(), 0);
+        assertEquals(1, list.size());
+        assertEquals("Test 3", list.get(0).getName());
+
+    }
 
 
     @Test
@@ -270,7 +270,7 @@ public class TaskDatabaseTests {
         list =  db.getAll();
         assertEquals(1, list.size());
     }
-    
+
 
     @After
     public void tearDown() {
