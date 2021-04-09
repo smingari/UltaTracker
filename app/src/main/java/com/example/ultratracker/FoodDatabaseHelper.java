@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -199,7 +200,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean editFood(Food food){
-        String queryString = "SELECT * FROM" + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + food.getKey();
+        String queryString = "SELECT * FROM " + FOOD_TABLE + " WHERE " + COLUMN_KEY + " = " + food.getKey();
         SQLiteDatabase db = this.getReadableDatabase();
 
         String name;
@@ -221,7 +222,6 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
             date = food.getDate();
 
             ContentValues cv = new ContentValues();
-            cv.put(COLUMN_KEY, food.getKey());
             cv.put(COLUMN_NAME, name);
             cv.put(COLUMN_CALS, cals);
             cv.put(COLUMN_PROTEIN, protein);
@@ -229,6 +229,7 @@ public class FoodDatabaseHelper extends SQLiteOpenHelper {
             cv.put(COLUMN_FAT, fat);
             cv.put(COLUMN_FIBER, fiber);
             cv.put(COLUMN_DATE, date);
+            cv.put(COLUMN_KEY, food.getKey());
 
             String[] whereArgs = {String.valueOf(food.getKey())};
             int success = db.update(FOOD_TABLE, cv, "keyid=?", whereArgs);

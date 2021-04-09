@@ -38,7 +38,7 @@ public class EditFoodActivity extends AppCompatActivity {
         cancel_button = findViewById(R.id.cancel_button);
         edit_food_button = findViewById(R.id.edit_food_button);
 
-        foodname_entry.setText(String.valueOf(AddMealActivity.selectedFood.getMealName()));
+        foodname_entry.setText(AddMealActivity.selectedFood.getName());
         calories_entry.setText(String.valueOf(AddMealActivity.selectedFood.getCals()));
         protein_entry.setText(String.valueOf(AddMealActivity.selectedFood.getProtein()));
         carbs_entry.setText(String.valueOf(AddMealActivity.selectedFood.getCarbs()));
@@ -58,7 +58,7 @@ public class EditFoodActivity extends AppCompatActivity {
                     int fat = Integer.parseInt(fat_entry.getText().toString());
                     int fiber = Integer.parseInt(fiber_entry.getText().toString());
 
-                    AddMealActivity.selectedFood.setMealName(foodName);
+                    AddMealActivity.selectedFood.setName(foodName);
                     AddMealActivity.selectedFood.setCals(calories);
                     AddMealActivity.selectedFood.setProtein(protein);
                     AddMealActivity.selectedFood.setCarbs(carbs);
