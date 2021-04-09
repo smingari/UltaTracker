@@ -8,14 +8,14 @@ public class Run extends Exercise {
     private double distance;
     private double pace;
 
-    public Run(String exerciseType, LocalDate completedDate, LocalTime duration, int caloriesBurned, double distance, double pace) {
-        super("Run", completedDate, duration, caloriesBurned);
+    public Run(LocalDate completedDate, LocalTime completedTime, int duration, int caloriesBurned, double distance, double pace) {
+        super("Run", completedDate, completedTime, duration, caloriesBurned);
         this.distance = distance;
         this.pace = pace;
     }
 
-    public Run(String exerciseType, String completedDate, String duration, int caloriesBurned, double distance, double pace) {
-        super("Run", completedDate, duration, caloriesBurned);
+    public Run(String completedDate, String completedTime, int duration, int caloriesBurned, double distance, double pace) {
+        super("Run", completedDate, completedTime, duration, caloriesBurned);
         this.distance = distance;
         this.pace = pace;
     }
