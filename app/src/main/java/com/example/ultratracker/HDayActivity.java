@@ -35,6 +35,7 @@ public class HDayActivity extends AppCompatActivity {
     String curDate;
 
     boolean mealSelected;
+    public static boolean inEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class HDayActivity extends AppCompatActivity {
         viewButton = findViewById(R.id.hday_view_button2);
 
         hideButtons();
+        inEdit = false;
 
         db = new FoodDatabaseHelper(this);
         mdb = new MealDatabaseHelper(this);
@@ -184,7 +186,6 @@ public class HDayActivity extends AppCompatActivity {
                         boolean isComplete;
                         if (selectedRow == null) {
                             selectedRow = row;
-                            //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
                             row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         } else {
                             selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
@@ -241,6 +242,13 @@ public class HDayActivity extends AppCompatActivity {
 
     public void toMainActivity(View view) {
         Intent intent = new Intent(HDayActivity.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void editMeal(View view) {
+        inEdit = true;
+        MainActivity.newMeal = selectedMeal;
+        Intent intent = new Intent(HDayActivity.this, AddMealActivity.class);
         startActivity(intent);
     }
 
