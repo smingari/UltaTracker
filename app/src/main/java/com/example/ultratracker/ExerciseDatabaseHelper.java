@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public static final String EXERCISE_TABLE = "EXERCISE_TABLE";
     public static final String COLUMN_EXERCISE_ID = "EXERCISE_ID";
@@ -64,6 +66,11 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     // this is called if the database version number changes. Prevents db from breaking
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
+
+
+    public List<Exercise> getExercisesByDate() {
+        return null;
+    }
 
     public boolean addWeightliftingWorkout(WeightliftingWorkout ww) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -133,5 +140,29 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
 
         return db.insert(EXERCISE_TABLE, null, cv) != -1;
+    }
+
+    public boolean removeWeightliftingWorkout(WeightliftingWorkout ww) {
+        return false;
+    }
+
+    public boolean removeRide(Ride ride) {
+        return false;
+    }
+
+    public boolean removeRun(Run run) {
+        return false;
+    }
+
+    public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
+        return false;
+    }
+
+    public boolean editRide(Ride ride) {
+        return false;
+    }
+
+    public boolean editRun(Run run) {
+        return false;
     }
 }
