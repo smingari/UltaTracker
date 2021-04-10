@@ -132,12 +132,14 @@ public class TodoActivity extends AppCompatActivity {
 
     public void deleteT(View view) {
         boolean success = taskDatabaseHelper.deleteTask(MainActivity.selectedTask);
-        /*if (success) {
-            Toast.makeText(this,  "Successfully deleted task.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this,  "Error deleting task.", Toast.LENGTH_SHORT).show();
-        }*/
         taskTable.removeView(selectedRow);
+        selectedRow = null;
+        MainActivity.selectedTask = null;
+        btn_taskDelete.setVisibility(View.INVISIBLE);
+        btn_taskReminder.setVisibility(View.INVISIBLE);
+        btn_taskComplete.setVisibility(View.INVISIBLE);
+        btn_taskEdit.setVisibility(View.INVISIBLE);
+        btn_view.setVisibility(View.INVISIBLE);
     }
 
     public void markComplete(View view) {
@@ -148,6 +150,13 @@ public class TodoActivity extends AppCompatActivity {
             Toast.makeText(this,  "Error marking complete.", Toast.LENGTH_SHORT).show();
         }
         taskTable.removeView(selectedRow);
+        selectedRow = null;
+        MainActivity.selectedTask = null;
+        btn_taskDelete.setVisibility(View.INVISIBLE);
+        btn_taskReminder.setVisibility(View.INVISIBLE);
+        btn_taskComplete.setVisibility(View.INVISIBLE);
+        btn_taskEdit.setVisibility(View.INVISIBLE);
+        btn_view.setVisibility(View.INVISIBLE);
     }
 
     public void toMainActivity(View view) {
