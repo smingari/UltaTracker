@@ -43,6 +43,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
         distance_entry = findViewById(R.id.add_run_distance);
         bw_entry = findViewById(R.id.add_bw);
 
+
         Run selectedRun = (Run) EDayActivity.selectedExercise;
 
         ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(EditRunActivity.this);
@@ -148,7 +149,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
     }
 
     public void toEDay(View view) {
-        Intent intent = new Intent(EditRunActivity.this, PDayActivity.class);
+        Intent intent = new Intent(EditRunActivity.this, EDayActivity.class);
         startActivity(intent);
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRunActivity">
+    tools:context=".EditRunActivity">
 
     <TextView
         android:id="@+id/create_run_textview"
@@ -15,7 +15,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="81dp"
         android:layout_marginRight="81dp"
-        android:text="Add a Run"
+        android:text="Edit a Run"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="8dp"
-        android:onClick="toPDay"
+        android:onClick="toMainActivity"
         android:text="@android:string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:onClick="toPDay"
-        android:text="@string/create_task"
+        android:onClick="toEDay"
+        android:text="Edit Run"
         app:layout_constraintBottom_toBottomOf="@+id/cancel_button"
         app:layout_constraintEnd_toEndOf="parent" />
 

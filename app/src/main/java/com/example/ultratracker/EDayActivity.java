@@ -21,7 +21,7 @@ public class EDayActivity extends AppCompatActivity {
 
     TableLayout exerciseTable;
     TableRow selectedRow;
-    Exercise selectedExercise;
+    public static Exercise selectedExercise;
     ExerciseDatabaseHelper e_db;
 
     boolean exerciseSelected;
@@ -34,9 +34,12 @@ public class EDayActivity extends AppCompatActivity {
         addRunButton = findViewById(R.id.add_running_button);
         addRideButton = findViewById(R.id.add_cycling_button);
         addWWButton = findViewById(R.id.add_weightlifting_button);
-        //editButton = findViewById(R.id.edit_meal_button);
-        //deleteButton = findViewById(R.id.delete_meal_button);
+        editButton = findViewById(R.id.edit_exercise_button);
+        deleteButton = findViewById(R.id.delete_exercise_button);
         viewButton = findViewById(R.id.eday_view_button2);
+
+        //hideButtons();
+        HDayActivity.inEdit = false;
 
         viewButton.setVisibility(View.INVISIBLE);
 
@@ -131,7 +134,7 @@ public class EDayActivity extends AppCompatActivity {
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Duration ");
+        tv1.setText(" Time ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         exerciseTableHeader.addView(tv1);
 
@@ -165,6 +168,7 @@ public class EDayActivity extends AppCompatActivity {
                             selectedRow = row;
                         }
                         viewButton.setVisibility(View.VISIBLE);
+                        showButtons();
                         selectedExercise = exerciseList.get(row.getId());
                         //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
                         //isComplete = MainActivity.selectedTask.isComplete();
@@ -189,12 +193,12 @@ public class EDayActivity extends AppCompatActivity {
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                //t2v.setText(String.valueOf(exerciseList.get(i).getFoodList().size()));
+                t2v.setText(exerciseList.get(i).getCompletedTime());
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                //t3v.setText(String.valueOf(foodList.get(i).getCals()));
+                t3v.setText(String.valueOf(exerciseList.get(i).getCaloriesBurned()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
                 exerciseTable.addView(row);
@@ -203,16 +207,38 @@ public class EDayActivity extends AppCompatActivity {
 
     }
 
-    public void deleteMeal(View view) {
-        /*
-        if (selectedMeal != null) {
+    public void deleteExercise (View view) {
+        if (selectedExercise != null) {
+            boolean success;
+
+
             //Toast.makeText(HDayActivity.this, String.valueOf(selectedMeal.getKey()), Toast.LENGTH_SHORT).show();
-            boolean success = mdb.deleteMeal(selectedMeal);
-            mealTable.removeView(selectedRow);
+            if (selectedExercise.getExerciseType().equals("Run")) {
+                success = e_db.removeRun((Run)selectedExercise);
+            }
+
+            if (selectedExercise.getExerciseType().equals("Ride")) {
+                success = e_db.removeRide((Ride)selectedExercise);
+            }
+
+            exerciseTable.removeView(selectedRow);
         }
-        if (mealSelected) { mealTable.removeView(selectedRow); }
-        viewButton.setVisibility(View.INVISIBLE);
-         */
+        if (exerciseSelected) { exerciseTable.removeView(selectedRow); }
+        //hideButtons();
+    }
+
+    public void editExercise(View view) {
+        Intent intent;
+        if (selectedExercise.getExerciseType().equals("Run")) {
+            intent = new Intent(EDayActivity.this, EditRunActivity.class);
+            startActivity(intent);
+        }
+
+        if (selectedExercise.getExerciseType().equals("Ride")) {
+            intent = new Intent(EDayActivity.this, EditRunActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     public void toMainActivity(View view) {
@@ -233,5 +259,15 @@ public class EDayActivity extends AppCompatActivity {
     public void openViewDialog(View view) {
         ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
         viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
+    }
+
+    public void hideButtons() {
+        editButton.setVisibility(View.INVISIBLE);
+        deleteButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void showButtons() {
+        editButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
     }
 }

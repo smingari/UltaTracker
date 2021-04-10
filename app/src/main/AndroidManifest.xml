@@ -13,6 +13,7 @@
         <activity android:name=".AddFoodActivity"></activity>
         <activity android:name=".AddRunActivity"></activity>
         <activity android:name=".AddRideActivity"></activity>
+        <activity android:name=".EditRunActivity"></activity>
         <activity android:name=".HDayActivity" />
         <activity android:name=".EDayActivity" />
         <activity android:name=".EditFoodActivity"/>

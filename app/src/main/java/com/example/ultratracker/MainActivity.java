@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         List<Task> taskList = taskDatabaseHelper.getAll();
-        int dbSize = taskDatabaseHelper.getAll().size();
+        int dbSize = taskList.size();
 
         // Set up table header
         TableRow taskTableHeader = new TableRow(this);
