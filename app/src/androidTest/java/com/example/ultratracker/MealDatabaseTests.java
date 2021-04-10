@@ -83,7 +83,8 @@ public class MealDatabaseTests {
     }
 
     @Test
-    public void addOneMeal() {
+    public void addAMeal() {
+        tearDown();
         m1.addToMeal(f1);
         m1.addToMeal(f2);
         for(Food food : m1.getFoodList()) { db.addMeal(food); }
@@ -97,8 +98,7 @@ public class MealDatabaseTests {
     }
 
     @Test
-    public void addAManyMeal() {
-        tearDown();
+    public void addManyMeal() {
 
         m1.addToMeal(f1);
         m1.addToMeal(f2);

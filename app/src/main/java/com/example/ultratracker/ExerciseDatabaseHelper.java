@@ -108,8 +108,8 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                         returnList.add(run);
                         break;
                     case "Weightlifting":
-                        WeightliftingWorkout ww = getWeightliftingWorkout(key, completedTime, completedDate, duration, caloriesBurned);
-                        returnList.add(ww);
+                        //WeightliftingWorkout ww = getWeightliftingWorkout(key, completedTime, completedDate, duration, caloriesBurned);
+                       // returnList.add(ww);
                         break;
                     default:
                         Exercise e = new Exercise(exerciseType, completedDate, completedTime, duration, caloriesBurned);
@@ -168,78 +168,79 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         return run;
     }
 
-    public WeightliftingWorkout getWeightliftingWorkout(int key, String completedDate, String completedTime, int duration, int caloriesBurned) {
-        WeightliftingWorkout ww;
-        List<Weightlifting> wlList = getWeightlifting(key);
-        ww = new WeightliftingWorkout(completedDate, completedTime, duration, caloriesBurned, wlList);
-        ww.setKey(key);
-        return ww;
-    }
-
-    public List<Weightlifting> getWeightlifting(int workout_key) {
-        ArrayList<Weightlifting> wlList = new ArrayList<>();
-        Weightlifting curWeightlifting;
-        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WEIGHTLIFTING_KEY + " = ?";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(workout_key)});
-
-        int key;
-        String name;
-        int sets;
-        int reps;
-        int weight;
-
-        if (cursor.moveToFirst()) {
-            do {
-                key = cursor.getInt(1);
-                name = cursor.getString(3);
-                sets = cursor.getInt(4);
-                reps = cursor.getInt(5);
-                weight = cursor.getInt(6);
-                curWeightlifting = new Weightlifting(name, sets, reps, weight, key);
-                wlList.add(curWeightlifting);
-            } while(cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return wlList;
-    }
-
-    public boolean addWeightliftingWorkout(WeightliftingWorkout ww) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
-        cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
-        cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
-        cv.put(COLUMN_EXERCISE_TIME, ww.getCompletedTime());
-        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
-        cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
-        for(Weightlifting w : ww.getExerciseList()) {
-            addWeightlifting(w, ww.getKey());
-        }
-        long insert = db.insert(EXERCISE_TABLE, null, cv);
-        db.close();
-        return insert != -1;
-    }
-
-    public boolean addWeightlifting(Weightlifting w, int key) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_WEIGHTLIFTING_KEY, w.getKey());
-        cv.put(COLUMN_WORKOUT_KEY, key);
-        cv.put(COLUMN_WEIGHTLIFTING_NAME, w.getExerciseName());
-        cv.put(COLUMN_WEIGHTLIFTING_SETS, w.getSets());
-        cv.put(COLUMN_WEIGHTLIFTING_REPS, w.getReps());
-        cv.put(COLUMN_WEIGHTLIFTING_WEIGHT, w.getWeight());
-
-        long insert = db.insert(WEIGHTLIFTING_TABLE, null, cv);
-        db.close();
-        return insert != -1;
-    }
+    // TODO Fix in Iteration 3
+//    public WeightliftingWorkout getWeightliftingWorkout(int key, String completedDate, String completedTime, int duration, int caloriesBurned) {
+//        WeightliftingWorkout ww;
+//        List<Weightlifting> wlList = getWeightlifting(key);
+//        ww = new WeightliftingWorkout(completedDate, completedTime, duration, caloriesBurned, wlList);
+//        ww.setKey(key);
+//        return ww;
+//    }
+//
+//    public List<Weightlifting> getWeightlifting(int workout_key) {
+//        ArrayList<Weightlifting> wlList = new ArrayList<>();
+//        Weightlifting curWeightlifting;
+//        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WEIGHTLIFTING_KEY + " = ?";
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(workout_key)});
+//
+//        int key;
+//        String name;
+//        int sets;
+//        int reps;
+//        int weight;
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                key = cursor.getInt(1);
+//                name = cursor.getString(3);
+//                sets = cursor.getInt(4);
+//                reps = cursor.getInt(5);
+//                weight = cursor.getInt(6);
+//                curWeightlifting = new Weightlifting(name, sets, reps, weight, key);
+//                wlList.add(curWeightlifting);
+//            } while(cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return wlList;
+//    }
+//
+//    public boolean addWeightliftingWorkout(WeightliftingWorkout ww) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
+//        cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
+//        cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
+//        cv.put(COLUMN_EXERCISE_TIME, ww.getCompletedTime());
+//        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
+//        cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
+//        for(Weightlifting w : ww.getExerciseList()) {
+//            addWeightlifting(w, ww.getKey());
+//        }
+//        long insert = db.insert(EXERCISE_TABLE, null, cv);
+//        db.close();
+//        return insert != -1;
+//    }
+//
+//    public boolean addWeightlifting(Weightlifting w, int key) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(COLUMN_WEIGHTLIFTING_KEY, w.getKey());
+//        cv.put(COLUMN_WORKOUT_KEY, key);
+//        cv.put(COLUMN_WEIGHTLIFTING_NAME, w.getExerciseName());
+//        cv.put(COLUMN_WEIGHTLIFTING_SETS, w.getSets());
+//        cv.put(COLUMN_WEIGHTLIFTING_REPS, w.getReps());
+//        cv.put(COLUMN_WEIGHTLIFTING_WEIGHT, w.getWeight());
+//
+//        long insert = db.insert(WEIGHTLIFTING_TABLE, null, cv);
+//        db.close();
+//        return insert != -1;
+//    }
 
     public boolean addRide(Ride ride) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -287,13 +288,14 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    public boolean removeWeightliftingWorkout(WeightliftingWorkout ww) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
-        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=?", new String[] {String.valueOf(ww.getKey())});
-        db.close();
-        return delete > 0;
-    }
+    // TODO Fix in Iteration 3
+//    public boolean removeWeightliftingWorkout(WeightliftingWorkout ww) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
+//        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=?", new String[] {String.valueOf(ww.getKey())});
+//        db.close();
+//        return delete > 0;
+//    }
 
     public boolean removeRide(Ride ride) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -311,27 +313,28 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         return delete > 0;
     }
 
-    public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
-
-        for(Weightlifting w : ww.getExerciseList()) {
-            addWeightlifting(w, ww.getKey());
-        }
-
-        ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
-        cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
-        cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
-        cv.put(COLUMN_EXERCISE_TIME, ww.getCompletedTime());
-        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
-        cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
-
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
-        db.close();
-        return update != -1;
-    }
+    // TODO Fix in Iteration 3
+//    public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
+//
+//        for(Weightlifting w : ww.getExerciseList()) {
+//            addWeightlifting(w, ww.getKey());
+//        }
+//
+//        ContentValues cv = new ContentValues();
+//
+//        cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
+//        cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
+//        cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
+//        cv.put(COLUMN_EXERCISE_TIME, ww.getCompletedTime());
+//        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
+//        cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
+//
+//        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
+//        db.close();
+//        return update != -1;
+//    }
 
     public boolean editRide(Ride ride) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -415,8 +418,8 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                         returnList.add(run);
                         break;
                     case "Weightlifting":
-                        WeightliftingWorkout ww = getWeightliftingWorkout(key, completedTime, completedDate, duration, caloriesBurned);
-                        returnList.add(ww);
+//                        WeightliftingWorkout ww = getWeightliftingWorkout(key, completedTime, completedDate, duration, caloriesBurned);
+//                        returnList.add(ww);
                         break;
                     default:
                         Exercise e = new Exercise(exerciseType, completedDate, completedTime, duration, caloriesBurned);
