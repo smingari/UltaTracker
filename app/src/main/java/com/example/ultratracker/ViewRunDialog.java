@@ -33,6 +33,12 @@ public class ViewRunDialog extends AppCompatDialogFragment {
         distance_display = view.findViewById(R.id.run_distance_display);
         pace_display = view.findViewById(R.id.run_pace_display);
 
+        completed_time_display.setText(run.getCompletedTime());
+        duration_display.setText(String.valueOf(run.getDuration()));
+        calories_display.setText(String.valueOf(run.getCaloriesBurned()));
+        distance_display.setText(String.valueOf(run.getDistance()));
+        pace_display.setText(String.valueOf(run.getPace()));
+
         builder.setView(view);
         builder.setTitle(run.getExerciseType());
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {

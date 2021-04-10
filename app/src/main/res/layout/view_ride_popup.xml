@@ -109,7 +109,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/ride_distance_textview"
-        app:layout_constraintTop_toBottomOf="@+id/ride_distance_textview" />
+        app:layout_constraintStart_toStartOf="@+id/ride_pace_textview"
+        app:layout_constraintTop_toBottomOf="@+id/ride_pace_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

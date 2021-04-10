@@ -41,7 +41,7 @@ public class EDayActivity extends AppCompatActivity {
         //hideButtons();
         HDayActivity.inEdit = false;
 
-        viewButton.setVisibility(View.INVISIBLE);
+        hideButtons();
 
         e_db = new ExerciseDatabaseHelper(this);
 
@@ -257,16 +257,23 @@ public class EDayActivity extends AppCompatActivity {
     }
 
     public void openViewDialog(View view) {
-        ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
-        viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
+        if (selectedExercise.getExerciseType().equals("Run")) {
+            ViewRunDialog viewRunDialog = new ViewRunDialog((Run) selectedExercise);
+            viewRunDialog.show(getSupportFragmentManager(), "view run dialog");
+        } else if (selectedExercise.getExerciseType().equals("Ride")) {
+            ViewRideDialog viewRideDialog = new ViewRideDialog((Ride) selectedExercise);
+            viewRideDialog.show(getSupportFragmentManager(), "view ride dialog");
+        }
     }
 
     public void hideButtons() {
+        viewButton.setVisibility(View.INVISIBLE);
         editButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
     }
 
     public void showButtons() {
+        viewButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
     }

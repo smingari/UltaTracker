@@ -144,9 +144,7 @@ public class AddMealActivity extends AppCompatActivity {
 
                 TextView t1v = new TextView(this);
                 String foodName = meal.getFoodList().get(i).getName();
-                if (foodName.length() > 12) {
-                    foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + "..";
-                }
+                if (foodName.length() > 12) { foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + ".."; }
                 t1v.setText(foodName);
                 t1v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t1v);
@@ -173,7 +171,6 @@ public class AddMealActivity extends AppCompatActivity {
         int dbSize;
         if (foods != null && foods.length != 0) { dbSize = foods.length; }
         else { dbSize = 0; }
-        //Toast.makeText(AddMealActivity.this, String.valueOf(dbSize), Toast.LENGTH_SHORT).show();
 
         // Set up table header
         TableRow listTableHeader = new TableRow(this);
@@ -232,9 +229,7 @@ public class AddMealActivity extends AppCompatActivity {
 
                 TextView t1v = new TextView(this);
                 String foodName = foods[i].getName();
-                if (foodName.length() > 12) {
-                    foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + "..";
-                }
+                if (foodName.length() > 12) { foodName = (foodName.substring(0, Math.min(foodName.length(), 12))) + ".."; }
                 t1v.setText(foodName);
                 t1v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t1v);
