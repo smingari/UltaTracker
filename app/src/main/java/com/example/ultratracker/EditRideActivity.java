@@ -56,20 +56,20 @@ public class EditRideActivity extends AppCompatActivity implements DateSelectorD
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     int duration = Integer.parseInt(duration_entry.getText().toString());
                     double distance = Double.parseDouble(distance_entry.getText().toString());
                     // Get bodyweight and pace information and calculate.
                     bodyweight = Double.parseDouble(bw_entry.getText().toString());
                     pace = Double.parseDouble(distance_entry.getText().toString()) / Double.parseDouble(duration_entry.getText().toString());
-                    caloriesBurned = (int)(bodyweight * pace);
+                    caloriesBurned = (int) (bodyweight * pace);
 
 
                     LocalDate syn_date;
-                    if(date_display.getText().equals(MainActivity.selectedTask.getDueDate())) {
+                    if (date_display.getText().equals(selectedRide.getCompletedDate())) {
                         syn_date = LocalDate.parse(date_display.getText());
                     } else {
-                        syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
+                        syn_date = LocalDate.of(taskSelectedYear, taskSelectedMonth, taskSelectedDay);
                     }
                     LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
@@ -81,15 +81,17 @@ public class EditRideActivity extends AppCompatActivity implements DateSelectorD
                     selectedRide.setDistance(distance);
                     selectedRide.setPace(pace);
 
-                    if(e_db.editRide(selectedRide)) {
+                    if (e_db.editRide(selectedRide)) {
                         toMainActivity(v);
                         Toast.makeText(EditRideActivity.this, "Successfully edited ride.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditRideActivity.this, "Error editing ride.", Toast.LENGTH_SHORT).show();
+
                     }
                 }catch(Exception e){
                     Toast.makeText(EditRideActivity.this, "Error editing ride.", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
