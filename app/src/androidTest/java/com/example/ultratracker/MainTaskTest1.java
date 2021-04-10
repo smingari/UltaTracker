@@ -257,11 +257,11 @@ public class MainTaskTest1 {
                         isDisplayed()));
         materialButton15.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withText("TestTask"),
-                        withParent(withParent(withId(R.id.recent_table))),
-                        isDisplayed()));
-        textView.check(matches(withText("TestTask")));
+//        ViewInteraction textView = onView(
+//                allOf(withText("TestTask"),
+//                        withParent(withParent(withId(R.id.recent_table))),
+//                        isDisplayed()));
+//        textView.check(matches(withText("TestTask")));
     }
 
     private static Matcher<View> childAtPosition(
