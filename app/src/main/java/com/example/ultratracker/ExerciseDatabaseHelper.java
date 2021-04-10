@@ -312,7 +312,25 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
-        return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=", new String[]{String.valueOf(ww.getKey())});
+
+        for(Weightlifting w : ww.getExerciseList()) {
+            addWeightlifting(w, ww.getKey());
+        }
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_EXERCISE_KEY, ww.getKey());
+        cv.put(COLUMN_EXERCISE_TYPE, "Weightlifting");
+        cv.put(COLUMN_EXERCISE_DATE, ww.getCompletedDate());
+        cv.put(COLUMN_EXERCISE_TIME, ww.getCompletedTime());
+        cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
+        cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
+
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(ww.getKey())});
+        db.close();
+        return update != -1;
     }
 
     public boolean editRide(Ride ride) {
