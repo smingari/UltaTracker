@@ -351,7 +351,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, ride.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, ride.getCaloriesBurned());
 
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ride.getKey())});
+        long update = db.update(EXERCISE_TABLE, cv1, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ride.getKey())});
         db.close();
         return update != -1;
     }
@@ -374,7 +374,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, run.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
 
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(run.getKey())});
+        long update = db.update(EXERCISE_TABLE, cv1, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(run.getKey())});
         db.close();
         return update != -1;
     }
