@@ -42,7 +42,12 @@ public class EditRideActivity extends AppCompatActivity implements DateSelectorD
         distance_entry = findViewById(R.id.add_run_distance);
         bw_entry = findViewById(R.id.add_bw);
 
+
         Ride selectedRide = (Ride) EDayActivity.selectedExercise;
+
+        duration_entry.setText(String.valueOf(selectedRide.getDuration()));
+        distance_entry.setText(String.valueOf(selectedRide.getDistance()));
+        bw_entry.setHint("Enter today's body weight.");
 
         ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(EditRideActivity.this);
 
