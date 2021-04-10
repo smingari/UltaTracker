@@ -43,8 +43,14 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
         distance_entry = findViewById(R.id.add_run_distance);
         bw_entry = findViewById(R.id.add_bw);
 
-
         Run selectedRun = (Run) EDayActivity.selectedExercise;
+
+
+        date_display.setText(selectedRun.getCompletedDate());
+        completed_time_display.setText(selectedRun.getCompletedTime());
+        duration_entry.setText(String.valueOf(selectedRun.getDuration()));
+        distance_entry.setText(String.valueOf(selectedRun.getDistance()));
+        bw_entry.setHint("Enter today's body weight.");
 
         ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(EditRunActivity.this);
 
@@ -68,7 +74,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
 
 
                     LocalDate syn_date;
-                    if(date_display.getText().equals(MainActivity.selectedTask.getDueDate())) {
+                    if(date_display.getText().equals(selectedRun.getCompletedDate())) {
                         syn_date = LocalDate.parse(date_display.getText());
                     } else {
                         syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
