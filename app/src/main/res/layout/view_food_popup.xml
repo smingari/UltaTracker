@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    //tools:context="">
+
+    <TextView
+        android:id="@+id/food_cals_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:gravity="end"
+        android:text="@string/calories_"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/food_cals_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_cals_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_cals_textview" />
+
+    <TextView
+        android:id="@+id/food_protein_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/protein_g"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_cals_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_cals_display" />
+
+    <TextView
+        android:id="@+id/food_protein_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_protein_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_protein_textview" />
+
+    <TextView
+        android:id="@+id/food_carbs_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/carbs_g"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_protein_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_protein_display" />
+
+    <TextView
+        android:id="@+id/food_carbs_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_carbs_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_carbs_textview" />
+
+    <TextView
+        android:id="@+id/food_fat_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/fat_g"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_carbs_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_carbs_display" />
+
+    <TextView
+        android:id="@+id/food_fat_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_fat_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_fat_textview" />
+
+    <TextView
+        android:id="@+id/food_fiber_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/fiber_g"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_fat_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_fat_display" />
+
+    <TextView
+        android:id="@+id/food_fiber_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/food_fiber_textview"
+        app:layout_constraintTop_toBottomOf="@+id/food_fiber_textview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

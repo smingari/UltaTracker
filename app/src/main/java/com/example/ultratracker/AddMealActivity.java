@@ -355,8 +355,8 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     public void openViewDialog(View view) {
-        ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
-        viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
+        ViewFoodDialog viewFoodDialog = new ViewFoodDialog(selectedFood);
+        viewFoodDialog.show(getSupportFragmentManager(), "view food dialog");
     }
 
     public void displayCreate() {
