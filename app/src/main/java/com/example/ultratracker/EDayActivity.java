@@ -235,7 +235,7 @@ public class EDayActivity extends AppCompatActivity {
         }
 
         if (selectedExercise.getExerciseType().equals("Ride")) {
-            intent = new Intent(EDayActivity.this, EditRunActivity.class);
+            intent = new Intent(EDayActivity.this, MainActivity.class);
             startActivity(intent);
         }
 

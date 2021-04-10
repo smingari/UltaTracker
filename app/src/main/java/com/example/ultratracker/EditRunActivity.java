@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EditRunActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
-    Button cancel_button, create_run_button, edit_date_button, edit_time_button;
+    Button cancel_button, edit_run_button, edit_date_button, edit_time_button;
     EditText duration_entry, distance_entry, bw_entry;
     TextView date_display, completed_time_display;
 
@@ -34,7 +34,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
         setContentView(R.layout.activity_edit_run);
 
         cancel_button = findViewById(R.id.cancel_button);
-        create_run_button = findViewById(R.id.create_run_button);
+        edit_run_button = findViewById(R.id.edit_run_button);
         edit_date_button = findViewById(R.id.add_run_edit_date);
         edit_time_button = findViewById(R.id.edit_time);
         duration_entry = findViewById(R.id.add_run_duration);
@@ -54,7 +54,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
         taskSelectedDay = MainActivity.selectedDay;
         date_display.setText(taskSelectedMonth + "/" + taskSelectedDay + "/" + taskSelectedYear);
 
-        create_run_button.setOnClickListener(new View.OnClickListener() {
+        edit_run_button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {

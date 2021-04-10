@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/create_run_button"
+        android:id="@+id/edit_run_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
