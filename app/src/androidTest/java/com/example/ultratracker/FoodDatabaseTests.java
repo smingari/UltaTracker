@@ -61,6 +61,7 @@ public class FoodDatabaseTests {
 
     @Test
     public void addAFoodToDataBaseAndCheck() {
+        tearDown();
         db.addFood(f1);
         list =  db.getAllSorted();
         assertEquals(name1, list[0].getName());

@@ -71,7 +71,7 @@
         android:ems="10"
         android:hint="@string/enter_calories"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/calories_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
@@ -94,7 +94,7 @@
         android:ems="10"
         android:hint="@string/enter_protein"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/protein_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
@@ -117,7 +117,7 @@
         android:ems="10"
         android:hint="@string/enter_carbs"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/carbs_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
@@ -140,7 +140,7 @@
         android:ems="10"
         android:hint="@string/enter_fat"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/fat_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
@@ -163,7 +163,7 @@
         android:ems="10"
         android:hint="@string/enter_fiber"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintTop_toBottomOf="@+id/fiber_textview"
         app:layout_constraintStart_toStartOf="@id/create_food_textview"
         />
@@ -189,11 +189,6 @@
         android:text="@string/create_food"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/cancel_button" />
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
