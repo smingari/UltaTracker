@@ -4,24 +4,17 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class AddRunActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
-    Button cancel_button, create_run_button, edit_date_button, edit_time_button;
+public class AddRideActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
+    Button cancel_button, create_ride_button, edit_date_button, edit_time_button;
     EditText duration_entry, distance_entry, bw_entry;
     TextView date_display, completed_time_display;
 
@@ -36,10 +29,10 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_run);
+        setContentView(R.layout.activity_add_ride);
 
         cancel_button = findViewById(R.id.cancel_button);
-        create_run_button = findViewById(R.id.create_run_button);
+        create_ride_button = findViewById(R.id.create_run_button);
         edit_date_button = findViewById(R.id.add_run_edit_date);
         edit_time_button = findViewById(R.id.edit_time);
         duration_entry = findViewById(R.id.add_run_duration);
@@ -48,7 +41,7 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
         distance_entry = findViewById(R.id.add_run_distance);
         bw_entry = findViewById(R.id.add_bw);
 
-        ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(AddRunActivity.this);
+        ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(AddRideActivity.this);
 
         applyTime(12,0);
         taskSelectedYear = MainActivity.selectedYear;
@@ -56,13 +49,11 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
         taskSelectedDay = MainActivity.selectedDay;
         date_display.setText(taskSelectedMonth + "/" + taskSelectedDay + "/" + taskSelectedYear);
 
-        create_run_button.setOnClickListener(new View.OnClickListener() {
+        create_ride_button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 try {
-
-                    // Get bodyweight and pace information and calculate.
                     bodyweight = Double.parseDouble(bw_entry.getText().toString());
                     pace = Double.parseDouble(distance_entry.getText().toString()) / Double.parseDouble(duration_entry.getText().toString());
                     caloriesBurned = (int)(bodyweight * pace);
@@ -70,15 +61,15 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
                     LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
                     LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
-                    Run run = new Run(syn_date, syn_time, Integer.parseInt(duration_entry.getText().toString()), caloriesBurned,
-                                                            Double.parseDouble(distance_entry.getText().toString()), pace);
+                    Ride ride =  new Ride(syn_date, syn_time, Integer.parseInt(duration_entry.getText().toString()), caloriesBurned,
+                            Double.parseDouble(distance_entry.getText().toString()), pace);
 
-                    e_db.addRun(run);
+                    e_db.addRide(ride);
                     toMainActivity(v);
-                    Toast.makeText(AddRunActivity.this, "Successfully added run.", Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception e) {
-                    Toast.makeText(AddRunActivity.this, "Error creating task.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddRideActivity.this, "Successfully added ride.", Toast.LENGTH_SHORT).show();
+
+                }catch(Exception e){
+                    Toast.makeText(AddRideActivity.this, "Error creating ride.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,13 +126,15 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
         completed_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
-    public void toPDay(View view) {
-        Intent intent = new Intent(AddRunActivity.this, EDayActivity.class);
+    public void toEDay(View view) {
+        Intent intent = new Intent(AddRideActivity.this, EDayActivity.class);
         startActivity(intent);
     }
 
     public void toMainActivity(View view) {
-        Intent intent = new Intent(AddRunActivity.this, MainActivity.class);
+        Intent intent = new Intent(AddRideActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }
+
+

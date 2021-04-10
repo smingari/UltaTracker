@@ -225,6 +225,11 @@ public class EDayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toAddRideActivity(View view){
+        Intent intent = new Intent(EDayActivity.this, AddRideActivity.class);
+        startActivity(intent);
+    }
+
     public void openViewDialog(View view) {
         ViewTaskDialog viewTaskDialog = new ViewTaskDialog(MainActivity.selectedTask);
         viewTaskDialog.show(getSupportFragmentManager(), "view task dialog");
