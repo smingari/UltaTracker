@@ -163,6 +163,19 @@ public class FoodDatabaseTests {
         assertEquals(1, list.length);
     }
 
+    @Test
+    public void testUpdateAll() {
+        db.addFood(f1);
+        list = db.getByDate(d1.toString());
+        assertEquals(name1, list[0].getName());
+        f1.setName("Man of Low Moral Fiber");
+        f1.setFiber(0);
+        db.editFood(f1);
+        list = db.getByDate(d1.toString());
+        assertEquals("Man of Low Moral Fiber", list[0].getName());
+        assertEquals(0, list[0].getFiber());
+    }
+
     @After
     public void tearDown() {
         db.close();

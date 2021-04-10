@@ -107,7 +107,7 @@ public class TaskDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_PRIORITY, task.getPriority());
         cv.put(COLUMN_COMPLETE, task.isComplete());
 
-        int success = db.update(TASK_TABLE, cv, "key=?", new String[]{String.valueOf(task.getKey())});
+        int success = db.update(TASK_TABLE, cv, COLUMN_KEY + "=?", new String[]{String.valueOf(task.getKey())});
         db.close();
         return success > 0;
     }

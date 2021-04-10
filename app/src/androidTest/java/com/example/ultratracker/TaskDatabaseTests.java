@@ -265,6 +265,20 @@ public class TaskDatabaseTests {
         assertEquals(1, list.size());
     }
 
+    @Test
+    public void testUpdateAll() {
+        db.addOne(tt);
+        list = db.getAll();
+        assertEquals("Test 1", list.get(0).getName());
+        int key = list.get(0).getKey();
+        Task updateTask = new Task("New", a1.toString(), d1.toString(), t1.toString(), "Creation", 5, true, key);
+        db.updateAll(updateTask);
+        list = db.getAll();
+        assertEquals("New", list.get(0).getName());
+        assertEquals(5, list.get(0).getPriority());
+        assertEquals(true, list.get(0).isComplete());
+    }
+
 
     @After
     public void tearDown() {

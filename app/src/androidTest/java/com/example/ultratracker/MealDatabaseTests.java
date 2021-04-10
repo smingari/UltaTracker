@@ -97,7 +97,9 @@ public class MealDatabaseTests {
     }
 
     @Test
-    public void addManyMeal() {
+    public void addAManyMeal() {
+        tearDown();
+
         m1.addToMeal(f1);
         m1.addToMeal(f2);
         for(Food food : m1.getFoodList()) { db.addMeal(food); }
@@ -226,6 +228,17 @@ public class MealDatabaseTests {
         ml3 = db.getMealsByDate(d3.toString());
         assertEquals(1, ml3.size());
         assertEquals(mn3, ml3.get(0).getMealName());
+    }
+
+
+    @Test
+    public void testCheckByDateAndName() {
+        m1.addToMeal(f1);
+        m1.addToMeal(f2);
+        assertTrue(db.checkByDateAndName(m1.getDate(), m1.getName()));
+        for(Food food : m1.getFoodList()) { db.addMeal(food); }
+
+        assertFalse(db.checkByDateAndName(m1.getDate(), m1.getName()));
     }
 
 }
