@@ -259,7 +259,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, ride.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, ride.getCaloriesBurned());
 
-        long insert = db.insert(EXERCISE_TABLE, null, cv);
+        long insert = db.insert(EXERCISE_TABLE, null, cv1);
         db.close();
         return insert != -1;
     }
@@ -282,7 +282,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, run.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
 
-        long insert = db.insert(EXERCISE_TABLE, null, cv);
+        long insert = db.insert(EXERCISE_TABLE, null, cv1);
         db.close();
         return insert != -1;
     }
