@@ -289,31 +289,31 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean removeWeightliftingWorkout(WeightliftingWorkout ww) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=", new String[]{String.valueOf(ww.getKey())});
-        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=", new String[] {String.valueOf(ww.getKey())});
+        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
+        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=?", new String[] {String.valueOf(ww.getKey())});
         db.close();
         return delete > 0;
     }
 
     public boolean removeRide(Ride ride) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(RIDE_TABLE, COLUMN_RIDE_KEY + "=", new String[]{String.valueOf(ride.getKey())});
-        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=", new String[] {String.valueOf(ride.getKey())});
+        db.delete(RIDE_TABLE, COLUMN_RIDE_KEY + "=?", new String[]{String.valueOf(ride.getKey())});
+        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=?", new String[] {String.valueOf(ride.getKey())});
         db.close();
         return delete > 0;
     }
 
     public boolean removeRun(Run run) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(RUN_TABLE, COLUMN_RUN_KEY + "=", new String[]{String.valueOf(run.getKey())});
-        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=", new String[] {String.valueOf(run.getKey())});
+        db.delete(RUN_TABLE, COLUMN_RUN_KEY + "=?", new String[]{String.valueOf(run.getKey())});
+        final int delete = db.delete(EXERCISE_TABLE, COLUMN_EXERCISE_KEY + "=?", new String[] {String.valueOf(run.getKey())});
         db.close();
         return delete > 0;
     }
 
     public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=", new String[]{String.valueOf(ww.getKey())});
+        db.delete(WEIGHTLIFTING_TABLE, COLUMN_WORKOUT_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
 
         for(Weightlifting w : ww.getExerciseList()) {
             addWeightlifting(w, ww.getKey());
@@ -328,7 +328,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_EXERCISE_DURATION, ww.getDuration());
         cv.put(COLUMN_EXERCISE_CALS, ww.getCaloriesBurned());
 
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(ww.getKey())});
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ww.getKey())});
         db.close();
         return update != -1;
     }
@@ -340,7 +340,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RIDE_KEY, ride.getKey());
         cv.put(COLUMN_RIDE_DISTANCE, ride.getDistance());
         cv.put(COLUMN_RIDE_PACE, ride.getPace());
-        if(db.update(RIDE_TABLE, cv, COLUMN_RIDE_KEY + "=", new String[]{String.valueOf(ride.getKey())}) == -1) return false;
+        if(db.update(RIDE_TABLE, cv, COLUMN_RIDE_KEY + "=?", new String[]{String.valueOf(ride.getKey())}) == -1) return false;
 
         ContentValues cv1 = new ContentValues();
 
@@ -351,7 +351,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, ride.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, ride.getCaloriesBurned());
 
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(ride.getKey())});
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(ride.getKey())});
         db.close();
         return update != -1;
     }
@@ -363,7 +363,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_RUN_KEY, run.getKey());
         cv.put(COLUMN_RUN_DISTANCE, run.getDistance());
         cv.put(COLUMN_RUN_PACE, run.getPace());
-        if(db.update(RUN_TABLE, cv, COLUMN_RUN_KEY + "=", new String[]{String.valueOf(run.getKey())}) == -1) return false;
+        if(db.update(RUN_TABLE, cv, COLUMN_RUN_KEY + "=?", new String[]{String.valueOf(run.getKey())}) == -1) return false;
 
         ContentValues cv1 = new ContentValues();
 
@@ -374,7 +374,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv1.put(COLUMN_EXERCISE_DURATION, run.getDuration());
         cv1.put(COLUMN_EXERCISE_CALS, run.getCaloriesBurned());
 
-        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=", new String[]{String.valueOf(run.getKey())});
+        long update = db.update(EXERCISE_TABLE, cv, COLUMN_EXERCISE_KEY + "=?", new String[]{String.valueOf(run.getKey())});
         db.close();
         return update != -1;
     }
