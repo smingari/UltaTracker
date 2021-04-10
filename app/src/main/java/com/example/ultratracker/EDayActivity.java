@@ -34,7 +34,7 @@ public class EDayActivity extends AppCompatActivity {
 
         addRunButton = findViewById(R.id.add_running_button);
         addRideButton = findViewById(R.id.add_cycling_button);
-        addWWButton = findViewById(R.id.add_weightlifting_button);
+        //addWWButton = findViewById(R.id.add_weightlifting_button);
         editButton = findViewById(R.id.edit_exercise_button);
         deleteButton = findViewById(R.id.delete_exercise_button);
         viewButton = findViewById(R.id.eday_view_button2);
