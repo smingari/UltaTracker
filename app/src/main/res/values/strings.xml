@@ -83,6 +83,7 @@
     <string name="edit_a_food">Edit A Food</string>
     <string name="edit_food">Edit Food</string>
     <string name="create_ride">Create Ride</string>
+    <string name="edit_ride">Edit Ride</string>
 
 
 </resources>
