@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -235,7 +236,7 @@ public class EDayActivity extends AppCompatActivity {
         }
 
         if (selectedExercise.getExerciseType().equals("Ride")) {
-            intent = new Intent(EDayActivity.this, EditRunActivity.class);
+            intent = new Intent(EDayActivity.this, EditRideActivity.class);
             startActivity(intent);
         }
 
