@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HDayActivity extends AppCompatActivity {
-    Button addButton, editButton, deleteButton, viewButton;
+    Button addButton, editButton, deleteButton;
 
     int totalCals = 0;
     int totalProtein = 0;
@@ -45,7 +45,6 @@ public class HDayActivity extends AppCompatActivity {
         addButton = findViewById(R.id.add_meal_button);
         editButton = findViewById(R.id.edit_meal_button);
         deleteButton = findViewById(R.id.delete_meal_button);
-        viewButton = findViewById(R.id.hday_view_button2);
 
         hideButtons();
         inEdit = false;
@@ -263,13 +262,11 @@ public class HDayActivity extends AppCompatActivity {
     }
 
     public void hideButtons() {
-        viewButton.setVisibility(View.INVISIBLE);
         editButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
     }
 
     public void showButtons() {
-        viewButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
     }
