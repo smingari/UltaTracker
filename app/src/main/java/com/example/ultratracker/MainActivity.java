@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
         addPlanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Initialize planner entries in recent table
+                if (!plannerMode) {
+                    plannerMode = true; healthMode = false; exerciseMode = false;
+                    init_recent_table();
+                }
+
                 plannerMode = true; healthMode = false; exerciseMode = false;
                 addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_700));
                 addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
@@ -114,6 +120,12 @@ public class MainActivity extends AppCompatActivity {
         addHealth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Initialize health entries in recent table
+                if (!healthMode) {
+                    plannerMode = false; healthMode = true; exerciseMode = false;
+                    init_recent_table();
+                }
+
                 plannerMode = false; healthMode = true; exerciseMode = false;
                 addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 addHealth.setBackgroundColor(getResources().getColor(R.color.teal_700));
@@ -124,6 +136,12 @@ public class MainActivity extends AppCompatActivity {
         addExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Initialize exercise entries in recent table
+                if (!exerciseMode) {
+                    plannerMode = false; healthMode = false; exerciseMode = true;
+                    init_recent_table();
+                }
+
                 plannerMode = false; healthMode = false; exerciseMode = true;
                 addPlanner.setBackgroundColor(getResources().getColor(R.color.teal_200));
                 addHealth.setBackgroundColor(getResources().getColor(R.color.teal_200));
@@ -140,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         TableLayout taskTable = findViewById(R.id.recent_table);
         TaskDatabaseHelper taskDatabaseHelper = new TaskDatabaseHelper(this);
 
+        // Clear all rows in table
+        taskTable.removeAllViews();
+
         // Format selected date for task query
         String sMonth;
         String sDay;
@@ -154,79 +175,189 @@ public class MainActivity extends AppCompatActivity {
             sDay = String.valueOf(selectedDay);
         }
 
-        List<Task> taskList = taskDatabaseHelper.getAll();
-        int dbSize = taskList.size();
+        int dbSize = 0;
 
-        // Set up table header
-        TableRow taskTableHeader = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        taskTableHeader.setLayoutParams(lp);
+        if (plannerMode) {
+            List<Task> taskList = taskDatabaseHelper.getAll();
+            dbSize = taskList.size();
 
-        // First column header
-        TextView tv0 = new TextView(this);
-        tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv0.setText(" Entry Type ");
-        tv0.setGravity(Gravity.CENTER_HORIZONTAL);
-        taskTableHeader.addView(tv0);
+            // Set up table header
+            TableRow taskTableHeader = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            taskTableHeader.setLayoutParams(lp);
 
-        // Second column header
-        TextView tv1 = new TextView(this);
-        tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Name ");
-        tv1.setGravity(Gravity.CENTER_HORIZONTAL);
-        taskTableHeader.addView(tv1);
+            // First column header
+            TextView tv0 = new TextView(this);
+            tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv0.setText(" Task ");
+            tv0.setGravity(Gravity.CENTER_HORIZONTAL);
+            taskTableHeader.addView(tv0);
 
-        // Third column header
-        TextView tv2 = new TextView(this);
-        tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Due Date ");
-        tv2.setGravity(Gravity.CENTER_HORIZONTAL);
-        taskTableHeader.addView(tv2);
+            // Second column header
+            TextView tv1 = new TextView(this);
+            tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv1.setText(" Due Date ");
+            tv1.setGravity(Gravity.CENTER_HORIZONTAL);
+            taskTableHeader.addView(tv1);
 
-        // Add header row to table
-        taskTable.addView(taskTableHeader);
+            // Third column header
+            TextView tv2 = new TextView(this);
+            tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv2.setText(" Priority Level ");
+            tv2.setGravity(Gravity.CENTER_HORIZONTAL);
+            taskTableHeader.addView(tv2);
 
-        // Add rows dynamically from database
-        for (int i = 0; i < dbSize; i++) {
-            TableRow row = new TableRow(this);
-            row.setId(i);
+            // Add header row to table
+            taskTable.addView(taskTableHeader);
 
-            /*row.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (selectedRow == null) {
-                        selectedRow = row;
-                        taskTable.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    } else {
-                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedRow = row;
-                    }
-                    selectedTask = taskList.get(row.getId());
-                }
-            });*/
+            // Add rows dynamically from database
+            for (int i = 0; i < dbSize; i++) {
+                TableRow row = new TableRow(this);
+                row.setId(i);
 
-            TextView t0v = new TextView(this);
-            t0v.setText("Task");
-            t0v.setGravity(Gravity.CENTER_HORIZONTAL);
-            row.addView(t0v);
+                TextView t1v = new TextView(this);
+                String taskName = taskList.get(i).getName();
+                if (taskName.length() > 12) { taskName = (taskName.substring(0, Math.min(taskName.length(), 12))) + ".."; }
+                t1v.setText(taskName);
+                t1v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t1v);
 
-            TextView t1v = new TextView(this);
-            String taskName = taskList.get(i).getName();
-            if (taskName.length() > 12) {
-                taskName = (taskName.substring(0, Math.min(taskName.length(), 12))) + "..";
+                TextView t2v = new TextView(this);
+                t2v.setText(taskList.get(i).getDueDate() + " @ " + taskList.get(i).getDueTime());
+                t2v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t2v);
+
+                TextView t3v = new TextView(this);
+                t3v.setText(Integer.toString(taskList.get(i).getPriority()));
+                t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t3v);
+
+                taskTable.addView(row);
             }
-            t1v.setText(taskName);
-            t1v.setGravity(Gravity.CENTER_HORIZONTAL);
-            row.addView(t1v);
+        } else if (healthMode) {
+            MealDatabaseHelper mdb = new MealDatabaseHelper(this);
+            List<Meal> foodList = mdb.getAll();
+            if (foodList != null) { dbSize = foodList.size(); }
+            else { dbSize = 0; }
 
-            TextView t3v = new TextView(this);
-            t3v.setText(taskList.get(i).getAssignedDate());
-            t3v.setGravity(Gravity.CENTER_HORIZONTAL);
-            row.addView(t3v);
+            // Set up table header
+            TableRow mealTableHeader = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            mealTableHeader.setLayoutParams(lp);
 
-            taskTable.addView(row);
+            // First column header
+            TextView tv0 = new TextView(this);
+            tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv0.setText(" Meal ");
+            tv0.setGravity(Gravity.CENTER_HORIZONTAL);
+            mealTableHeader.addView(tv0);
+
+            // Second column header
+            TextView tv1 = new TextView(this);
+            tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv1.setText(" Date ");
+            tv1.setGravity(Gravity.CENTER_HORIZONTAL);
+            mealTableHeader.addView(tv1);
+
+            // Third column header
+            TextView tv2 = new TextView(this);
+            tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv2.setText(" Calories ");
+            tv2.setGravity(Gravity.CENTER_HORIZONTAL);
+            mealTableHeader.addView(tv2);
+
+            // Add header row to table
+            taskTable.addView(mealTableHeader);
+
+            // Add rows dynamically from database
+            if (dbSize != 0) {
+                for (int i = 0; i < dbSize; i++) {
+                    TableRow row = new TableRow(this);
+                    row.setId(i);
+
+                    TextView t1v = new TextView(this);
+                    String mealName = foodList.get(i).getName();
+                    if (mealName.length() > 12) {
+                        mealName = (mealName.substring(0, Math.min(mealName.length(), 12))) + "..";
+                    }
+                    t1v.setText(mealName);
+                    t1v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t1v);
+
+                    TextView t2v = new TextView(this);
+                    t2v.setText(String.valueOf(foodList.get(i).getDate()));
+                    t2v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t2v);
+
+                    TextView t3v = new TextView(this);
+                    t3v.setText(String.valueOf(foodList.get(i).getCals()));
+                    t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t3v);
+                    taskTable.addView(row);
+                }
+            }
+        } else if (exerciseMode) {
+            ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(this);
+            List<Exercise> exerciseList = e_db.getAll();
+            if (exerciseList != null) { dbSize = exerciseList.size(); }
+            else { dbSize = 0; }
+
+            // Set up table header
+            TableRow exerciseTableHeader = new TableRow(this);
+            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+            exerciseTableHeader.setLayoutParams(lp);
+
+            // First column header
+            TextView tv0 = new TextView(this);
+            tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv0.setText(" Exercise ");
+            tv0.setGravity(Gravity.CENTER_HORIZONTAL);
+            exerciseTableHeader.addView(tv0);
+
+            // Second column header
+            TextView tv1 = new TextView(this);
+            tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv1.setText(" Date ");
+            tv1.setGravity(Gravity.CENTER_HORIZONTAL);
+            exerciseTableHeader.addView(tv1);
+
+            // Third column header
+            TextView tv2 = new TextView(this);
+            tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tv2.setText(" Calories Burned ");
+            tv2.setGravity(Gravity.CENTER_HORIZONTAL);
+            exerciseTableHeader.addView(tv2);
+
+            // Add header row to table
+            taskTable.addView(exerciseTableHeader);
+
+            // Add rows dynamically from database
+            if (dbSize != 0) {
+                for (int i = 0; i < dbSize; i++) {
+                    TableRow row = new TableRow(this);
+                    row.setId(i);
+
+                    TextView t1v = new TextView(this);
+                    String exerciseType = exerciseList.get(i).getExerciseType();
+                    if (exerciseType.length() > 12) {
+                        exerciseType = (exerciseType.substring(0, Math.min(exerciseType.length(), 12))) + "..";
+                    }
+                    t1v.setText(exerciseType);
+                    t1v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t1v);
+
+                    TextView t2v = new TextView(this);
+                    t2v.setText(exerciseList.get(i).getCompletedDate());
+                    t2v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t2v);
+
+                    TextView t3v = new TextView(this);
+                    t3v.setText(String.valueOf(exerciseList.get(i).getCaloriesBurned()));
+                    t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+                    row.addView(t3v);
+                    taskTable.addView(row);
+                }
+            }
         }
     }
 

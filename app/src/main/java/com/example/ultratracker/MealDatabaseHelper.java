@@ -90,6 +90,44 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public List<Meal> getAll() {
+        List<Food> foodList = new ArrayList<>();
+        List<Meal> mealList;
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + MEAL_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        // move to the first result. If it is true then there is at least 1 value
+        if(cursor.moveToFirst()) {
+            // loop through cursor and create new food objects and put in return list
+            do{
+                int mealKey = cursor.getInt(1);
+                int foodKey = cursor.getInt(2);
+                String name = cursor.getString(3);
+                int cals = cursor.getInt(4);
+                int protein = cursor.getInt(5);
+                int carbs = cursor.getInt(6);
+                int fat = cursor.getInt(7);
+                int fiber = cursor.getInt(8);
+                String date = cursor.getString(9);
+                String mealName = cursor.getString(10);
+
+                Food food = new Food(name, cals, protein, carbs, fat, fiber, date, mealName, foodKey, mealKey);
+                foodList.add(food);
+            } while (cursor.moveToNext());
+        }
+
+        // Send foodList to be organized into meals
+        mealList = foodToMeals(foodList);
+        mealList = sortMeals(mealList);
+        cursor.close();
+        db.close();
+        return mealList;
+    }
+
     public List<Meal> getMealsByDate(String date) {
         List<Food> foodList = new ArrayList<>();
         List<Meal> mealList;
@@ -197,5 +235,32 @@ public class MealDatabaseHelper extends SQLiteOpenHelper {
         }
 
         return mealList;
+    }
+
+    public List<Meal> sortMeals (List<Meal> mealList) {
+        HashMap<Integer, List<Meal>> hashMap = new HashMap<Integer, List<Meal>>(500000);
+        List<Meal> returnList = new ArrayList<>();
+        //List<Integer> taskKeys = new ArrayList<>();
+
+        for (Meal meal: mealList) {
+            if (!hashMap.containsKey(meal.getKey())) {
+                List<Meal> list = new ArrayList<>();
+                list.add(meal);
+                hashMap.put(meal.getKey(), list);
+                // taskKeys.add(task.getKey());
+            } else {
+                hashMap.get(meal.getKey()).add(meal);
+            }
+        }
+
+        for (int i = 0; i < 500000; i++) {
+            if (hashMap.get(i) != null) {
+                List<Meal> meals = hashMap.get(i);
+                for (int j = 0; j < meals.size(); j++) {
+                    returnList.add(meals.get(j));
+                }
+            }
+        }
+        return returnList;
     }
 }

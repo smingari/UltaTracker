@@ -71,7 +71,6 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
-
     public List<Exercise> getExercisesByDate(String date) {
         List<Exercise> returnList = new ArrayList<>();
 
