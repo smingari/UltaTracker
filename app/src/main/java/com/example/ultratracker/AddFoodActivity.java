@@ -51,22 +51,25 @@ public class AddFoodActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     String foodName = foodname_entry.getText().toString();
+                    if (foodName.equals("")) {
+                        Toast.makeText(AddFoodActivity.this, "Please provide a name.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        int calories = Integer.parseInt(calories_entry.getText().toString());
+                        int protein = Integer.parseInt(protein_entry.getText().toString());
+                        int carbs = Integer.parseInt(carbs_entry.getText().toString());
+                        int fat = Integer.parseInt(fat_entry.getText().toString());
+                        int fiber = Integer.parseInt(fiber_entry.getText().toString());
 
-                    int calories = Integer.parseInt(calories_entry.getText().toString());
-                    int protein = Integer.parseInt(protein_entry.getText().toString());
-                    int carbs = Integer.parseInt(carbs_entry.getText().toString());
-                    int fat = Integer.parseInt(fat_entry.getText().toString());
-                    int fiber = Integer.parseInt(fiber_entry.getText().toString());
+                        Food newFood = new Food(foodName, calories, protein, carbs, fat, fiber, LocalDate.parse(date));
+                        MainActivity.newMeal.getFoodList().add(newFood);
+                        db.addFood(newFood);
+                        toAddMealActivity(v);
 
-                    Food newFood = new Food(foodName, calories, protein, carbs, fat, fiber, LocalDate.parse(date));
-                    MainActivity.newMeal.getFoodList().add(newFood);
-                    db.addFood(newFood);
-                    toAddMealActivity(v);
-
-                    Toast.makeText(AddFoodActivity.this, "Successfully created food.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddFoodActivity.this, "Successfully created food.", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (Exception e) {
-                    Toast.makeText(AddFoodActivity.this, "Error creating food.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFoodActivity.this, "Please fill out all fields.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
