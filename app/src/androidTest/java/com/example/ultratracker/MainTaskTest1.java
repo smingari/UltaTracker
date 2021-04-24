@@ -203,7 +203,7 @@ public class MainTaskTest1 {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                7),
+                                8),
                         isDisplayed()));
         materialButton12.perform(click());
 
@@ -213,7 +213,7 @@ public class MainTaskTest1 {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                8),
+                                9),
                         isDisplayed()));
         materialButton13.perform(click());
 
@@ -256,6 +256,12 @@ public class MainTaskTest1 {
                                 0),
                         isDisplayed()));
         materialButton15.perform(click());
+
+        /**ViewInteraction textView1 = onView(
+                allOf(withText("Select a Day for Tracker View"),
+                        withParent(withParent(withId(R.id.content))),
+                       isDisplayed()));
+        textView1.check(matches(withText("Select a Day for Tracker View")));**/
 
 //        ViewInteraction textView = onView(
 //                allOf(withText("TestTask"),
