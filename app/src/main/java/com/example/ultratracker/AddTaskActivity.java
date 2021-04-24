@@ -62,15 +62,19 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
             public void onClick(View v) {
                 try {
                     String name = name_entry.getText().toString();
-                    String description = description_entry.getText().toString();
+                    if (name.equals("")) {
+                        Toast.makeText(AddTaskActivity.this, "Please provide a name for the task.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String description = description_entry.getText().toString();
 
-                    LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
-                    LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
+                        LocalDate syn_date = LocalDate.of(taskSelectedYear, taskSelectedMonth, taskSelectedDay);
+                        LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
-                    Task task = new Task(name, syn_date, syn_date, syn_time, description, priority, false);
-                    db.addOne(task);
-                    toMainActivity(v);
-                    Toast.makeText(AddTaskActivity.this, "Successfully made task.", Toast.LENGTH_SHORT).show();
+                        Task task = new Task(name, syn_date, syn_date, syn_time, description, priority, false);
+                        db.addOne(task);
+                        toMainActivity(v);
+                        Toast.makeText(AddTaskActivity.this, "Successfully made task.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 catch (Exception e) {
                     Toast.makeText(AddTaskActivity.this, "Error creating task.", Toast.LENGTH_SHORT).show();
