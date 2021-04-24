@@ -151,9 +151,14 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
         due_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
-    public void toPDay(View view) {
-        Intent intent = new Intent(AddTaskActivity.this, PDayActivity.class);
-        startActivity(intent);
+    public void cancelPressed(View view) {
+        if (MainActivity.inTodo) {
+            Intent intent = new Intent(AddTaskActivity.this, TodoActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(AddTaskActivity.this, PDayActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void toMainActivity(View view) {

@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public static Task selectedTask;
     TableRow selectedRow;
 
+    public static boolean inTodo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         selectedYear = Integer.parseInt(cDate[0]);
         selectedMonth = Integer.parseInt(cDate[1]);
         selectedDay = Integer.parseInt(cDate[2]);
+
+        inTodo = false;
 
         String sMonth;
         String sDay;

@@ -43,6 +43,7 @@ public class TodoActivity extends AppCompatActivity {
         btn_taskComplete.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
 
+        MainActivity.inTodo = true;
 
         taskDatabaseHelper = new TaskDatabaseHelper(this);
         init_task_table();
@@ -160,6 +161,7 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void toMainActivity(View view) {
+        MainActivity.inTodo = false;
         Intent intent = new Intent(TodoActivity.this, MainActivity.class);
         startActivity(intent);
     }
@@ -170,6 +172,7 @@ public class TodoActivity extends AppCompatActivity {
     }
 
     public void toEditTaskActivity(View view) {
+        MainActivity.inTodo = false;
         Intent intent = new Intent(TodoActivity.this, EditTaskActivity.class);
         startActivity(intent);
     }
