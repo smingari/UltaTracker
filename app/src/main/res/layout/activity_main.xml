@@ -11,6 +11,7 @@
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/notes"
+        android:onClick="toNotes"
         app:layout_constraintBottom_toBottomOf="@+id/Todo_Button"
         app:layout_constraintEnd_toStartOf="@+id/Reminders_Button"
         app:layout_constraintStart_toEndOf="@+id/Todo_Button" />
