@@ -17,7 +17,7 @@ import java.util.List;
 public class RemindersActivity extends AppCompatActivity {
 
     TableRow selectedRow;
-    Note selectedNote;
+    Reminder selectedReminder;
     Button btn_add, btn_delete, btn_edit, btn_reminder, btn_view;
     NotesDatabaseHelper db;
     TableLayout remindersTable;
@@ -45,7 +45,7 @@ public class RemindersActivity extends AppCompatActivity {
     }
 
     public void init_reminders_table() {
-        List<Note> remindersList = db.getAll();
+        List<Reminder> remindersList = db.getAllReminders();
         int dbSize = remindersList.size();
 
         // Set up table header
@@ -94,7 +94,7 @@ public class RemindersActivity extends AppCompatActivity {
                         row.setBackgroundColor(getResources().getColor(R.color.teal_200));
                         selectedRow = row;
                     }
-                    selectedNote = remindersList.get(row.getId());
+                    selectedReminder = remindersList.get(row.getId());
                     btn_delete.setVisibility(View.VISIBLE);
                     btn_reminder.setVisibility(View.VISIBLE);
                     btn_edit.setVisibility(View.VISIBLE);
@@ -104,9 +104,9 @@ public class RemindersActivity extends AppCompatActivity {
 
             TextView t1v = new TextView(this);
             t1v.setGravity(Gravity.CENTER_HORIZONTAL);
-            String noteName = remindersList.get(i).getName();
-            if (noteName.length() > 12) { noteName = (noteName.substring(0, Math.min(noteName.length(), 12))) + ".."; }
-            t1v.setText(noteName);
+            String remName = remindersList.get(i).getName();
+            if (remName.length() > 12) { remName = (remName.substring(0, Math.min(remName.length(), 12))) + ".."; }
+            t1v.setText(remName);
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
@@ -124,10 +124,10 @@ public class RemindersActivity extends AppCompatActivity {
     }
 
     public void deleteNote(View view) {
-        boolean success = db.deleteNote(selectedNote);
+        boolean success = db.deleteReminder(selectedReminder);
         remindersTable.removeView(selectedRow);
         selectedRow = null;
-        selectedNote = null;
+        selectedReminder = null;
         btn_delete.setVisibility(View.INVISIBLE);
         btn_reminder.setVisibility(View.INVISIBLE);
         btn_edit.setVisibility(View.INVISIBLE);
@@ -150,7 +150,7 @@ public class RemindersActivity extends AppCompatActivity {
     }
 
     public void openViewDialog(View view) {
-        ViewNoteDialog viewNoteDialog = new ViewNoteDialog(selectedNote);
-        viewNoteDialog.show(getSupportFragmentManager(), "view note dialog");
+        ViewReminderDialog viewReminderDialog = new ViewReminderDialog(selectedReminder);
+        viewReminderDialog.show(getSupportFragmentManager(), "view reminder dialog");
     }
 }

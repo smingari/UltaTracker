@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class ViewReminderDialog extends AppCompatDialogFragment {
     TextView date_display, description_display;
 
-    Note note;
-    public ViewReminderDialog(Note note) {
-        this.note = note;
+    Reminder rem;
+    public ViewReminderDialog(Reminder rem) {
+        this.rem = rem;
     }
 
     @NonNull
@@ -30,11 +30,11 @@ public class ViewReminderDialog extends AppCompatDialogFragment {
         date_display = view.findViewById(R.id.view_date_display);
         description_display = view.findViewById(R.id.view_description_display);
 
-        date_display.setText(note.getDate());
-        description_display.setText(note.getDesc());
+        date_display.setText(rem.getDate());
+        description_display.setText(rem.getDesc());
 
         builder.setView(view);
-        builder.setTitle(note.getName());
+        builder.setTitle(rem.getName());
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}

@@ -35,7 +35,7 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
         date_display = findViewById(R.id.reminder_date_display);
         description_entry = findViewById(R.id.reminder_description_entry);
 
-        //remindersDatabaseHelper db = new remindersDatabaseHelper(AddReminderActivity.this);
+        NotesDatabaseHelper db = new NotesDatabaseHelper(AddReminderActivity.this);
 
         reminderSelectedYear = MainActivity.selectedYear;
         reminderSelectedMonth = MainActivity.selectedMonth;
@@ -56,7 +56,7 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
                         LocalDate syn_date = LocalDate.of(reminderSelectedYear, reminderSelectedMonth, reminderSelectedDay);
 
                         Reminder reminder = new Reminder(name, syn_date, description);
-                        //db.addReminder(reminder);
+                        db.addReminder(reminder);
                         toMainActivity(v);
                         Toast.makeText(AddReminderActivity.this, "Successfully made reminder.", Toast.LENGTH_SHORT).show();
                     }

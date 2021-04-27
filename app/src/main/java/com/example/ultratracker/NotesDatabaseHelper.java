@@ -26,6 +26,13 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
     public static final String COLUMN_ID = "ID";
 
+    public static final String REMINDER_TABLE = "NOTES_TABLE";
+    public static final String REMINDER_COLUMN_KEY = "KEYID";
+    public static final String REMINDER_COLUMN_NAME = "NAME";
+    public static final String REMINDER_COLUMN_DATE = "ASSIGNEDDATE";
+    public static final String REMINDER_COLUMN_DESCRIPTION = "DESCRIPTION";
+    public static final String REMINDER_COLUMN_ID = "ID";
+
     public NotesDatabaseHelper(@Nullable Context context) {
         super(context, "notes.db", null, 1);
     }
@@ -33,9 +40,14 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     // Called first time a database is accessed
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + NOTES_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+        String createTableStatement = "CREATE TABLE IF NOT EXISTS " + NOTES_TABLE + " (" + COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_KEY + " INT, " + COLUMN_NAME + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT) ";
+
+        String createReminderTableStatement = "CREATE TABLE IF NOT EXISTS " + REMINDER_TABLE + " (" + REMINDER_COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+                REMINDER_COLUMN_KEY + " INT, " + REMINDER_COLUMN_NAME + " TEXT, " + REMINDER_COLUMN_DATE + " TEXT, " + REMINDER_COLUMN_DESCRIPTION + " TEXT) ";
+
         db.execSQL(createTableStatement);
+        db.execSQL(createReminderTableStatement);
     }
 
     // this is called if the database version number changes. Prevents db from breaking
@@ -107,13 +119,82 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        returnList = sortTasks(returnList);
+        returnList = sortNotes(returnList);
         cursor.close();
         db.close();
         return returnList;
     }
 
-    public List<Note> sortTasks (List<Note> noteList) {
+    public boolean addReminder(Reminder rem) {
+
+        String queryString = "SELECT * FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_KEY + " = " + rem.getKey();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(REMINDER_COLUMN_KEY, rem.getKey());
+        cv.put(REMINDER_COLUMN_NAME, rem.getName());
+        cv.put(REMINDER_COLUMN_DATE, rem.getDate());
+        cv.put(REMINDER_COLUMN_DESCRIPTION, rem.getDesc());
+
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            db.close();
+            return false;
+        }
+        cursor.close();
+        long insert = db.insert(REMINDER_TABLE, null, cv);
+        return insert != -1;
+    }
+
+
+    public boolean deleteReminder(Reminder rem) {
+        // get data from the database
+        String queryString = "DELETE FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_KEY + " = " + rem.getKey();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    public List<Reminder> getAllReminders() {
+        List<Reminder> returnList = new ArrayList<>();
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + REMINDER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        // move to the first result. If it is true then there is at least 1 value
+        if(cursor.moveToFirst()) {
+            // loop through cursor and create new food objects and put in return list
+            do{
+                int key = cursor.getInt(1);
+                String name = cursor.getString(2);
+                String date = cursor.getString(3);
+                String description = cursor.getString(4);
+
+                Reminder newRem = new Reminder(name, date, description, key);
+
+                returnList.add(newRem);
+            } while (cursor.moveToNext());
+        }
+
+        returnList = sortReminders(returnList);
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+    public List<Note> sortNotes (List<Note> noteList) {
         HashMap<Integer, List<Note>> hashMap = new HashMap<Integer, List<Note>>(500000);
         List<Note> returnList = new ArrayList<>();
 
@@ -133,6 +214,32 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
                 List<Note> notes = hashMap.get(i);
                 for (int j = 0; j < notes.size(); j++) {
                     returnList.add(notes.get(j));
+                }
+            }
+        }
+        return returnList;
+    }
+
+    public List<Reminder> sortReminders (List<Reminder> remList) {
+        HashMap<Integer, List<Reminder>> hashMap = new HashMap<Integer, List<Reminder>>(500000);
+        List<Reminder> returnList = new ArrayList<>();
+
+        for (Reminder rem: remList) {
+            if (!hashMap.containsKey(rem.getKey())) {
+                List<Reminder> list = new ArrayList<>();
+                list.add(rem);
+                hashMap.put(rem.getKey(), list);
+                // taskKeys.add(task.getKey());
+            } else {
+                hashMap.get(rem.getKey()).add(rem);
+            }
+        }
+
+        for (int i = 0; i < 500000; i++) {
+            if (hashMap.get(i) != null) {
+                List<Reminder> rems = hashMap.get(i);
+                for (int j = 0; j < rems.size(); j++) {
+                    returnList.add(rems.get(j));
                 }
             }
         }
