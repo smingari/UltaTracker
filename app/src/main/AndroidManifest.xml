@@ -9,27 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UltraTracker">
-        <activity android:name=".NotesActivity"></activity>
-        <activity android:name=".AddMealActivity" />
-        <activity android:name=".AddFoodActivity" />
-        <activity android:name=".AddRunActivity" />
-        <activity android:name=".AddRideActivity" />
-        <activity android:name=".EditRunActivity" />
-        <activity android:name=".EditRideActivity" />
-        <activity android:name=".HDayActivity" />
-        <activity android:name=".EDayActivity" />
-        <activity android:name=".EditFoodActivity" />
-        <activity android:name=".TodoActivity" />
-        <activity android:name=".AddTaskActivity" />
-        <activity android:name=".PDayActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".NotesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddMealActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddFoodActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddRunActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddRideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EditRunActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EditRideActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".HDayActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EDayActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".EditFoodActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".TodoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AddTaskActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".PDayActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+>>>>>>> b8a06103564a27a5a4e3c37db3b20ac399512937
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditTaskActivity" />
+        <activity android:name=".EditTaskActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
