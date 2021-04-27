@@ -86,6 +86,13 @@
     <string name="edit_ride">Edit Ride</string>
     <string name="select_a_day_for_tracker_view">Select a Day for Tracker View</string>
     <string name="set_reminder">Set Reminder</string>
-
+    <string name="erase_local_data">Erase Local Data</string>
+    <string name="erase">Erase</string>
+    <string name="change_units">Change Units</string>
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="notification_settings">Notification Settings</string>
 
 </resources>
