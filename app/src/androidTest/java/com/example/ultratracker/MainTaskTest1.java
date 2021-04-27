@@ -237,7 +237,7 @@ public class MainTaskTest1 {
                         isDisplayed()));
         materialTextView.perform(click());
 
-        ViewInteraction materialButton14 = onView(
+        /**ViewInteraction materialButton14 = onView(
                 allOf(withId(R.id.Todo_Button), withText("Todo"),
                         childAtPosition(
                                 childAtPosition(
@@ -257,7 +257,7 @@ public class MainTaskTest1 {
                         isDisplayed()));
         materialButton15.perform(click());
 
-        /**ViewInteraction textView1 = onView(
+        ViewInteraction textView1 = onView(
                 allOf(withText("Select a Day for Tracker View"),
                         withParent(withParent(withId(R.id.content))),
                        isDisplayed()));
