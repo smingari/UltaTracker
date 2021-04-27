@@ -89,9 +89,15 @@
     <string name="create_a_new_note">Create a New Note</string>
     <string name="enter_note_name">Note Name</string>
     <string name="enter_note_description">Note Description</string>
-    <string name="date">Date</string>
     <string name="date_">Date:</string>
     <string name="create_note_button">Create Note</string>
-
+    <string name="erase_local_data">Erase Local Data</string>
+    <string name="erase">Erase</string>
+    <string name="change_units">Change Units</string>
+    <string name="imperial">Imperial</string>
+    <string name="metric">Metric</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="notification_settings">Notification Settings</string>
 
 </resources>
