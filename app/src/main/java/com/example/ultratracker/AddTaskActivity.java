@@ -165,6 +165,11 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
         }
     }
 
+    public void toPDay(View view) {
+        Intent intent = new Intent(AddTaskActivity.this, PDayActivity.class);
+        startActivity(intent);
+    }
+
     public void toMainActivity(View view) {
         Intent intent = new Intent(AddTaskActivity.this, MainActivity.class);
         startActivity(intent);

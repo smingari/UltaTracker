@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UltraTracker">
+        <activity android:name=".AddNoteActivity"></activity>
         <activity
             android:name=".AddWeightliftingActivity"
             android:screenOrientation="portrait" />
@@ -60,7 +61,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditTaskActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EditTaskActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
