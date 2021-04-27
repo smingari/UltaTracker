@@ -16,7 +16,7 @@ import java.util.List;
 
 public class NotesActivity extends AppCompatActivity {
     TableRow selectedRow;
-    Note selectedNote;
+    public static Note selectedNote;
     Button btn_add, btn_delete, btn_edit, btn_reminder, btn_view;
     NotesDatabaseHelper db;
     TableLayout notesTable;
@@ -144,7 +144,7 @@ public class NotesActivity extends AppCompatActivity {
     }
 
     public void toEditNoteActivity(View view) {
-        Intent intent = new Intent(NotesActivity.this, EditTaskActivity.class);
+        Intent intent = new Intent(NotesActivity.this, EditNoteActivity.class);
         startActivity(intent);
     }
 

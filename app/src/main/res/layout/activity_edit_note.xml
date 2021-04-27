@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditNoteActivity">
+
+    <TextView
+        android:id="@+id/edit_note_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:text="@string/update_note"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/edit_note_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_textview" />
+
+    <Button
+        android:id="@+id/edit_note_cancel_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="cancelPressed"
+        android:text="@android:string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/edit_note_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:onClick="toMainActivity"
+        android:text="@string/update_note"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_note_cancel_button"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/edit_note_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:gravity="end"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_divider" />
+
+    <EditText
+        android:id="@+id/edit_note_name_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_note_name"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/edit_note_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_name_textview" />
+
+    <Button
+        android:id="@+id/edit_note_date2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_date_textview" />
+
+    <TextView
+        android:id="@+id/edit_note_date_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_note_date2"
+        app:layout_constraintEnd_toStartOf="@+id/edit_note_date2"
+        app:layout_constraintStart_toStartOf="@+id/edit_note_date_textview"
+        app:layout_constraintTop_toTopOf="@+id/edit_note_date2" />
+
+    <TextView
+        android:id="@+id/edit_note_date_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
+        android:text="@string/date_"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edit_note_name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_name_entry" />
+
+    <TextView
+        android:id="@+id/edit_note_description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/description"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/edit_note_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_date2" />
+
+    <EditText
+        android:id="@+id/edit_note_description_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/enter_note_description"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toStartOf="@+id/edit_note_description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_note_description_textview" />
+</androidx.constraintlayout.widget.ConstraintLayout>

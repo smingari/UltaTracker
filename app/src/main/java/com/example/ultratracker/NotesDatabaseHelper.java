@@ -125,6 +125,40 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    public boolean editNote(Note note) {
+        // get data from the database
+        String queryString = "SELECT * FROM " + NOTES_TABLE + " WHERE " + COLUMN_KEY + " = " + note.getKey();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Find user
+        String name;
+        String date;
+        String description;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            name = note.getName();
+            date = note.getDate();
+            description = note.getDesc();
+
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_KEY, note.getKey());
+            cv.put(COLUMN_NAME, name);
+            cv.put(COLUMN_DATE, date);
+            cv.put(COLUMN_DESCRIPTION, description);
+
+            String[] whereArgs = {String.valueOf(note.getKey())};
+            int success = db.update(NOTES_TABLE, cv, "keyid=?", whereArgs);
+            if (success > 0) {
+                db.close();
+                cursor.close();
+                return true;
+            }
+        }
+        db.close();
+        cursor.close();
+        return false;
+    }
+
     public boolean addReminder(Reminder rem) {
 
         String queryString = "SELECT * FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_KEY + " = " + rem.getKey();
@@ -192,6 +226,40 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return returnList;
+    }
+
+    public boolean editReminder(Reminder rem) {
+        // get data from the database
+        String queryString = "SELECT * FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_KEY + " = " + rem.getKey();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Find user
+        String name;
+        String date;
+        String description;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            name = rem.getName();
+            date = rem.getDate();
+            description = rem.getDesc();
+
+            ContentValues cv = new ContentValues();
+            cv.put(REMINDER_COLUMN_KEY, rem.getKey());
+            cv.put(REMINDER_COLUMN_NAME, name);
+            cv.put(REMINDER_COLUMN_DATE, date);
+            cv.put(REMINDER_COLUMN_DESCRIPTION, description);
+
+            String[] whereArgs = {String.valueOf(rem.getKey())};
+            int success = db.update(NOTES_TABLE, cv, "keyid=?", whereArgs);
+            if (success > 0) {
+                db.close();
+                cursor.close();
+                return true;
+            }
+        }
+        db.close();
+        cursor.close();
+        return false;
     }
 
     public List<Note> sortNotes (List<Note> noteList) {
