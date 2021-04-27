@@ -3,7 +3,6 @@ package com.example.ultratracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,14 +11,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.List;
-
-import com.example.ultratracker.MainActivity;
 
 
 public class PDayActivity extends AppCompatActivity {
@@ -41,7 +33,7 @@ public class PDayActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_p_day);
         TextView date = (TextView)findViewById(R.id.current_date);
-        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
+        date.setText(String.format("%d/%d/%d", MainActivity.selectedMonth, MainActivity.selectedDay, MainActivity.selectedYear));
 
         btn_taskAdd = findViewById(R.id.add_task_button);
         btn_taskDelete = findViewById(R.id.delete_button);
@@ -56,8 +48,6 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskEdit.setVisibility(View.INVISIBLE);
         btn_taskReminder.setVisibility(View.INVISIBLE);
         btn_taskComplete.setVisibility(View.INVISIBLE);
-        //btn_moveToTasks.setBackgroundColor(getResources().getColor(R.color.grey));
-        //btn_moveToTasks.setClickable(false);
         btn_moveToTasks.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
 
@@ -147,7 +137,7 @@ public class PDayActivity extends AppCompatActivity {
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(taskList.get(i).getDueDate() + " @ " + taskList.get(i).getDueTime());
+            t2v.setText(String.format("%s @ %s", taskList.get(i).getDueDate(), taskList.get(i).getDueTime()));
             t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t2v);
 
@@ -242,7 +232,7 @@ public class PDayActivity extends AppCompatActivity {
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(taskList.get(i).getDueDate() + " @ " + taskList.get(i).getDueTime());
+            t2v.setText(String.format("%s @ %s", taskList.get(i).getDueDate(), taskList.get(i).getDueTime()));
             t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t2v);
 
