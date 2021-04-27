@@ -7,7 +7,7 @@
     tools:context=".AddNoteActivity">
 
     <TextView
-        android:id="@+id/create_note_textview"
+        android:id="@+id/create_reminder_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -22,15 +22,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/add_note_divider"
+        android:id="@+id/add_reminder_divider"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/create_note_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/create_reminder_textview" />
 
     <Button
-        android:id="@+id/note_cancel_button"
+        android:id="@+id/reminder_cancel_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -42,18 +42,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/create_note_button"
+        android:id="@+id/create_reminder_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:onClick="toPDay"
         android:text="@string/create_reminder_button"
-        app:layout_constraintBottom_toBottomOf="@+id/note_cancel_button"
+        app:layout_constraintBottom_toBottomOf="@+id/reminder_cancel_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/note_name_textview"
+        android:id="@+id/reminder_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -63,64 +63,64 @@
         android:text="@string/name"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_note_divider" />
+        app:layout_constraintTop_toBottomOf="@+id/add_reminder_divider" />
 
     <EditText
-        android:id="@+id/note_name_entry"
+        android:id="@+id/reminder_name_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/enter_reminder_name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/note_name_textview"
-        app:layout_constraintTop_toBottomOf="@+id/note_name_textview" />
+        app:layout_constraintStart_toStartOf="@+id/reminder_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/reminder_name_textview" />
 
     <Button
-        android:id="@+id/edit_note_date"
+        android:id="@+id/edit_reminder_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="@string/edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_date_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/reminder_date_textview" />
 
     <TextView
-        android:id="@+id/note_date_display"
+        android:id="@+id/reminder_date_display"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_note_date"
-        app:layout_constraintEnd_toStartOf="@+id/edit_note_date"
-        app:layout_constraintStart_toStartOf="@+id/note_date_textview"
-        app:layout_constraintTop_toTopOf="@+id/edit_note_date" />
+        app:layout_constraintBottom_toBottomOf="@+id/edit_reminder_date"
+        app:layout_constraintEnd_toStartOf="@+id/edit_reminder_date"
+        app:layout_constraintStart_toStartOf="@+id/reminder_date_textview"
+        app:layout_constraintTop_toTopOf="@+id/edit_reminder_date" />
 
     <TextView
-        android:id="@+id/note_date_textview"
+        android:id="@+id/reminder_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="end"
         android:text="@string/date_"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/note_name_entry"
-        app:layout_constraintTop_toBottomOf="@+id/note_name_entry" />
+        app:layout_constraintStart_toStartOf="@+id/reminder_name_entry"
+        app:layout_constraintTop_toBottomOf="@+id/reminder_name_entry" />
 
     <TextView
-        android:id="@+id/note_description_textview"
+        android:id="@+id/reminder_description_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
         android:text="@string/description"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/note_name_textview"
-        app:layout_constraintTop_toBottomOf="@+id/edit_note_date" />
+        app:layout_constraintStart_toStartOf="@+id/reminder_name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/edit_reminder_date" />
 
     <EditText
-        android:id="@+id/note_description_entry"
+        android:id="@+id/reminder_description_entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints=""
@@ -128,6 +128,6 @@
         android:gravity="start|top"
         android:hint="@string/enter_reminder_description"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toStartOf="@+id/note_description_textview"
-        app:layout_constraintTop_toBottomOf="@+id/note_description_textview" />
+        app:layout_constraintStart_toStartOf="@+id/reminder_description_textview"
+        app:layout_constraintTop_toBottomOf="@+id/reminder_description_textview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

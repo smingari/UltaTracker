@@ -15,54 +15,54 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.time.LocalDate;
 
 public class AddReminderActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener {
-    Button cancel_button, create_note_button, edit_date_button;
+    Button cancel_button, create_reminder_button, edit_date_button;
     EditText name_entry, description_entry;
     TextView date_display;
 
-    private int noteSelectedYear;
-    private int noteSelectedMonth;
-    private int noteSelectedDay;
+    private int reminderSelectedYear;
+    private int reminderSelectedMonth;
+    private int reminderSelectedDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
 
-        cancel_button = findViewById(R.id.note_cancel_button);
-        create_note_button = findViewById(R.id.create_note_button);
-        edit_date_button = findViewById(R.id.edit_note_date);
-        name_entry = findViewById(R.id.note_name_entry);
-        date_display = findViewById(R.id.note_date_display);
-        description_entry = findViewById(R.id.note_description_entry);
+        cancel_button = findViewById(R.id.reminder_cancel_button);
+        create_reminder_button = findViewById(R.id.create_reminder_button);
+        edit_date_button = findViewById(R.id.edit_reminder_date);
+        name_entry = findViewById(R.id.reminder_name_entry);
+        date_display = findViewById(R.id.reminder_date_display);
+        description_entry = findViewById(R.id.reminder_description_entry);
 
-        //NotesDatabaseHelper db = new NotesDatabaseHelper(AddReminderActivity.this);
+        //remindersDatabaseHelper db = new remindersDatabaseHelper(AddReminderActivity.this);
 
-        noteSelectedYear = MainActivity.selectedYear;
-        noteSelectedMonth = MainActivity.selectedMonth;
-        noteSelectedDay = MainActivity.selectedDay;
-        date_display.setText(noteSelectedMonth + "/" + noteSelectedDay + "/" + noteSelectedYear);
+        reminderSelectedYear = MainActivity.selectedYear;
+        reminderSelectedMonth = MainActivity.selectedMonth;
+        reminderSelectedDay = MainActivity.selectedDay;
+        date_display.setText(reminderSelectedMonth + "/" + reminderSelectedDay + "/" + reminderSelectedYear);
 
-        create_note_button.setOnClickListener(new View.OnClickListener() {
+        create_reminder_button.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 try {
                     String name = name_entry.getText().toString();
                     if (name.equals("")) {
-                        Toast.makeText(AddReminderActivity.this, "Please provide a name for the note.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddReminderActivity.this, "Please provide a name for the reminder.", Toast.LENGTH_SHORT).show();
                     } else {
                         String description = description_entry.getText().toString();
 
-                        LocalDate syn_date = LocalDate.of(noteSelectedYear, noteSelectedMonth, noteSelectedDay);
+                        LocalDate syn_date = LocalDate.of(reminderSelectedYear, reminderSelectedMonth, reminderSelectedDay);
 
-                        Note note = new Note(name, syn_date, description);
-                        //db.addNote(note);
+                        Reminder reminder = new Reminder(name, syn_date, description);
+                        //db.addReminder(reminder);
                         toMainActivity(v);
-                        Toast.makeText(AddReminderActivity.this, "Successfully made note.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddReminderActivity.this, "Successfully made reminder.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e) {
-                    Toast.makeText(AddReminderActivity.this, "Error creating note.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddReminderActivity.this, "Error creating reminder.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -82,14 +82,14 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
 
     @Override
     public void applyDate(int year, int month, int day) {
-        noteSelectedYear = year;
-        noteSelectedMonth = month;
-        noteSelectedDay = day;
-        date_display.setText(noteSelectedMonth + "/" + noteSelectedDay + "/" + noteSelectedYear);
+        reminderSelectedYear = year;
+        reminderSelectedMonth = month;
+        reminderSelectedDay = day;
+        date_display.setText(reminderSelectedMonth + "/" + reminderSelectedDay + "/" + reminderSelectedYear);
     }
 
     public void cancelPressed(View view) {
-        Intent intent = new Intent(AddReminderActivity.this, NotesActivity.class);
+        Intent intent = new Intent(AddReminderActivity.this, RemindersActivity.class);
         startActivity(intent);
     }
 
