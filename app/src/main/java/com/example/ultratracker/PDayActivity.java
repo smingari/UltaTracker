@@ -116,20 +116,16 @@ public class PDayActivity extends AppCompatActivity {
         for (int i = 0; i < dbSize; i++) {
             TableRow row = new TableRow(this);
             row.setId(i);
-
+            row.setBackgroundResource(R.drawable.list_selector_background);
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean isComplete;
-                    if (selectedRow == null) {
-                        selectedRow = row;
-                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    } else {
-                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedRow = row;
+                    if (selectedRow != null) {
+                        selectedRow.setSelected(false);
                     }
+                    selectedRow = row;
+                    row.setSelected(true);
                     MainActivity.selectedTask = taskList.get(row.getId());
                     isComplete = MainActivity.selectedTask.isComplete();
                     taskSelected = !isComplete;
@@ -214,20 +210,17 @@ public class PDayActivity extends AppCompatActivity {
         for (int i = 0; i < dbSize; i++) {
             TableRow row = new TableRow(this);
             row.setId(i);
+            row.setBackgroundResource(R.drawable.list_selector_background);
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     boolean isComplete;
-                    if (selectedRow == null) {
-                        selectedRow = row;
-                        //completedTable.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    } else {
-                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedRow = row;
+                    if (selectedRow != null) {
+                        selectedRow.setSelected(false);
                     }
+                    selectedRow = row;
+                    row.setSelected(true);
                     MainActivity.selectedTask = taskList.get(row.getId());
                     isComplete = MainActivity.selectedTask.isComplete();
                     taskSelected = !isComplete;
@@ -289,10 +282,9 @@ public class PDayActivity extends AppCompatActivity {
             MainActivity.selectedTask.setComplete(true);
             taskTable.removeView(selectedRow);
             completedTable.addView(selectedRow);
-            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-            selectedRow = null;
-            MainActivity.selectedTask = null;
-            hideButtons();
+            btn_moveToTasks.setVisibility(View.VISIBLE);
+            completedTaskSelected = true;
+            taskSelected = false;
         }
         /*if (success) {
             Toast.makeText(this,  "Successfully marked complete.", Toast.LENGTH_SHORT).show();
@@ -308,11 +300,9 @@ public class PDayActivity extends AppCompatActivity {
             MainActivity.selectedTask.setComplete(false);
             completedTable.removeView(selectedRow);
             taskTable.addView(selectedRow);
-            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-            selectedRow = null;
-            MainActivity.selectedTask = null;
             btn_moveToTasks.setVisibility(View.INVISIBLE);
-            hideButtons();
+            taskSelected = true;
+            completedTaskSelected = false;
         }
         /*if (success) {
             Toast.makeText(this,  "Successfully marked incomplete.", Toast.LENGTH_SHORT).show();
