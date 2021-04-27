@@ -23,7 +23,6 @@
         <activity android:name=".AddTaskActivity" android:screenOrientation="portrait"/>
         <activity android:name=".PDayActivity" android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity" android:screenOrientation="portrait">
->>>>>>> b8a06103564a27a5a4e3c37db3b20ac399512937
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
