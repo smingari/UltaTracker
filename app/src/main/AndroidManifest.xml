@@ -31,6 +31,9 @@
             android:name=".AddRunActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".AddRideActivity"
             android:screenOrientation="portrait" />
         <activity
