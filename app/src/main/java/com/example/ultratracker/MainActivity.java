@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         int dbSize = 0;
 
         if (plannerMode) {
-            List<Task> taskList = taskDatabaseHelper.getAll();
+            List<Task> taskList = taskDatabaseHelper.getByDateAndCompletion(selectedYear + "-" + sMonth + "-" + sDay, 0);
             dbSize = taskList.size();
 
             // Set up table header
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (healthMode) {
             MealDatabaseHelper mdb = new MealDatabaseHelper(this);
-            List<Meal> foodList = mdb.getAll();
+            List<Meal> foodList = mdb.getMealsByDate(selectedYear + "-" + sMonth + "-" + sDay);
             if (foodList != null) { dbSize = foodList.size(); }
             else { dbSize = 0; }
 
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (exerciseMode) {
             ExerciseDatabaseHelper e_db = new ExerciseDatabaseHelper(this);
-            List<Exercise> exerciseList = e_db.getAll();
+            List<Exercise> exerciseList = e_db.getExercisesByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
             if (exerciseList != null) { dbSize = exerciseList.size(); }
             else { dbSize = 0; }
 
