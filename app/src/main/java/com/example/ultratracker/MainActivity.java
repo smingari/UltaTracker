@@ -400,4 +400,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, TodoActivity.class);
         startActivity(intent);
     }
+
+    public void toNotes(View view) {
+        Intent intent = new Intent(MainActivity.this, NotesActivity.class);
+        startActivity(intent);
+    }
 }

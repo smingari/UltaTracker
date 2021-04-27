@@ -49,6 +49,9 @@
             android:name=".PDayActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".NotesActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
