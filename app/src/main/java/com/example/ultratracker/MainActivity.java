@@ -2,6 +2,7 @@ package com.example.ultratracker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -9,11 +10,13 @@ import androidx.core.app.NotificationManagerCompat;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
             sDay = "0" + selectedDay;
         } else { sDay = String.valueOf(selectedDay); }
         currentDate = selectedYear + "-" + sMonth + "-" + sDay;
+
+        // Dark Mode Settings
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sp.getBoolean("DarkMode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         List<Food> foodList = new ArrayList<>();
         newMeal = new Meal("newMeal", 0, 0, 0, 0, 0, LocalDate.parse(selectedYear + "-" + sMonth + "-" + sDay), foodList);
