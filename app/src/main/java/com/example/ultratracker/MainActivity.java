@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static int selectedYear;
     public static int selectedMonth;
     public static int selectedDay;
+    String currentDate;
 
     public static Task selectedTask;
     TableRow selectedRow;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         if (selectedDay < 10) {
             sDay = "0" + selectedDay;
         } else { sDay = String.valueOf(selectedDay); }
+        currentDate = selectedYear + "-" + sMonth + "-" + sDay;
 
         List<Food> foodList = new ArrayList<>();
         newMeal = new Meal("newMeal", 0, 0, 0, 0, 0, LocalDate.parse(selectedYear + "-" + sMonth + "-" + sDay), foodList);
@@ -437,12 +439,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayNotification() {
-
-        NotesDatabaseHelper myDB = new NotesDatabaseHelper(MainActivity.this);
+        NotesDatabaseHelper myDB = new NotesDatabaseHelper(this);
 
         // NEED HELP WITH THIS METHOD
-        // List<Reminder> remindersList = myDB.getAllRemindersByDate(MainActivity.selectedYear + "-" + MainActivity.selectedMonth + "-" + MainActivity.selectedDay);
-        List<Reminder> remindersList = myDB.getAllReminders();
+        List<Reminder> remindersList = myDB.getAllRemindersByDate(currentDate);
         int notificationID = 0;
 
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(this);

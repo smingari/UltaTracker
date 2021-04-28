@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Calendar;
@@ -232,26 +233,23 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         List<Reminder> returnList = new ArrayList<>();
 
         // get data from the database
-        String queryString = "SELECT * FROM " + REMINDER_TABLE;
+        String queryString = "SELECT * FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_DATE + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(queryString, new String[] {currentDate});
 
         // move to the first result. If it is true then there is at least 1 value
-        if(cursor.moveToFirst()) {
-            // loop through cursor and create new food objects and put in return list
-            do{
+        if (cursor.moveToFirst()) {
+            do {
+                int key = cursor.getInt(1);
+                String name = cursor.getString(2);
                 String date = cursor.getString(3);
-                if(date.equals(currentDate)) {
-                        int key = cursor.getInt(1);
-                        String name = cursor.getString(2);
-                        String description = cursor.getString(4);
+                String description = cursor.getString(4);
 
-                        Reminder newRem = new Reminder(name, date, description, key);
+                Reminder newRem = new Reminder(name, date, description, key);
 
-                        returnList.add(newRem);
-                }
-            } while (cursor.moveToNext());
+                returnList.add(newRem);
+            } while(cursor.moveToNext());
         }
 
         returnList = sortReminders(returnList);
