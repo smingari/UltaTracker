@@ -228,6 +228,38 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    public List<Reminder> getAllRemindersByDate(String currentDate) {
+        List<Reminder> returnList = new ArrayList<>();
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + REMINDER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {currentDate});
+
+        // move to the first result. If it is true then there is at least 1 value
+        if(cursor.moveToFirst()) {
+            // loop through cursor and create new food objects and put in return list
+            do{
+                String date = cursor.getString(3);
+                if(date.equals(currentDate)) {
+                        int key = cursor.getInt(1);
+                        String name = cursor.getString(2);
+                        String description = cursor.getString(4);
+
+                        Reminder newRem = new Reminder(name, date, description, key);
+
+                        returnList.add(newRem);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        returnList = sortReminders(returnList);
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
     public boolean editReminder(Reminder rem) {
         // get data from the database
         String queryString = "SELECT * FROM " + REMINDER_TABLE + " WHERE " + REMINDER_COLUMN_KEY + " = " + rem.getKey();

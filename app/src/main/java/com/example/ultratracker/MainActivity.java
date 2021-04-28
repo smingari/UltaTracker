@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
     //2. Notification Builder
     //3. Notification Manager
 
-    private static final String CHANNEL_ID = "simplified_coding";
-    private static final String CHANNEL_NAME = "Simplified Coding";
-    private static final String CHANNEL_DESC = "Simplified Coding Notifications";
+    private static final String CHANNEL_ID = "ultatracker";
+    private static final String CHANNEL_NAME = "UltaTracker";
+    private static final String CHANNEL_DESC = "UltaTracker Notifications";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -437,14 +437,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayNotification() {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+
+        NotesDatabaseHelper myDB = new NotesDatabaseHelper(MainActivity.this);
+
+        // NEED HELP WITH THIS METHOD
+        // List<Reminder> remindersList = myDB.getAllRemindersByDate(MainActivity.selectedYear + "-" + MainActivity.selectedMonth + "-" + MainActivity.selectedDay);
+        List<Reminder> remindersList = myDB.getAllReminders();
+        int notificationID = 0;
+
+        NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(this);
+        int dbSize = remindersList.size();
+        for (int i = 0; i < dbSize; i++) {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_android_black_24dp)
+                    .setContentTitle(remindersList.get(i).getName())
+                    .setContentText(remindersList.get(i).getDesc())
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+            mNotificationMgr.notify(++notificationID, mBuilder.build());
+        }
+
+        /*NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_android_black_24dp)
                 .setContentTitle("Hurray! It is working.")
                 .setContentText("Your first notification..")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(this);
-        mNotificationMgr.notify(1, mBuilder.build());
+        mNotificationMgr.notify(1, mBuilder.build());*/
     }
 
 }
