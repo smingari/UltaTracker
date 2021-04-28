@@ -121,18 +121,15 @@ public class AddMealActivity extends AppCompatActivity {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
                 row.setId(i);
-
+                row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (selectedRow == null) {
-                            selectedRow = row;
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        } else {
-                            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                            selectedRow = row;
+                        if (selectedRow != null) {
+                            selectedRow.setSelected(false);
                         }
+                        selectedRow = row;
+                        row.setSelected(true);
                         bankSelected = false;
                         mealSelected = true;
                         showButtons();
@@ -206,18 +203,15 @@ public class AddMealActivity extends AppCompatActivity {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
                 row.setId(i);
-
+                row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (selectedRow == null) {
-                            selectedRow = row;
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        } else {
-                            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                            selectedRow = row;
+                        if (selectedRow != null) {
+                            selectedRow.setSelected(false);
                         }
+                        selectedRow = row;
+                        row.setSelected(true);
                         hideButtons();
                         bankSelected = true;
                         mealSelected = false;
@@ -253,18 +247,15 @@ public class AddMealActivity extends AppCompatActivity {
             TableRow newRow = new TableRow(this);
             newRow.setId(MainActivity.newMeal.getFoodList().size());
             MainActivity.newMeal.getFoodList().add(selectedFood);
-
+            newRow.setBackgroundResource(R.drawable.list_selector_background);
             newRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectedRow == null) {
-                        selectedRow = newRow;
-                        newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                    } else {
-                        selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                        newRow.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        selectedRow = newRow;
+                    if (selectedRow != null) {
+                            selectedRow.setSelected(false);
                     }
+                    selectedRow = newRow;
+                    newRow.setSelected(true);
                     bankSelected = false;
                     mealSelected = true;
                     showButtons();
@@ -292,7 +283,7 @@ public class AddMealActivity extends AppCompatActivity {
             newRow.addView(t3v);
             createTable.addView(newRow);
 
-            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
+            selectedRow.setSelected(false);
             selectedRow = null;
             selectedFood = null;
             addToMealButton.setVisibility(View.INVISIBLE);

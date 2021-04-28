@@ -132,19 +132,15 @@ public class HDayActivity extends AppCompatActivity {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
                 row.setId(i);
-
+                row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isComplete;
-                        if (selectedRow == null) {
-                            selectedRow = row;
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                        } else {
-                            selectedRow.setBackgroundColor(getResources().getColor(R.color.white));
-                            row.setBackgroundColor(getResources().getColor(R.color.teal_200));
-                            selectedRow = row;
+                        if (selectedRow != null) {
+                            selectedRow.setSelected(false);
                         }
+                        selectedRow = row;
+                        row.setSelected(true);
                         showButtons();
                         selectedMeal = foodList.get(row.getId());
                     }
