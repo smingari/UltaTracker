@@ -18,8 +18,6 @@ public class SettingsActivity extends AppCompatActivity {
     Button erase;
     Button home;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +43,6 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-
         Switch toggle = (Switch) findViewById(R.id.dark_mode_settings);
         if(sp.getBoolean("DarkMode", false)) {
             toggle.setChecked(true);
@@ -60,20 +57,18 @@ public class SettingsActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean("DarkMode", true);
                     editor.commit();
-
+                    toggle.setChecked(true);
                 } else {
                     // The toggle is disabled
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean("DarkMode", false);
                     editor.commit();
+                    toggle.setChecked(false);
+
                 }
             }
         });
-
-
-
-
 
 
         home.setOnClickListener(new View.OnClickListener() {
