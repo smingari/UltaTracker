@@ -24,8 +24,8 @@ public class Weightlifting {
     }
 
     // Getters/Setters for each field
-    public String getExerciseName() { return exerciseName; }
-    public void setExerciseName(String exerciseName) { this.exerciseName = exerciseName; }
+    public String getName() { return exerciseName; }
+    public void setName(String exerciseName) { this.exerciseName = exerciseName; }
     public int getSets() { return sets; }
     public void setSets(int sets) { this.sets = sets; }
     public int getReps() { return reps; }

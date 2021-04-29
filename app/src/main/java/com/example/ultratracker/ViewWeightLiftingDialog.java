@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ViewWeightLiftingWorkoutDialog extends AppCompatDialogFragment {
-    TextView completed_time_display, duration_display, calories_display, distance_display, pace_display;
+public class ViewWeightLiftingDialog extends AppCompatDialogFragment {
+    TextView sets_display, reps_display, weight_display;
 
-    WeightliftingWorkout ww;
-    public ViewWeightLiftingWorkoutDialog(WeightliftingWorkout ww) {
-        this.ww = ww;
+    Weightlifting w;
+    public ViewWeightLiftingDialog(Weightlifting ww) {
+        this.w = ww;
     }
 
     @NonNull
@@ -25,14 +25,14 @@ public class ViewWeightLiftingWorkoutDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.view_weightlifting_workout_popup, null);
+        View view = inflater.inflate(R.layout.view_weightlifting_popup, null);
 
-        completed_time_display = view.findViewById(R.id.ww_completed_date_display);
-        duration_display = view.findViewById(R.id.ww_duration_display);
-        calories_display = view.findViewById(R.id.ww_calories_display);
+        sets_display = view.findViewById(R.id.ww_sets_display);
+        reps_display = view.findViewById(R.id.ww_duration_display);
+        weight_display = view.findViewById(R.id.ww_weight_display);
 
         builder.setView(view);
-        builder.setTitle(ww.getExerciseType());
+        builder.setTitle(w.getName());
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}

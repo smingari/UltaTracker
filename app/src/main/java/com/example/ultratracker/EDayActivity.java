@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EDayActivity extends AppCompatActivity {
@@ -25,7 +27,10 @@ public class EDayActivity extends AppCompatActivity {
     public static Exercise selectedExercise;
     ExerciseDatabaseHelper e_db;
 
+    String currentDate;
+
     boolean exerciseSelected;
+    public static boolean inEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +46,11 @@ public class EDayActivity extends AppCompatActivity {
 
         //hideButtons();
         HDayActivity.inEdit = false;
+        EDayActivity.inEdit = false;
 
         hideButtons();
 
         e_db = new ExerciseDatabaseHelper(this);
-
-        init_exercise_table();
-
-        TextView date = (TextView)findViewById(R.id.current_date_e);
-        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
-    }
-
-    public void init_exercise_table() {
-        exerciseTable = findViewById(R.id.exercise_table);
 
         // Format selected date for task query
         String sMonth;
@@ -64,10 +61,23 @@ public class EDayActivity extends AppCompatActivity {
         if (MainActivity.selectedDay < 10) {
             sDay = "0" + MainActivity.selectedDay;
         } else { sDay = String.valueOf(MainActivity.selectedDay); }
+        currentDate = MainActivity.selectedYear + "-" + sMonth + "-" + sDay;
+
+        List<Weightlifting> list = new ArrayList<>();
+        MainActivity.newWo = new Workout("newWo", list, LocalDate.parse(currentDate));
+
+        init_exercise_table();
+
+        TextView date = (TextView)findViewById(R.id.current_date_e);
+        date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
+    }
+
+    public void init_exercise_table() {
+        exerciseTable = findViewById(R.id.exercise_table);
 
         // TODO FIX THIS
         
-        List<Exercise> exerciseList = e_db.getExercisesByDate(MainActivity.selectedYear + "-" + sMonth + "-" + sDay);
+        List<Exercise> exerciseList = e_db.getExercisesByDate(currentDate);
         int dbSize;
         if (exerciseList != null) { dbSize = exerciseList.size(); }
         else { dbSize = 0; }
@@ -189,6 +199,12 @@ public class EDayActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if (selectedExercise.getExerciseType().equals("Weightlifting")) {
+            EDayActivity.inEdit = true;
+            //MainActivity.newWo = selectedExercise;
+            intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void toMainActivity(View view) {
@@ -203,6 +219,11 @@ public class EDayActivity extends AppCompatActivity {
 
     public void toAddRideActivity(View view){
         Intent intent = new Intent(EDayActivity.this, AddRideActivity.class);
+        startActivity(intent);
+    }
+
+    public void toAddWeightliftingActivity(View view){
+        Intent intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
         startActivity(intent);
     }
 

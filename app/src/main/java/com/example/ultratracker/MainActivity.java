@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Button addExercise;
     CalendarView cal;
     public static Meal newMeal;
+    public static Workout newWo;
     public static int selectedYear;
     public static int selectedMonth;
     public static int selectedDay;
@@ -113,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<Food> foodList = new ArrayList<>();
         newMeal = new Meal("newMeal", 0, 0, 0, 0, 0, LocalDate.parse(selectedYear + "-" + sMonth + "-" + sDay), foodList);
+
+        List<Weightlifting> liftList = new ArrayList<>();
+        newWo = new Workout("newWo", liftList, LocalDate.parse(selectedYear + "-" + sMonth + "-" + sDay));
 
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

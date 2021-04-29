@@ -247,7 +247,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:ems="10"
-        android:hint="@string/enter_meal_s_name"
+        android:hint="Enter meal's name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/create_meal_button"
         app:layout_constraintStart_toEndOf="@+id/meal_name_text" />
