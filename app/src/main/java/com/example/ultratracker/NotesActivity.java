@@ -17,7 +17,7 @@ import java.util.List;
 public class NotesActivity extends AppCompatActivity {
     TableRow selectedRow;
     public static Note selectedNote;
-    Button btn_add, btn_delete, btn_edit, btn_reminder, btn_view;
+    Button btn_add, btn_delete, btn_edit, btn_view;
     NotesDatabaseHelper db;
     TableLayout notesTable;
 
@@ -29,14 +29,12 @@ public class NotesActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.notes_add_button);
         btn_delete = findViewById(R.id.notes_delete_button);
         btn_edit = findViewById(R.id.notes_edit_button);
-        btn_reminder = findViewById(R.id.notes_reminder_button);
         btn_view = findViewById(R.id.notes_view_button);
 
         notesTable = findViewById(R.id.notes_table);
 
         btn_delete.setVisibility(View.INVISIBLE);
         btn_edit.setVisibility(View.INVISIBLE);
-        btn_reminder.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
 
         db = new NotesDatabaseHelper(this);
@@ -91,7 +89,6 @@ public class NotesActivity extends AppCompatActivity {
                     row.setSelected(true);
                     selectedNote = notesList.get(row.getId());
                     btn_delete.setVisibility(View.VISIBLE);
-                    btn_reminder.setVisibility(View.VISIBLE);
                     btn_edit.setVisibility(View.VISIBLE);
                     btn_view.setVisibility(View.VISIBLE);
                 }
@@ -124,7 +121,6 @@ public class NotesActivity extends AppCompatActivity {
         selectedRow = null;
         selectedNote = null;
         btn_delete.setVisibility(View.INVISIBLE);
-        btn_reminder.setVisibility(View.INVISIBLE);
         btn_edit.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
     }

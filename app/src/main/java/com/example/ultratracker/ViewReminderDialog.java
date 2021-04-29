@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class ViewReminderDialog extends AppCompatDialogFragment {
-    TextView date_display, description_display;
+    TextView date_display, time_display, description_display;
 
     Reminder rem;
     public ViewReminderDialog(Reminder rem) {
@@ -28,9 +28,11 @@ public class ViewReminderDialog extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.view_reminder_popup, null);
 
         date_display = view.findViewById(R.id.view_date_display);
+        time_display = view.findViewById(R.id.view_time_display);
         description_display = view.findViewById(R.id.view_description_display);
 
         date_display.setText(rem.getDate());
+        time_display.setText(rem.getTime());
         description_display.setText(rem.getDesc());
 
         builder.setView(view);
