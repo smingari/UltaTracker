@@ -44,32 +44,32 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         Switch toggle = (Switch) findViewById(R.id.dark_mode_settings);
-        if(sp.getBoolean("DarkMode", false)) {
-            toggle.setChecked(true);
-        } else {
-            toggle.setChecked(false);
-        }
+        toggle.setChecked(sp.getBoolean("DarkMode", false));
+
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if(isChecked) {
                     // The toggle is enabled
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean("DarkMode", true);
                     editor.commit();
-                    toggle.setChecked(true);
+                    Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                    startActivity(intent);
+
                 } else {
                     // The toggle is disabled
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putBoolean("DarkMode", false);
                     editor.commit();
-                    toggle.setChecked(false);
+                    Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+                    startActivity(intent);
 
                 }
+                finish();
             }
         });
-
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override

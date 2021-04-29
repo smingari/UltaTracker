@@ -1,6 +1,7 @@
 package com.example.ultratracker;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class Reminder {
 
@@ -40,4 +41,17 @@ public class Reminder {
         double x = (Math.random() * ((max - min) + 1)) + min;
         return (int) x;
     }
+
+    public static Comparator <Reminder> reminderComparator = new Comparator<Reminder>() {
+        @Override
+        public int compare(Reminder o1, Reminder o2) {
+            String rTime1 = o1.getDate();
+            String rTime2 = o2.getDate();
+
+            return rTime1.compareTo(rTime2);
+        }
+    };
+
+
+
 }

@@ -76,7 +76,7 @@ public class WeightLiftingWorkoutUnitTest {
         w2.setExerciseList(exerciseList);
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
         assertEquals(1, w1.getExerciseList().size());
-        assertEquals("Bench", w1.getExerciseList().get(0).getExerciseName());
+        assertEquals("Bench", w1.getExerciseList().get(0).getName());
 
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
 
@@ -84,7 +84,7 @@ public class WeightLiftingWorkoutUnitTest {
         w1.setExerciseList(exerciseList);
 
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
-        assertEquals("Test exerciseList", "Row", w1.getExerciseList().get(1).getExerciseName());
+        assertEquals("Test exerciseList", "Row", w1.getExerciseList().get(1).getName());
         assertEquals("Test exerciseList", 2, w1.getExerciseList().size());
 
     }

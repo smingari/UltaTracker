@@ -28,7 +28,7 @@ public class WeightliftingUnitTest {
 
     @Test
     public void testWeightLiftDefaultConstructor() {
-        assertEquals("default constructor name", "", w1.getExerciseName());
+        assertEquals("default constructor name", "", w1.getName());
         assertEquals("default constructor sets", 0, w1.getSets());
         assertEquals("default constructor reps", 0, w1.getReps());
         assertEquals("default constructor weight", 0, w1.getWeight());
@@ -36,7 +36,7 @@ public class WeightliftingUnitTest {
 
     @Test
     public void testWeightLiftConstructor() {
-        assertEquals("constructor name", name, w2.getExerciseName());
+        assertEquals("constructor name", name, w2.getName());
         assertEquals("constructor sets", set, w2.getSets());
         assertEquals("constructor reps", rep, w2.getReps());
         assertEquals("constructor weight", weight, w2.getWeight());
@@ -44,11 +44,11 @@ public class WeightliftingUnitTest {
 
     @Test
     public void testWeightLiftSetter(){
-        w1.setExerciseName(name);
+        w1.setName(name);
         w1.setReps(rep);
         w1.setSets(set);
         w1.setWeight(weight);
-        assertEquals("default constructor name", name, w1.getExerciseName());
+        assertEquals("default constructor name", name, w1.getName());
         assertEquals("default constructor sets", set, w1.getSets());
         assertEquals("default constructor reps", rep, w1.getReps());
         assertEquals("default constructor weight", weight, w1.getWeight());
