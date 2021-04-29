@@ -21,6 +21,10 @@
         <activity
             android:name=".AddWeightliftingActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AddLiftActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddMealActivity"
             android:screenOrientation="portrait" />

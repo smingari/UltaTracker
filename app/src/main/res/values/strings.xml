@@ -110,4 +110,13 @@
     <string name="today_entries">Today\'s Entries</string>
     <string name="distance">Distance (in miles)</string>
     <string name="todays_bodyweight">Today\'s Bodyweight (in pounds)</string>
+    <string name="create_lift_button">Create Lift</string>
+    <string name="create_lift">Add New Lift</string>
+    <string name="enter_lift_name">Enter Lift Name</string>
+    <string name="sets">Sets</string>
+    <string name="enter_sets">Enter Sets</string>
+    <string name="reps">Reps</string>
+    <string name="enter_reps">Enter Reps</string>
+    <string name="weight">Weight</string>
+    <string name="enter_weight">Enter Weight</string>
 </resources>
