@@ -145,6 +145,34 @@ public class MealDatabaseTests {
         assertEquals("Test the food list in meal is correct", f8.getName(), list4.get(1).getName());  // Check food list is good
     }
 
+
+    @Test
+    public void getAllMeal() {
+
+        m1.addToMeal(f1);
+        m1.addToMeal(f2);
+        for(Food food : m1.getFoodList()) { db.addMeal(food); }
+
+        m2.addToMeal(f3);
+        m2.addToMeal(f4);
+        for(Food food : m2.getFoodList()) { db.addMeal(food); }
+
+        m3.addToMeal(f5);
+        m3.addToMeal(f6);
+        for(Food food : m3.getFoodList()) { db.addMeal(food); }
+
+        m4.addToMeal(f7);
+        m4.addToMeal(f8);
+        for(Food food : m4.getFoodList()) { db.addMeal(food); }
+
+        ml1 = db.getAll();
+        assertEquals(4, ml1.size());
+
+//        assertTrue(ml1.contains(m1));
+
+    }
+
+
     @Test
     public void deleteNone() {
         assertFalse(db.deleteMeal(m1));
