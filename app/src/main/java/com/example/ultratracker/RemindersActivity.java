@@ -16,8 +16,8 @@ import java.util.List;
 
 public class RemindersActivity extends AppCompatActivity {
 
+    public static Reminder selectedReminder;
     TableRow selectedRow;
-    Reminder selectedReminder;
     Button btn_add, btn_delete, btn_edit, btn_reminder, btn_view;
     NotesDatabaseHelper db;
     TableLayout remindersTable;
@@ -141,7 +141,7 @@ public class RemindersActivity extends AppCompatActivity {
     }
 
     public void toEditReminderActivity(View view) {
-        Intent intent = new Intent(RemindersActivity.this, EditTaskActivity.class);
+        Intent intent = new Intent(RemindersActivity.this, EditReminderActivity.class);
         startActivity(intent);
     }
 

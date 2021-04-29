@@ -284,7 +284,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             cv.put(REMINDER_COLUMN_DESCRIPTION, description);
 
             String[] whereArgs = {String.valueOf(rem.getKey())};
-            int success = db.update(NOTES_TABLE, cv, "keyid=?", whereArgs);
+            int success = db.update(REMINDER_TABLE, cv, "keyid=?", whereArgs);
             if (success > 0) {
                 db.close();
                 cursor.close();

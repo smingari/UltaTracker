@@ -104,6 +104,7 @@
     <string name="enter_reminder_name">Reminder Name</string>
     <string name="enter_reminder_description">Reminder Description</string>
     <string name="create_reminder_button">Create Reminder</string>
+    <string name="update_reminder">Update Reminder</string>
     <string name="update_note">Update Note</string>
     <string name="today_s_entries">Today\'s Entries</string>
     <string name="today_entries">Today\'s Entries</string>
