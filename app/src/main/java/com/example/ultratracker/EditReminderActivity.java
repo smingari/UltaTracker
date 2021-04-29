@@ -16,14 +16,16 @@ import android.widget.Toast;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class EditReminderActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener {
-    Button cancel_button, update_reminder_button, edit_date_button;
+public class EditReminderActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
+    Button cancel_button, update_reminder_button, edit_date_button, edit_time_button;
     EditText name_entry, description_entry;
-    TextView date_display;
+    TextView date_display, time_display;
 
     private int reminderSelectedYear;
     private int reminderSelectedMonth;
     private int reminderSelectedDay;
+    private int dueHour;
+    private int dueMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,10 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
         cancel_button = findViewById(R.id.edit_reminder_cancel_button);
         update_reminder_button = findViewById(R.id.edit_reminder_button);
         edit_date_button = findViewById(R.id.edit_reminder_date2);
+        edit_time_button = findViewById(R.id.edit_reminder_edit_time);
         name_entry = findViewById(R.id.edit_reminder_name_entry);
         date_display = findViewById(R.id.edit_reminder_date_display);
+        time_display = findViewById(R.id.edit_reminder_time_display);
         description_entry = findViewById(R.id.edit_reminder_description_entry);
 
         name_entry.setText(RemindersActivity.selectedReminder.getName());
@@ -42,6 +46,10 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
         description_entry.setText(RemindersActivity.selectedReminder.getDesc());
 
         NotesDatabaseHelper db = new NotesDatabaseHelper(EditReminderActivity.this);
+
+        String tempTime = RemindersActivity.selectedReminder.getTime();
+        String[] tempTimeArray = tempTime.split(":");
+        applyTime(Integer.parseInt(tempTimeArray[0]), Integer.parseInt(tempTimeArray[1]));
 
         reminderSelectedYear = MainActivity.selectedYear;
         reminderSelectedMonth = MainActivity.selectedMonth;
@@ -61,9 +69,11 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
                     } else {
                         syn_date = LocalDate.of(reminderSelectedYear, reminderSelectedMonth, reminderSelectedDay);
                     }
+                    LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
 
                     RemindersActivity.selectedReminder.setName(name);
                     RemindersActivity.selectedReminder.setDate(syn_date);
+                    RemindersActivity.selectedReminder.setDate(syn_time);
                     RemindersActivity.selectedReminder.setDesc(description);
                     if(db.editReminder(RemindersActivity.selectedReminder)) {
                         toMainActivity(v);
@@ -84,6 +94,13 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
                 openDateDialog();
             }
         });
+
+        edit_time_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimeDialog();
+            }
+        });
     }
 
     public void openDateDialog() {
@@ -92,12 +109,35 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
         dateDialog.show(getSupportFragmentManager(), "date dialog");
     }
 
+    public void openTimeDialog() {
+        TimeSelectorDialog timeDialog = new TimeSelectorDialog();
+        timeDialog.show(getSupportFragmentManager(), "time dialog");
+    }
+
     @Override
     public void applyDate(int year, int month, int day) {
         reminderSelectedYear = year;
         reminderSelectedMonth = month;
         reminderSelectedDay = day;
         date_display.setText(reminderSelectedMonth + "/" + reminderSelectedDay + "/" + reminderSelectedYear);
+    }
+
+    @Override
+    public void applyTime(int hour, int minute) {
+        dueHour = hour;
+        dueMinute = minute;
+        int displayHour;
+        String AMorPM;
+        System.out.println(hour + ":" + minute);
+        if(hour < 12) {
+            AMorPM = "AM";
+            displayHour = dueHour;
+        } else {
+            AMorPM = "PM";
+            displayHour = dueHour-12;
+        }
+        if(displayHour == 0) displayHour = 12;
+        time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
     public void cancelPressed(View view) {

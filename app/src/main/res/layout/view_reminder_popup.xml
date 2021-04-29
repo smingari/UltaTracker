@@ -6,6 +6,27 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/view_time_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:text="@string/due_time"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/view_date_textview"
+        app:layout_constraintTop_toBottomOf="@+id/view_date_display" />
+
+    <TextView
+        android:id="@+id/view_time_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/view_time_textview"
+        app:layout_constraintTop_toBottomOf="@+id/view_time_textview" />
+
+    <TextView
         android:id="@+id/view_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +57,7 @@
         android:text="@string/description"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/view_date_textview"
-        app:layout_constraintTop_toBottomOf="@+id/view_date_display" />
+        app:layout_constraintTop_toBottomOf="@+id/view_time_display" />
 
     <TextView
         android:id="@+id/view_description_display"

@@ -32,6 +32,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String REMINDER_COLUMN_KEY = "KEYID";
     public static final String REMINDER_COLUMN_NAME = "NAME";
     public static final String REMINDER_COLUMN_DATE = "ASSIGNEDDATE";
+    public static final String REMINDER_COLUMN_TIME = "ASSIGNEDTIME";
     public static final String REMINDER_COLUMN_DESCRIPTION = "DESCRIPTION";
     public static final String REMINDER_COLUMN_ID = "ID";
 
@@ -46,7 +47,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_KEY + " INT, " + COLUMN_NAME + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_DESCRIPTION + " TEXT) ";
 
         String createReminderTableStatement = "CREATE TABLE IF NOT EXISTS " + REMINDER_TABLE + " (" + REMINDER_COLUMN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                REMINDER_COLUMN_KEY + " INT, " + REMINDER_COLUMN_NAME + " TEXT, " + REMINDER_COLUMN_DATE + " TEXT, " + REMINDER_COLUMN_DESCRIPTION + " TEXT) ";
+                REMINDER_COLUMN_KEY + " INT, " + REMINDER_COLUMN_NAME + " TEXT, " + REMINDER_COLUMN_DATE + " TEXT, " + REMINDER_COLUMN_TIME + " TEXT, " + REMINDER_COLUMN_DESCRIPTION + " TEXT) ";
 
         db.execSQL(createTableStatement);
         db.execSQL(createReminderTableStatement);
@@ -172,6 +173,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         cv.put(REMINDER_COLUMN_KEY, rem.getKey());
         cv.put(REMINDER_COLUMN_NAME, rem.getName());
         cv.put(REMINDER_COLUMN_DATE, rem.getDate());
+        cv.put(REMINDER_COLUMN_TIME, rem.getTime());
         cv.put(REMINDER_COLUMN_DESCRIPTION, rem.getDesc());
 
         Cursor cursor = db.rawQuery(queryString, null);
@@ -217,9 +219,10 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
                 int key = cursor.getInt(1);
                 String name = cursor.getString(2);
                 String date = cursor.getString(3);
-                String description = cursor.getString(4);
+                String time = cursor.getString(4);
+                String description = cursor.getString(5);
 
-                Reminder newRem = new Reminder(name, date, description, key);
+                Reminder newRem = new Reminder(name, date, time, description, key);
 
                 returnList.add(newRem);
             } while (cursor.moveToNext());
@@ -247,9 +250,10 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
                 int key = cursor.getInt(1);
                 String name = cursor.getString(2);
                 String date = cursor.getString(3);
-                String description = cursor.getString(4);
+                String time = cursor.getString(4);
+                String description = cursor.getString(5);
 
-                Reminder newRem = new Reminder(name, date, description, key);
+                Reminder newRem = new Reminder(name, date, time, description, key);
 
                 returnList.add(newRem);
             } while(cursor.moveToNext());
@@ -270,17 +274,20 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         // Find user
         String name;
         String date;
+        String time;
         String description;
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
             name = rem.getName();
             date = rem.getDate();
+            time = rem.getTime();
             description = rem.getDesc();
 
             ContentValues cv = new ContentValues();
             cv.put(REMINDER_COLUMN_KEY, rem.getKey());
             cv.put(REMINDER_COLUMN_NAME, name);
             cv.put(REMINDER_COLUMN_DATE, date);
+            cv.put(REMINDER_COLUMN_TIME, time);
             cv.put(REMINDER_COLUMN_DESCRIPTION, description);
 
             String[] whereArgs = {String.valueOf(rem.getKey())};

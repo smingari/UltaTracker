@@ -18,7 +18,7 @@ public class RemindersActivity extends AppCompatActivity {
 
     public static Reminder selectedReminder;
     TableRow selectedRow;
-    Button btn_add, btn_delete, btn_edit, btn_reminder, btn_view;
+    Button btn_add, btn_delete, btn_edit, btn_view;
     NotesDatabaseHelper db;
     TableLayout remindersTable;
 
@@ -30,14 +30,12 @@ public class RemindersActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.reminders_add_button);
         btn_delete = findViewById(R.id.reminders_delete_button);
         btn_edit = findViewById(R.id.reminders_edit_button);
-        btn_reminder = findViewById(R.id.reminders_reminder_button);
         btn_view = findViewById(R.id.reminders_view_button);
 
         remindersTable = findViewById(R.id.reminders_table);
 
         btn_delete.setVisibility(View.INVISIBLE);
         btn_edit.setVisibility(View.INVISIBLE);
-        btn_reminder.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
 
         db = new NotesDatabaseHelper(this);
@@ -92,7 +90,6 @@ public class RemindersActivity extends AppCompatActivity {
                     row.setSelected(true);
                     selectedReminder = remindersList.get(row.getId());
                     btn_delete.setVisibility(View.VISIBLE);
-                    btn_reminder.setVisibility(View.VISIBLE);
                     btn_edit.setVisibility(View.VISIBLE);
                     btn_view.setVisibility(View.VISIBLE);
                 }
@@ -106,7 +103,7 @@ public class RemindersActivity extends AppCompatActivity {
             row.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(remindersList.get(i).getDate());
+            t2v.setText(String.format("%s @ %s", remindersList.get(i).getDate(), remindersList.get(i).getTime()));
             t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(t2v);
 
@@ -125,7 +122,6 @@ public class RemindersActivity extends AppCompatActivity {
         selectedRow = null;
         selectedReminder = null;
         btn_delete.setVisibility(View.INVISIBLE);
-        btn_reminder.setVisibility(View.INVISIBLE);
         btn_edit.setVisibility(View.INVISIBLE);
         btn_view.setVisibility(View.INVISIBLE);
     }
