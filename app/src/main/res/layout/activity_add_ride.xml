@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
-        android:text="Distance (in miles)"
+        android:text="@string/distance"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/add_run_duration"
         app:layout_constraintTop_toBottomOf="@+id/add_run_duration" />
@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
-        android:text="Today's Bodyweight (in pounds)"
+        android:text="@string/todays_bodyweight"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/add_run_distance"
         app:layout_constraintTop_toBottomOf="@+id/add_run_distance" />

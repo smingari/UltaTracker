@@ -107,5 +107,6 @@
     <string name="update_note">Update Note</string>
     <string name="today_s_entries">Today\'s Entries</string>
     <string name="today_entries">Today\'s Entries</string>
-
+    <string name="distance">Distance (in miles)</string>
+    <string name="todays_bodyweight">Today\'s Bodyweight (in pounds)</string>
 </resources>
