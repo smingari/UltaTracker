@@ -44,7 +44,7 @@ public class NotesActivity extends AppCompatActivity {
     }
 
     public void init_notes_table() {
-        List<Note> notesList = db.getAll();
+        List<Note> notesList = db.getAllNotes();
         int dbSize = notesList.size();
 
         // Set up table header

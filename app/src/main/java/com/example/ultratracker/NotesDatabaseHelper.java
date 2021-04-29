@@ -27,7 +27,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
     public static final String COLUMN_ID = "ID";
 
-    public static final String REMINDER_TABLE = "NOTES_TABLE";
+    public static final String REMINDER_TABLE = "REMINDER_TABLE";
     public static final String REMINDER_COLUMN_KEY = "KEYID";
     public static final String REMINDER_COLUMN_NAME = "NAME";
     public static final String REMINDER_COLUMN_DATE = "ASSIGNEDDATE";
@@ -96,7 +96,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<Note> getAll() {
+    public List<Note> getAllNotes() {
         List<Note> returnList = new ArrayList<>();
 
         // get data from the database
