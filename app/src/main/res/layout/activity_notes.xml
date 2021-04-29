@@ -124,20 +124,6 @@
         app:layout_constraintTop_toBottomOf="@+id/notes_scrollview" />
 
     <Button
-        android:id="@+id/notes_reminder_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginEnd="151dp"
-        android:layout_marginRight="151dp"
-        android:layout_marginBottom="15dp"
-        android:text="@string/set_reminder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/notes_view_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
