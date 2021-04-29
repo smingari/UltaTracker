@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Calendar;
 import java.util.List;
@@ -120,7 +121,8 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        returnList = sortNotes(returnList);
+        //returnList = sortNotes(returnList);
+        Collections.sort(returnList, Note.reminderComparator);
         cursor.close();
         db.close();
         return returnList;
@@ -223,7 +225,8 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        returnList = sortReminders(returnList);
+        //returnList = sortReminders(returnList);
+        Collections.sort(returnList, Reminder.reminderComparator);
         cursor.close();
         db.close();
         return returnList;
@@ -252,7 +255,8 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
 
-        returnList = sortReminders(returnList);
+        //returnList = sortReminders(returnList);
+        Collections.sort(returnList, Reminder.reminderComparator);
         cursor.close();
         db.close();
         return returnList;
@@ -292,55 +296,55 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public List<Note> sortNotes (List<Note> noteList) {
-        HashMap<Integer, List<Note>> hashMap = new HashMap<Integer, List<Note>>(500000);
-        List<Note> returnList = new ArrayList<>();
-
-        for (Note note: noteList) {
-            if (!hashMap.containsKey(note.getKey())) {
-                List<Note> list = new ArrayList<>();
-                list.add(note);
-                hashMap.put(note.getKey(), list);
-                // taskKeys.add(task.getKey());
-            } else {
-                hashMap.get(note.getKey()).add(note);
-            }
-        }
-
-        for (int i = 0; i < 500000; i++) {
-            if (hashMap.get(i) != null) {
-                List<Note> notes = hashMap.get(i);
-                for (int j = 0; j < notes.size(); j++) {
-                    returnList.add(notes.get(j));
-                }
-            }
-        }
-        return returnList;
-    }
-
-    public List<Reminder> sortReminders (List<Reminder> remList) {
-        HashMap<Integer, List<Reminder>> hashMap = new HashMap<Integer, List<Reminder>>(500000);
-        List<Reminder> returnList = new ArrayList<>();
-
-        for (Reminder rem: remList) {
-            if (!hashMap.containsKey(rem.getKey())) {
-                List<Reminder> list = new ArrayList<>();
-                list.add(rem);
-                hashMap.put(rem.getKey(), list);
-                // taskKeys.add(task.getKey());
-            } else {
-                hashMap.get(rem.getKey()).add(rem);
-            }
-        }
-
-        for (int i = 0; i < 500000; i++) {
-            if (hashMap.get(i) != null) {
-                List<Reminder> rems = hashMap.get(i);
-                for (int j = 0; j < rems.size(); j++) {
-                    returnList.add(rems.get(j));
-                }
-            }
-        }
-        return returnList;
-    }
+//    public List<Note> sortNotes (List<Note> noteList) {
+//        HashMap<Integer, List<Note>> hashMap = new HashMap<Integer, List<Note>>(500000);
+//        List<Note> returnList = new ArrayList<>();
+//
+//        for (Note note: noteList) {
+//            if (!hashMap.containsKey(note.getKey())) {
+//                List<Note> list = new ArrayList<>();
+//                list.add(note);
+//                hashMap.put(note.getKey(), list);
+//                // taskKeys.add(task.getKey());
+//            } else {
+//                hashMap.get(note.getKey()).add(note);
+//            }
+//        }
+//
+//        for (int i = 0; i < 500000; i++) {
+//            if (hashMap.get(i) != null) {
+//                List<Note> notes = hashMap.get(i);
+//                for (int j = 0; j < notes.size(); j++) {
+//                    returnList.add(notes.get(j));
+//                }
+//            }
+//        }
+//        return returnList;
+//    }
+//
+//    public List<Reminder> sortReminders (List<Reminder> remList) {
+//        HashMap<Integer, List<Reminder>> hashMap = new HashMap<Integer, List<Reminder>>(500000);
+//        List<Reminder> returnList = new ArrayList<>();
+//
+//        for (Reminder rem: remList) {
+//            if (!hashMap.containsKey(rem.getKey())) {
+//                List<Reminder> list = new ArrayList<>();
+//                list.add(rem);
+//                hashMap.put(rem.getKey(), list);
+//                // taskKeys.add(task.getKey());
+//            } else {
+//                hashMap.get(rem.getKey()).add(rem);
+//            }
+//        }
+//
+//        for (int i = 0; i < 500000; i++) {
+//            if (hashMap.get(i) != null) {
+//                List<Reminder> rems = hashMap.get(i);
+//                for (int j = 0; j < rems.size(); j++) {
+//                    returnList.add(rems.get(j));
+//                }
+//            }
+//        }
+//        return returnList;
+//    }
 }
