@@ -239,7 +239,7 @@ public class EDayActivity extends AppCompatActivity {
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(woList.get(i).getSets());
+                t2v.setText(String.valueOf(woList.get(i).getSets()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
