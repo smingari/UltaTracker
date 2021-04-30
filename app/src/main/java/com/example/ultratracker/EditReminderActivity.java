@@ -3,7 +3,12 @@ package com.example.ultratracker;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +20,9 @@ import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
+
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 public class EditReminderActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
     Button cancel_button, update_reminder_button, edit_date_button, edit_time_button;

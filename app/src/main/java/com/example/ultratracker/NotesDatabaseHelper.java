@@ -1,21 +1,33 @@
 package com.example.ultratracker;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Calendar;
 import java.util.List;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.widget.Toast;
+
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 //import com.example.ultratracker.MainActivity;
 
@@ -36,8 +48,11 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
     public static final String REMINDER_COLUMN_DESCRIPTION = "DESCRIPTION";
     public static final String REMINDER_COLUMN_ID = "ID";
 
+    private Context context;
+
     public NotesDatabaseHelper(@Nullable Context context) {
         super(context, "notes.db", null, 1);
+        this.context = context;
     }
 
     // Called first time a database is accessed
@@ -175,7 +190,6 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         cv.put(REMINDER_COLUMN_DATE, rem.getDate());
         cv.put(REMINDER_COLUMN_TIME, rem.getTime());
         cv.put(REMINDER_COLUMN_DESCRIPTION, rem.getDesc());
-
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
             cursor.close();
@@ -184,7 +198,36 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         long insert = db.insert(REMINDER_TABLE, null, cv);
-        return insert != -1;
+        if(insert != -1) {
+            //Schedule new notification
+            //PackageManager pm = this.getPackageManager();
+            //ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+            Intent alarmIntent = new Intent(context, ReminderReceiver.class);
+            PendingIntent pendingIntent;
+            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+            alarmIntent.putExtra("name", rem.getName());
+            alarmIntent.putExtra("description", rem.getDesc());
+            pendingIntent = PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, 0);
+
+            LocalDate ld = LocalDate.parse(rem.getDate());
+            LocalTime lt = LocalTime.parse(rem.getTime());
+
+            //region Enable Daily Notifications
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth(), lt.getHour(), lt.getMinute(), 0);
+
+            if (manager != null) {
+                manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+            }
+            //To enable Boot Receiver class
+            //pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            return true;
+        } else return false;
     }
 
 
@@ -194,7 +237,16 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery(queryString, null);
-        if (cursor.moveToFirst()) {
+        Intent alarmIntent = new Intent(context, ReminderReceiver.class);
+        PendingIntent pendingIntent;
+        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        pendingIntent = PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, 0);
+
+        if (PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, PendingIntent.FLAG_NO_CREATE) != null && manager != null) {
+            manager.cancel(pendingIntent);
+        }
+        if(cursor.moveToFirst()) {
             cursor.close();
             return true;
         } else {
@@ -277,6 +329,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         String time;
         String description;
         Cursor cursor = db.rawQuery(queryString, null);
+        int success = 0;
         if (cursor.moveToFirst()) {
             name = rem.getName();
             date = rem.getDate();
@@ -291,16 +344,36 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
             cv.put(REMINDER_COLUMN_DESCRIPTION, description);
 
             String[] whereArgs = {String.valueOf(rem.getKey())};
-            int success = db.update(REMINDER_TABLE, cv, "keyid=?", whereArgs);
-            if (success > 0) {
-                db.close();
-                cursor.close();
-                return true;
-            }
+            success = db.update(REMINDER_TABLE, cv, "keyid=?", whereArgs);
         }
         db.close();
         cursor.close();
-        return false;
+        if (success > 0) {
+            Intent alarmIntent = new Intent(context, ReminderReceiver.class);
+            PendingIntent pendingIntent;
+            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+            alarmIntent.putExtra("name", rem.getName());
+            alarmIntent.putExtra("description", rem.getDesc());
+            pendingIntent = PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, FLAG_UPDATE_CURRENT);
+
+            LocalDate ld = LocalDate.parse(rem.getDate());
+            LocalTime lt = LocalTime.parse(rem.getTime());
+
+            //region Enable Daily Notifications
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth(), lt.getHour(), lt.getMinute(), 0);
+
+            if (manager != null) {
+                manager.cancel(pendingIntent);
+                manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+            }
+            return true;
+        } else return false;
     }
 
 //    public List<Note> sortNotes (List<Note> noteList) {

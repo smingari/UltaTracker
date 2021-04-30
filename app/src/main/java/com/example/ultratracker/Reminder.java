@@ -54,7 +54,7 @@ public class Reminder {
             String rDate1 = o1.getDate();
             String rDate2 = o2.getDate();
             String rTime1 = o1.getTime();
-            String rTime2 = o2.getDate();
+            String rTime2 = o2.getTime();
             int dateCompare = rDate1.compareTo(rDate2);
             if(dateCompare == 0) {
                 return rTime1.compareTo(rTime2);
