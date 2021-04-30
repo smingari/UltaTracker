@@ -61,9 +61,9 @@ public class AddLiftActivity extends AppCompatActivity {
                         Weightlifting newLift = new Weightlifting(liftName, sets, reps, weight LocalDate.parse(date));
                         MainActivity.newWo.getLiftList().add(newLift);
                         db.addFood(newLift);
-                        toAddMealActivity(v);
+                        toAddWeightliftingActivity(v);
 
-                        Toast.makeText(AddLiftActivity.this, "Successfully created food.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddLiftActivity.this, "Successfully created lift", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
@@ -74,13 +74,12 @@ public class AddLiftActivity extends AppCompatActivity {
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { toAddMealActivity(v);}
+            public void onClick(View v) { toAddWeightliftingActivity(v);}
         });
-
     }
 
-    public void toAddMealActivity(View view){
-        Intent intent = new Intent(AddLiftActivity.this, AddMealActivity.class);
+    public void toAddWeightliftingActivity(View view){
+        Intent intent = new Intent(AddLiftActivity.this, AddWeightliftingActivity.class);
         startActivity(intent);
     }
 
