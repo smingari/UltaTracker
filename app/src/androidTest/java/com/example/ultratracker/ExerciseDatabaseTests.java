@@ -314,10 +314,7 @@ public class ExerciseDatabaseTests {
         wList1 = db.getAllWeightlifting();
         assertEquals("check size", 1, wList1.size());
         assertEquals("check value", exerType1, wList1.get(0).getName());
-
-
     }
-
 
 
 }
