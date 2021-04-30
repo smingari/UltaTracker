@@ -247,10 +247,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
                     Weightlifting lift = new Weightlifting(name, sets, reps, weight, woName, date, key, wKey);
                     liftList.add(lift);
-
-                    //Meal newMeal = new Meal(name, cals, protein, carbs, fat, fiber, date, mealName, foodList, key);
                 }
-
             } while (cursor.moveToNext());
         }
         else { }
@@ -279,6 +276,9 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         }
 
         for (int i = 0; i < woKeys.size(); i++) {
+            // Skip if key = 0 (this is part of the lift bank)
+            if (woKeys.get(i) == 0) { continue; }
+
             List<Weightlifting> lifts = hashMap.get(woKeys.get(i));
 
             int totalSets = 0;
