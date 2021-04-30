@@ -348,7 +348,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
             woEntry.setText(MainActivity.newWo.getName());
         }
 
-        if (MainActivity.newMeal.getFoodList().isEmpty()) {
+        if (MainActivity.newWo.getLiftList().isEmpty()) {
             createButton.setVisibility(View.INVISIBLE);
             woName.setVisibility(View.INVISIBLE);
             woEntry.setVisibility(View.INVISIBLE);
