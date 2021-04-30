@@ -73,7 +73,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
         String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " DOUBLE, " + COLUMN_RUN_PACE + " DOUBLE " + ")";
-        String createWeightTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHT_TABLE + " (" + COLUMN_WEIGHT_ID+ "INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+        String createWeightTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHT_TABLE + " (" + COLUMN_WEIGHT_ID+ " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_WEIGHT_DATE + " TEXT, " + COLUMN_WEIGHT_VALUE + " DOUBLE " + ")";
 
         db.execSQL(createExerciseTableStatement);

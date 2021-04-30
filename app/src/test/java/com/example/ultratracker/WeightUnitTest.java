@@ -19,7 +19,7 @@ public class WeightUnitTest {
         weight1 = 150.0;
         weight2 = 175.0;
 
-        w1 = new Weight(weight1, d1);
+        w1 = new Weight(weight1, d1.toString());
         w2 = new Weight(weight2, d1.toString());
     }
 
