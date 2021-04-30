@@ -1,26 +1,31 @@
 package com.example.ultratracker;
 
+import java.time.LocalDate;
+
 public class Weightlifting {
 
     private String exerciseName;
     private int sets, reps, weight, key;
+    private LocalDate date;
 
-    public Weightlifting(String exerciseName, int sets, int reps, int weight, int key) {
+    // Constructor for database retrieval
+    public Weightlifting(String exerciseName, int sets, int reps, int weight, String date, int key) {
         this.exerciseName = exerciseName;
         this.sets = sets;
         this.reps = reps;
         this.weight = weight;
+        this.date = LocalDate.parse(date);
         this.key = key;
     }
 
     // Constructor with user input
-    public Weightlifting(String exerciseName, int sets, int reps, int weight) {
-        this(exerciseName,sets,reps,weight,getRandomBetweenRange(1, 100000));
-    }
-
-    // Default constructor
-    public Weightlifting() {
-        this("",0,0,0,getRandomBetweenRange(1, 100000));
+    public Weightlifting(String exerciseName, int sets, int reps, int weight, LocalDate date) {
+        this.exerciseName = exerciseName;
+        this.sets = sets;
+        this.reps = reps;
+        this.weight = weight;
+        this.date = date;
+        this.key = getRandomBetweenRange(1, 100000);
     }
 
     // Getters/Setters for each field
