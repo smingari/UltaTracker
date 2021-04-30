@@ -9,4 +9,6 @@
     <string name="enter_reps">Enter Reps</string>
     <string name="weight">Weight</string>
     <string name="enter_weight">Enter Weight</string>
+    <string name="edit_lift_title">Edit Lift</string>
+    <string name="edit_lift_button">Edit Lift</string>
 </resources>
