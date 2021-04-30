@@ -31,7 +31,8 @@ public class NotesDatabaseTests {
     private Reminder r1, r2, r3, r4;
     private String name1, name2, name3, name4;
     private LocalDate d1, d2, d3, d4;
-    private LocalTime t1;
+
+    private LocalTime t1, t2, t3, t4;
     private String des1, des2, des3, des4;
     private List<Note> nl1;
     private List<Reminder> rl1;
@@ -48,7 +49,12 @@ public class NotesDatabaseTests {
         d3 = LocalDate.of(2021, 6, 22); // format is 2021-04-20
         d4 = LocalDate.of(2021, 7, 23); // format is 2021-04-20
 
+
         t1 = LocalTime.of(10,14); // format is 10:14
+        t2 = LocalTime.of(11,14); // format is 10:14
+        t3 = LocalTime.of(12,14); // format is 10:14
+        t4 = LocalTime.of(1,14); // format is 10:14
+
 
         des1 = "des1"; des2 = "des2"; des3 = "des3";  des4 = "des4";
 
@@ -58,9 +64,10 @@ public class NotesDatabaseTests {
         n4 = new Note(name4, d4, des4);
 
         r1 = new Reminder(name1, d1, t1, des1);
-        r2 = new Reminder(name2, d2, t1, des2);
-        r3 = new Reminder(name3, d3, t1, des3);
-        r4 = new Reminder(name4, d4, t1, des4);
+        r2 = new Reminder(name2, d2, t2, des2);
+        r3 = new Reminder(name3, d3, t3, des3);
+        r4 = new Reminder(name4, d4, t4, des4);
+
     }
 
     @Test
@@ -178,13 +185,16 @@ public class NotesDatabaseTests {
         rl1 = db.getAllReminders();
         assertEquals("Verify original", r1.getName(),  rl1.get(0).getName());
         assertEquals("Verify original", r1.getDate(),  rl1.get(0).getDate());
+        assertEquals("Verify original", r1.getTime(),  rl1.get(0).getTime());
         assertEquals("Verify original", r1.getDesc(),  rl1.get(0).getDesc());
 
         Reminder newN = new Reminder("Edit", d2.toString(), t1.toString(), "Edit", r1.getKey());
+
         db.editReminder(newN);
         rl1 = db.getAllReminders();
         assertEquals("Verify original", newN.getName(),  rl1.get(0).getName());
         assertEquals("Verify original", d2.toString(),  rl1.get(0).getDate());
+        assertEquals("Verify original", t1.toString(),  rl1.get(0).getTime());
         assertEquals("Verify original", newN.getDesc(),  rl1.get(0).getDesc());
     }
 
