@@ -161,7 +161,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
     public void init_lift_table() {
         liftTable = findViewById(R.id.lift_table);
 
-        List<Weightlifting> lifts = db.getAllWeightlifting();
+        List<Weightlifting> lifts = db.getLiftBank();
         int dbSize;
         if (lifts != null && lifts.size() != 0) { dbSize = lifts.size(); }
         else { dbSize = 0; }
@@ -313,7 +313,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         } else {
             // Add food items to meal database
             for (Weightlifting wl : MainActivity.newWo.getLiftList()) {
-                Weightlifting newWl = new Weightlifting(wl.getName(), wl.getSets(), wl.getReps(), wl.getWeight(), wl.getKey());
+                Weightlifting newWl = new Weightlifting(wl.getName(), wl.getSets(), wl.getReps(), wl.getWeight(), curDate, wl.getKey());
                 db.addWeightlifting(newWl, MainActivity.newWo.getKey());
             }
             Intent intent = new Intent(AddWeightliftingActivity.this, EDayActivity.class);
@@ -326,8 +326,8 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toAddFoodActivity(View view) {
-        Intent intent = new Intent(AddWeightliftingActivity.this, AddFoodActivity.class);
+    public void toAddLiftActivity(View view) {
+        Intent intent = new Intent(AddWeightliftingActivity.this, AddLiftActivity.class);
         startActivity(intent);
     }
 

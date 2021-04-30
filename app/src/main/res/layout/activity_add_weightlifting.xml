@@ -111,7 +111,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:onClick="toAddFoodActivity"
+        android:onClick="toAddLiftActivity"
         android:text="Add New Lift"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wl_divider2" />

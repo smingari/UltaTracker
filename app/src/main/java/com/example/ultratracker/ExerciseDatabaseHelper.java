@@ -29,6 +29,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_WEIGHTLIFTING_SETS = "WEIGHTLIFTING_SETS";
     public static final String COLUMN_WEIGHTLIFTING_REPS = "WEIGHTLIFTING_REPS";
     public static final String COLUMN_WEIGHTLIFTING_WEIGHT = "WEIGHTLIFTING_WEIGHT";
+    public static final String COLUMN_WEIGHTLIFTING_DATE = "WEIGHTLIFTING_DATE";
 
     public static final String RIDE_TABLE = "RIDE_TABLE";
     public static final String COLUMN_RIDE_ID = "RIDE_ID";
@@ -55,7 +56,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_EXERCISE_DURATION + " INT, " + COLUMN_EXERCISE_CALS + " INT) ";
         String createWeightliftingTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHTLIFTING_TABLE + " (" + COLUMN_WEIGHTLIFTING_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WORKOUT_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " +
-                COLUMN_WEIGHTLIFTING_REPS + " INT, " + COLUMN_WEIGHTLIFTING_WEIGHT + " INT " + ")";
+                COLUMN_WEIGHTLIFTING_REPS + " INT, " + COLUMN_WEIGHTLIFTING_WEIGHT + " INT, " + COLUMN_WEIGHTLIFTING_DATE + " INT " + ")";
         String createRideTableStatement = "CREATE TABLE IF NOT EXISTS " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
         String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
@@ -189,6 +190,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         int sets;
         int reps;
         int weight;
+        String date;
 
         if (cursor.moveToFirst()) {
             do {
@@ -197,7 +199,9 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 sets = cursor.getInt(4);
                 reps = cursor.getInt(5);
                 weight = cursor.getInt(6);
-                curWeightlifting = new Weightlifting(name, sets, reps, weight, key);
+                date = cursor.getString(7);
+
+                curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
                 wlList.add(curWeightlifting);
             } while(cursor.moveToNext());
         }
@@ -220,6 +224,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         int sets;
         int reps;
         int weight;
+        String date;
 
         if (cursor.moveToFirst()) {
             do {
@@ -228,7 +233,41 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 sets = cursor.getInt(4);
                 reps = cursor.getInt(5);
                 weight = cursor.getInt(6);
-                curWeightlifting = new Weightlifting(name, sets, reps, weight, key);
+                date = cursor.getString(7);
+                curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
+                wlList.add(curWeightlifting);
+            } while(cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return wlList;
+    }
+
+    public List<Weightlifting> getLiftBank() {
+        List<Weightlifting> wlList = new ArrayList<>();
+        Weightlifting curWeightlifting;
+        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE  + " WHERE " + COLUMN_WORKOUT_KEY + " = ?";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, new String[] {String.valueOf(0)});
+
+        int key;
+        String name;
+        int sets;
+        int reps;
+        int weight;
+        String date;
+
+        if (cursor.moveToFirst()) {
+            do {
+                key = cursor.getInt(1);
+                name = cursor.getString(3);
+                sets = cursor.getInt(4);
+                reps = cursor.getInt(5);
+                weight = cursor.getInt(6);
+                date = cursor.getString(7);
+                curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
                 wlList.add(curWeightlifting);
             } while(cursor.moveToNext());
         }

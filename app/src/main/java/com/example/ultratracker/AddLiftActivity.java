@@ -62,7 +62,6 @@ public class AddLiftActivity extends AppCompatActivity {
 
                         // Add to workout database
                         MainActivity.newWo.getLiftList().add(newLift);
-                        db.addWeightlifting(newLift, MainActivity.newWo.getKey());
 
                         // Add as part of weightlifting database if it's not a dupe
                         // if workout key = 0, this is part of the lift bank
