@@ -258,6 +258,32 @@ public class NotesDatabaseTests {
         assertEquals("Verify order", r4.getName(),  rl1.get(3).getName());
     }
 
+
+    @Test
+    public void testGetAllRemindersByDate () {
+        db.addReminder(r4);
+        db.addReminder(r1);
+        db.addReminder(r2);
+        db.addReminder(r3);
+
+        rl1 = db.getAllRemindersByDate(d3.toString());
+        assertEquals("check size", 1, rl1.size());
+        assertEquals("check value", name3, rl1.get(0).getName());
+
+        r4.setDate(d3);
+        r2.setDate(d3);
+        db.editReminder(r4);
+        db.editReminder(r2);
+        rl1 = db.getAllRemindersByDate(d3.toString());
+
+        assertEquals("check size", 3, rl1.size());
+        for(int i = 0; i < rl1.size(); i++){
+            if(!(rl1.get(i).getDate().equals(d3.toString()))) Assert.fail();
+        }
+
+    }
+
+
     @After
     public void tearDown() {
         db.close();

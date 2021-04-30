@@ -304,6 +304,20 @@ public class ExerciseDatabaseTests {
         list1 = db.getAll();
         assertEquals("Test there is the correct number of run", 1, list1.size());
         assertEquals("Test the run is correct", dur2, list1.get(0).getDuration());
+    }
+
+
+    @Test
+    public void addAWeightlifting() {
+        db.addWeightlifting(w1, w1.getKey());
+
+        wList1 = db.getAllWeightlifting();
+        assertEquals("check size", 1, wList1.size());
+        assertEquals("check value", exerType1, wList1.get(0).getName());
+
 
     }
+
+
+
 }
