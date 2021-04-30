@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 
@@ -335,5 +337,15 @@ public class PDayActivity extends AppCompatActivity {
         btn_taskComplete.setVisibility(View.VISIBLE);
         btn_taskEdit.setVisibility(View.VISIBLE);
         btn_view.setVisibility(View.VISIBLE);
+    }
+
+    public void createReminder(View view) {
+        NotesDatabaseHelper db = new NotesDatabaseHelper(this);
+        Task task = MainActivity.selectedTask;
+        if(task != null) {
+            Reminder rem = new Reminder(task.getName(), task.getDueDate(), task.getDueTime(), task.getDescription(), task.getKey());
+            db.addReminder(rem);
+        }
+        Toast.makeText(this,  "Created Reminder", Toast.LENGTH_SHORT).show();
     }
 }
