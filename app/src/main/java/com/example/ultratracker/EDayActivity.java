@@ -26,6 +26,7 @@ public class EDayActivity extends AppCompatActivity {
     TableLayout strengthTable;
     TableRow selectedRow;
     public static Exercise selectedExercise;
+    public static Workout selectedWorkout;
     ExerciseDatabaseHelper e_db;
 
     String currentDate;
@@ -172,40 +173,39 @@ public class EDayActivity extends AppCompatActivity {
     public void init_strength_table() {
         strengthTable = findViewById(R.id.strength_table);
 
-        List<Weightlifting> liftList = e_db.getExercisesByDate(currentDate);
+        List<Workout> woList = e_db.getWorkoutsByDate(currentDate);
         int dbSize;
-        if (exerciseList != null) { dbSize = exerciseList.size(); }
+        if (woList != null) { dbSize = woList.size(); }
         else { dbSize = 0; }
 
-
         // Set up table header
-        TableRow exerciseTableHeader = new TableRow(this);
+        TableRow strengthTableHeader = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        exerciseTableHeader.setLayoutParams(lp);
+        strengthTableHeader.setLayoutParams(lp);
 
         // First column header
         TextView tv0 = new TextView(this);
         tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv0.setText(" Exercise ");
+        tv0.setText(" Name ");
         tv0.setGravity(Gravity.CENTER_HORIZONTAL);
-        exerciseTableHeader.addView(tv0);
+        strengthTableHeader.addView(tv0);
 
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Time ");
+        tv1.setText(" # Sets ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
-        exerciseTableHeader.addView(tv1);
+        strengthTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Calories Burned ");
+        tv2.setText(" # Reps ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
-        exerciseTableHeader.addView(tv2);
+        strengthTableHeader.addView(tv2);
 
         // Add header row to table
-        exerciseTable.addView(exerciseTableHeader);
+        strengthTable.addView(strengthTableHeader);
 
         // Add rows dynamically from database
         if (dbSize != 0) {
@@ -223,43 +223,33 @@ public class EDayActivity extends AppCompatActivity {
                         selectedRow = row;
                         row.setSelected(true);
                         viewButton.setVisibility(View.VISIBLE);
-                        showButtons();
-                        selectedExercise = exerciseList.get(row.getId());
-                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
-                        //isComplete = MainActivity.selectedTask.isComplete();
-                        //foodSelected = !isComplete;
-                        //completedTaskSelected = isComplete;
-                        //showButtons();
-                        //if(isComplete) {
-                        //btn_moveToTasks.setVisibility(View.VISIBLE);
-                        //} else {
-                        //btn_moveToTasks.setVisibility(View.INVISIBLE);
-                        //}
+                        showWWButtons();
+                        hideButtons();
+                        selectedWorkout = woList.get(row.getId());
                     }
                 });
 
                 TextView t1v = new TextView(this);
-                String exerciseType = exerciseList.get(i).getExerciseType();
-                if (exerciseType.length() > 12) {
-                    exerciseType = (exerciseType.substring(0, Math.min(exerciseType.length(), 12))) + "..";
+                String name = woList.get(i).getName();
+                if (name.length() > 12) {
+                    name = (name.substring(0, Math.min(name.length(), 12))) + "..";
                 }
-                t1v.setText(exerciseType);
+                t1v.setText(name);
                 t1v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(exerciseList.get(i).getCompletedTime());
+                t2v.setText(woList.get(i).getSets());
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                t3v.setText(String.valueOf(exerciseList.get(i).getCaloriesBurned()));
+                t3v.setText(String.valueOf(woList.get(i).getReps()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
-                exerciseTable.addView(row);
+                strengthTable.addView(row);
             }
         }
-
     }
 
     public void deleteExercise (View view) {

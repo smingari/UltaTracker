@@ -280,21 +280,15 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
         for (int i = 0; i < woKeys.size(); i++) {
             List<Weightlifting> lifts = hashMap.get(woKeys.get(i));
-            int totalCals = 0;
-            int totalProtein = 0;
-            int totalCarbs = 0;
-            int totalFat = 0;
-            int totalFiber = 0;
 
+            int totalSets = 0;
+            int totalReps = 0;
             for (Weightlifting lift: lifts) {
-                totalCals += food.getCals();
-                totalProtein += food.getProtein();
-                totalCarbs += food.getCarbs();
-                totalFat += food.getFat();
-                totalFiber += food.getFiber();
+                totalSets += lift.getSets();
+                totalReps += lift.getReps();
             }
 
-            Workout wo = new Workout(lifts.get(0).getWorkoutName(), lifts, lifts.get(0).getDate(), lifts.get(0).getWorkoutKey());
+            Workout wo = new Workout(lifts.get(0).getWorkoutName(), lifts, totalSets, totalReps, lifts.get(0).getDate(), lifts.get(0).getWorkoutKey());
             woList.add(wo);
         }
 
@@ -409,6 +403,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_WEIGHTLIFTING_KEY, w.getKey());
         cv.put(COLUMN_WORKOUT_KEY, key);
         cv.put(COLUMN_WEIGHTLIFTING_NAME, w.getName());
+        cv.put(COLUMN_WORKOUT_NAME, w.getWorkoutName());
         cv.put(COLUMN_WEIGHTLIFTING_SETS, w.getSets());
         cv.put(COLUMN_WEIGHTLIFTING_REPS, w.getReps());
         cv.put(COLUMN_WEIGHTLIFTING_WEIGHT, w.getWeight());
@@ -465,7 +460,6 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-    // TODO Fix in Iteration 3
     public boolean removeWorkout(Workout wo) {
         // get data from the database
         String queryString = "DELETE FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WORKOUT_KEY + " = " + wo.getKey();
