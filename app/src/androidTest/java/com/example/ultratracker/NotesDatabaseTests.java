@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class NotesDatabaseTests {
     private Reminder r1, r2, r3, r4;
     private String name1, name2, name3, name4;
     private LocalDate d1, d2, d3, d4;
+    private LocalTime t1;
     private String des1, des2, des3, des4;
     private List<Note> nl1;
     private List<Reminder> rl1;
@@ -46,6 +48,8 @@ public class NotesDatabaseTests {
         d3 = LocalDate.of(2021, 6, 22); // format is 2021-04-20
         d4 = LocalDate.of(2021, 7, 23); // format is 2021-04-20
 
+        t1 = LocalTime.of(10,14); // format is 10:14
+
         des1 = "des1"; des2 = "des2"; des3 = "des3";  des4 = "des4";
 
         n1 = new Note(name1, d1, des1);
@@ -53,17 +57,17 @@ public class NotesDatabaseTests {
         n3 = new Note(name3, d3, des3);
         n4 = new Note(name4, d4, des4);
 
-        r1 = new Reminder(name1, d1, des1);
-        r2 = new Reminder(name2, d2, des2);
-        r3 = new Reminder(name3, d3, des3);
-        r4 = new Reminder(name4, d4, des4);
+        r1 = new Reminder(name1, d1, t1, des1);
+        r2 = new Reminder(name2, d2, t1, des2);
+        r3 = new Reminder(name3, d3, t1, des3);
+        r4 = new Reminder(name4, d4, t1, des4);
     }
 
     @Test
     public void addANote() {
         tearDown();
         db.addNote(n1);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Check size", 1,  nl1.size());
         assertEquals("Test Name is correct", n1.getName(), nl1.get(0).getName());
     }
@@ -76,7 +80,7 @@ public class NotesDatabaseTests {
         db.addNote(n3);
         db.addNote(n2);
 
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Check size", 4,  nl1.size());
         assertEquals("Verify order", n1.getName(),  nl1.get(0).getName());
         assertEquals("Verify order", n2.getName(),  nl1.get(1).getName());
@@ -88,14 +92,14 @@ public class NotesDatabaseTests {
     public void editNote() {
         db.addNote(n1);
 
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify original", n1.getName(),  nl1.get(0).getName());
         assertEquals("Verify original", n1.getDate(),  nl1.get(0).getDate());
         assertEquals("Verify original", n1.getDesc(),  nl1.get(0).getDesc());
 
         Note newN = new Note("Edit", d2.toString(), "Edit", n1.getKey());
         db.editNote(newN);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify original", newN.getName(),  nl1.get(0).getName());
         assertEquals("Verify original", d2.toString(),  nl1.get(0).getDate());
         assertEquals("Verify original", newN.getDesc(),  nl1.get(0).getDesc());
@@ -109,11 +113,11 @@ public class NotesDatabaseTests {
     @Test
     public void deleteOneNote() {
         db.addNote(n1);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify original", n1.getName(),  nl1.get(0).getName());
 
         db.deleteNote(n1);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify none", 0, nl1.size());
     }
 
@@ -128,18 +132,18 @@ public class NotesDatabaseTests {
         db.addNote(n2);
         db.addNote(n3);
         db.addNote(n4);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify original size", 4,  nl1.size());
 
         db.deleteNote(n1);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify new size", 3,  nl1.size());
         for(int i = 0; i < nl1.size(); i++) {
             if(nl1.get(i).getName().equals(name1)) Assert.fail();
         }
 
         db.deleteNote(n4);
-        nl1 = db.getAll();
+        nl1 = db.getAllNotes();
         assertEquals("Verify new size", 2,  nl1.size());
         for(int i = 0; i < nl1.size(); i++) {
             if(nl1.get(i).getName().equals(name4)) Assert.fail();
@@ -176,7 +180,7 @@ public class NotesDatabaseTests {
         assertEquals("Verify original", r1.getDate(),  rl1.get(0).getDate());
         assertEquals("Verify original", r1.getDesc(),  rl1.get(0).getDesc());
 
-        Reminder newN = new Reminder("Edit", d2.toString(), "Edit", r1.getKey());
+        Reminder newN = new Reminder("Edit", d2.toString(), t1.toString(), "Edit", r1.getKey());
         db.editReminder(newN);
         rl1 = db.getAllReminders();
         assertEquals("Verify original", newN.getName(),  rl1.get(0).getName());

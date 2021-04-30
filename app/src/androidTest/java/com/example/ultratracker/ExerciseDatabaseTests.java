@@ -78,10 +78,10 @@ public class ExerciseDatabaseTests {
         ri3 = new Ride(d3, t1, dur3, cals3, dis3, p3);
         ri4 = new Ride(d4, t1, dur4, cals4, dis4, p4);
 
-        w1 = new Weightlifting(exerType1, sets, reps, weight);
-        w2 = new Weightlifting(exerType2, sets, reps, weight);
-        w3 = new Weightlifting(exerType1, sets, reps, weight);
-        w4 = new Weightlifting(exerType2, sets, reps, weight);
+        w1 = new Weightlifting(exerType1, sets, reps, weight, d1);
+        w2 = new Weightlifting(exerType2, sets, reps, weight, d2);
+        w3 = new Weightlifting(exerType1, sets, reps, weight, d3);
+        w4 = new Weightlifting(exerType2, sets, reps, weight, d4);
 
         wList1.add(w1);
         wList1.add(w2);

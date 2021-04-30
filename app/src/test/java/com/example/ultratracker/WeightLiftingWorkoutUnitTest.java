@@ -72,7 +72,7 @@ public class WeightLiftingWorkoutUnitTest {
 
     @Test
     public void testSetter() {
-        exerciseList.add(new Weightlifting("Bench", 5, 10, 125));
+        exerciseList.add(new Weightlifting("Bench", 5, 10, 125, d1));
         w2.setExerciseList(exerciseList);
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
         assertEquals(1, w1.getExerciseList().size());
@@ -80,7 +80,7 @@ public class WeightLiftingWorkoutUnitTest {
 
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());
 
-        exerciseList.add(new Weightlifting("Row", 2, 5, 100));
+        exerciseList.add(new Weightlifting("Row", 2, 5, 100, d1));
         w1.setExerciseList(exerciseList);
 
         assertEquals("Test exerciseList", exerciseList, w1.getExerciseList());

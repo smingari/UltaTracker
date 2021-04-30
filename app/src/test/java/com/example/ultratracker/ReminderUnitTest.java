@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -12,17 +13,20 @@ public class ReminderUnitTest {
 
     private Reminder r1, r2;
     private LocalDate d1;
+    private LocalTime t1;
     private String name1, name2, des1, des2;
     private int key;
 
     @Before
     public void setUp(){
         d1 = LocalDate.of(2021,4,20); // format is 2021-04-20
+        t1 = LocalTime.of(10,14); // format is 10:14
+
         name1 = "note 1"; name2 = "note 2";
         des1 = "des1"; des2 = "des2";
         key = 5;
-        r1 = new Reminder(name1, d1, des1);
-        r2 = new Reminder(name2, d1.toString(), des2, key);
+        r1 = new Reminder(name1, d1, t1, des1);
+        r2 = new Reminder(name2, d1.toString(), t1.toString(), des2, key);
 
     }
 
