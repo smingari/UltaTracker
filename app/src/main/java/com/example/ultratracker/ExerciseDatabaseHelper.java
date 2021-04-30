@@ -45,6 +45,13 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RUN_DISTANCE = "RUN_DISTANCE";
     public static final String COLUMN_RUN_PACE = "RUN_PACE";
 
+    public static final String WEIGHT_TABLE = "WEIGHT_TABLE";
+    public static final String COLUMN_WEIGHT_ID = "WEIGHT_ID";
+    public static final String COLUMN_WEIGHT_KEY = "WEIGHT_KEY";
+    public static final String COLUMN_WEIGHT_DATE = "WEIGHT_DATE";
+    public static final String COLUMN_WEIGHT_VALUE = "WEIGHT_VALUE";
+
+
 
     public ExerciseDatabaseHelper(@Nullable Context context) {
         super(context, "exercise.db", null, 1);
@@ -66,11 +73,14 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
         String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " DOUBLE, " + COLUMN_RUN_PACE + " DOUBLE " + ")";
+        String createWeightTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHT_TABLE + " (" + COLUMN_WEIGHT_ID+ "INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_WEIGHT_DATE + " TEXT, " + COLUMN_WEIGHT_VALUE + " DOUBLE " + ")";
 
         db.execSQL(createExerciseTableStatement);
         db.execSQL(createWeightliftingTableStatement);
         db.execSQL(createRideTableStatement);
         db.execSQL(createRunTableStatement);
+        db.execSQL(createWeightTableStatement);
     }
 
     // this is called if the database version number changes. Prevents db from breaking
@@ -463,6 +473,19 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
+    public boolean addWeight(Weight w){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_WEIGHT_DATE, String.valueOf(w.getDate()));
+        cv.put(COLUMN_WEIGHT_VALUE, w.getWeight());
+        long insert = db.insert(WEIGHT_TABLE, null, cv);
+
+        db.close();
+        return insert != -1;
+
+    }
+
     public boolean removeWorkout(Workout wo) {
         // get data from the database
         String queryString = "DELETE FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WORKOUT_KEY + " = " + wo.getKey();
@@ -494,6 +517,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return delete > 0;
     }
+
 
     // TODO Fix in Iteration 3
 //    public boolean editWeightliftingWorkout(WeightliftingWorkout ww) {
@@ -579,6 +603,8 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return update != -1;
     }
+
+
 
     public List<Exercise> getAll() {
         List<Exercise> returnList = new ArrayList<>();

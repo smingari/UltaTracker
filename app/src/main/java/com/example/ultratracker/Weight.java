@@ -3,15 +3,11 @@ package com.example.ultratracker;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class Weight {
+public class Weight{
 
 
     private double weight;
     private LocalDate date;
-    public Weight(double weight, LocalDate date){
-        this.weight = weight;
-        this.date = date;
-    }
 
     public Weight(double weight, String date){
         this.weight = weight;
