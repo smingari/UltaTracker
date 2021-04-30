@@ -17,8 +17,12 @@ public class ReminderReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String name = intent.getStringExtra("name");
         String description = intent.getStringExtra("description");
-        System.out.println(intent.getExtras().toString());
-        System.out.println("Name: " + name);
+        /*
+        int key = intent.getIntExtra("key", -1);
+        Reminder rem = new Reminder(name, null, null, description, key);
+        NotesDatabaseHelper db = new NotesDatabaseHelper(context);
+        db.deleteReminder(rem);
+         */
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -27,8 +31,8 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         PendingIntent pendingI = PendingIntent.getActivity(context, 0, notificationIntent, 0);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("default", "Daily Notification", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Daily Notification");
+            NotificationChannel channel = new NotificationChannel("default", "Reminder Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Reminder");
             if (nm != null) {
                 nm.createNotificationChannel(channel);
             }

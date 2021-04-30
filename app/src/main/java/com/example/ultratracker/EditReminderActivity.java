@@ -112,7 +112,6 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
     }
 
     public void openDateDialog() {
-        System.out.println("open date dialog");
         DateSelectorDialog dateDialog = new DateSelectorDialog();
         dateDialog.show(getSupportFragmentManager(), "date dialog");
     }
@@ -136,7 +135,6 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
         dueMinute = minute;
         int displayHour;
         String AMorPM;
-        System.out.println(hour + ":" + minute);
         if(hour < 12) {
             AMorPM = "AM";
             displayHour = dueHour;

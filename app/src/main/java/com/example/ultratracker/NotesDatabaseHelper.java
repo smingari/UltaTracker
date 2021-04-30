@@ -200,14 +200,15 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
         long insert = db.insert(REMINDER_TABLE, null, cv);
         if(insert != -1) {
             //Schedule new notification
-            //PackageManager pm = this.getPackageManager();
-            //ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+            PackageManager pm = context.getPackageManager();
+            ComponentName receiver = new ComponentName(context, DeviceBootReceiver.class);
             Intent alarmIntent = new Intent(context, ReminderReceiver.class);
             PendingIntent pendingIntent;
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             alarmIntent.putExtra("name", rem.getName());
             alarmIntent.putExtra("description", rem.getDesc());
+            alarmIntent.putExtra("key", rem.getKey());
             pendingIntent = PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, 0);
 
             LocalDate ld = LocalDate.parse(rem.getDate());
@@ -225,7 +226,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
                 }
             }
             //To enable Boot Receiver class
-            //pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
             return true;
         } else return false;
     }
@@ -355,6 +356,7 @@ public class NotesDatabaseHelper extends SQLiteOpenHelper {
 
             alarmIntent.putExtra("name", rem.getName());
             alarmIntent.putExtra("description", rem.getDesc());
+            alarmIntent.putExtra("key", rem.getKey());
             pendingIntent = PendingIntent.getBroadcast(context, rem.getKey(), alarmIntent, FLAG_UPDATE_CURRENT);
 
             LocalDate ld = LocalDate.parse(rem.getDate());
