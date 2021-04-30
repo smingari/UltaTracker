@@ -133,6 +133,7 @@ public class EDayActivity extends AppCompatActivity {
                         row.setSelected(true);
                         viewButton.setVisibility(View.VISIBLE);
                         showButtons();
+                        hideWWButtons();
                         selectedExercise = exerciseList.get(row.getId());
                         //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
                         //isComplete = MainActivity.selectedTask.isComplete();
@@ -255,21 +256,24 @@ public class EDayActivity extends AppCompatActivity {
     public void deleteExercise (View view) {
         if (selectedExercise != null) {
             boolean success;
-
-
             //Toast.makeText(HDayActivity.this, String.valueOf(selectedMeal.getKey()), Toast.LENGTH_SHORT).show();
-            if (selectedExercise.getExerciseType().equals("Run")) {
-                success = e_db.removeRun((Run)selectedExercise);
-            }
-
-            if (selectedExercise.getExerciseType().equals("Ride")) {
-                success = e_db.removeRide((Ride)selectedExercise);
-            }
-
+            if (selectedExercise.getExerciseType().equals("Run")) { success = e_db.removeRun((Run)selectedExercise); }
+            if (selectedExercise.getExerciseType().equals("Ride")) { success = e_db.removeRide((Ride)selectedExercise); }
             exerciseTable.removeView(selectedRow);
         }
         if (exerciseSelected) { exerciseTable.removeView(selectedRow); }
         hideButtons();
+        viewButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void deleteWorkout (View view) {
+        if (selectedWorkout != null) {
+            //Toast.makeText(HDayActivity.this, String.valueOf(selectedMeal.getKey()), Toast.LENGTH_SHORT).show();
+            boolean success = e_db.removeWorkout(selectedWorkout);
+            strengthTable.removeView(selectedRow);
+        }
+        hideWWButtons();
+        viewButton.setVisibility(View.INVISIBLE);
     }
 
     public void editExercise(View view) {
@@ -290,6 +294,13 @@ public class EDayActivity extends AppCompatActivity {
             intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
             startActivity(intent);
         }
+    }
+
+    public void editWorkout(View view) {
+        EDayActivity.inEdit = true;
+        MainActivity.newWo = selectedWorkout;
+        Intent intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
+        startActivity(intent);
     }
 
     public void toMainActivity(View view) {
@@ -329,15 +340,11 @@ public class EDayActivity extends AppCompatActivity {
     }
 
     public void hideButtons() {
-        viewButton.setVisibility(View.INVISIBLE);
         editButton.setVisibility(View.INVISIBLE);
-        editWWButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
-        deleteWWButton.setVisibility(View.INVISIBLE);
     }
 
     public void hideWWButtons() {
-        viewButton.setVisibility(View.INVISIBLE);
         editWWButton.setVisibility(View.INVISIBLE);
         deleteWWButton.setVisibility(View.INVISIBLE);
     }
@@ -345,9 +352,7 @@ public class EDayActivity extends AppCompatActivity {
     public void showButtons() {
         viewButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.VISIBLE);
-        editWWButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
-        deleteWWButton.setVisibility(View.VISIBLE);
     }
 
     public void showWWButtons() {
