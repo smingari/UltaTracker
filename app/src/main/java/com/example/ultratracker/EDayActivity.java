@@ -312,6 +312,12 @@ public class EDayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void toTrackWeightActivity(View view){
+        Intent intent = new Intent(EDayActivity.this, TrackWeightActivity.class);
+        startActivity(intent);
+    }
+
+
     public void openViewDialog(View view) {
         if (selectedExercise.getExerciseType().equals("Run")) {
             ViewRunDialog viewRunDialog = new ViewRunDialog((Run) selectedExercise);
