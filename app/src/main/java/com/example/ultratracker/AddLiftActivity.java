@@ -58,9 +58,16 @@ public class AddLiftActivity extends AppCompatActivity {
                         int reps = Integer.parseInt(reps_entry.getText().toString());
                         int weight = Integer.parseInt(weight_entry.getText().toString());
 
-                        Weightlifting newLift = new Weightlifting(liftName, sets, reps, weight LocalDate.parse(date));
+                        Weightlifting newLift = new Weightlifting(liftName, sets, reps, weight, LocalDate.parse(date));
+
+                        // Add to workout database
                         MainActivity.newWo.getLiftList().add(newLift);
-                        db.addFood(newLift);
+                        db.addWeightlifting(newLift, MainActivity.newWo.getKey());
+
+                        // Add as part of weightlifting database if it's not a dupe
+                        // if workout key = 0, this is part of the lift bank
+                        if (db.checkByNameRepsWeight(liftName, reps, weight, 0)) { db.addWeightlifting(newLift, 0); }
+
                         toAddWeightliftingActivity(v);
 
                         Toast.makeText(AddLiftActivity.this, "Successfully created lift", Toast.LENGTH_SHORT).show();

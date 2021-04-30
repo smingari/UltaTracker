@@ -257,12 +257,13 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 //    }
 //
 
-    public boolean checkByNameRepsWeight(String name, int reps, int weight) {
+    public boolean checkByNameRepsWeight(String name, int reps, int weight, int key) {
         // get data from the database
-        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WEIGHTLIFTING_NAME + " = ? AND " + COLUMN_WEIGHTLIFTING_REPS + " = ? AND " + COLUMN_WEIGHTLIFTING_WEIGHT + " = ?";
+        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE + " WHERE " + COLUMN_WEIGHTLIFTING_NAME + " = ? AND "
+                + COLUMN_WEIGHTLIFTING_REPS + " = ? AND " + COLUMN_WEIGHTLIFTING_WEIGHT + " = ? AND " + COLUMN_WORKOUT_KEY + " = ?";
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.rawQuery(queryString, new String[] {name, String.valueOf(reps), String.valueOf(weight)});
+        Cursor cursor = db.rawQuery(queryString, new String[] {name, String.valueOf(reps), String.valueOf(weight), String.valueOf(key)});
 
         // move to the first result. If it is true then there is at least 1 value
         if (cursor.moveToFirst()) {
