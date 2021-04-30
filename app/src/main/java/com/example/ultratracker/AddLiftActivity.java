@@ -31,7 +31,7 @@ public class AddLiftActivity extends AppCompatActivity {
         weight_entry = findViewById(R.id.weight_entry);
 
         cancel_button = findViewById(R.id.cancel_button);
-        create_lift_button = findViewById(R.id.create_food_button);
+        create_lift_button = findViewById(R.id.create_lift_button);
 
         String sMonth;
         String sDay;

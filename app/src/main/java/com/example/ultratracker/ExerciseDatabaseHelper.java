@@ -322,6 +322,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_WEIGHTLIFTING_SETS, w.getSets());
         cv.put(COLUMN_WEIGHTLIFTING_REPS, w.getReps());
         cv.put(COLUMN_WEIGHTLIFTING_WEIGHT, w.getWeight());
+        cv.put(COLUMN_WEIGHTLIFTING_DATE, w.getDate());
 
         long insert = db.insert(WEIGHTLIFTING_TABLE, null, cv);
         db.close();
