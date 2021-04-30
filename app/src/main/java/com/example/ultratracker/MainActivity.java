@@ -1,16 +1,22 @@
 package com.example.ultratracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -66,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String CHANNEL_NAME = "UltaTracker";
     private static final String CHANNEL_DESC = "UltaTracker Notifications";
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -453,7 +460,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void displayNotification() {
+        /*
         NotesDatabaseHelper myDB = new NotesDatabaseHelper(this);
 
         // NEED HELP WITH THIS METHOD
@@ -472,6 +481,7 @@ public class MainActivity extends AppCompatActivity {
 
             mNotificationMgr.notify(++notificationID, mBuilder.build());
         }
+        */
 
         /*NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_android_black_24dp)

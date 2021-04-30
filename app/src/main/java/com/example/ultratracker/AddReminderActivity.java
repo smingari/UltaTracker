@@ -1,6 +1,11 @@
 package com.example.ultratracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 
 public class AddReminderActivity extends AppCompatActivity implements DateSelectorDialog.DateSelectorListener, TimeSelectorDialog.TimeSelectorListener {
     Button cancel_button, create_reminder_button, edit_date_button, edit_time_button;
@@ -63,12 +69,13 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
                         LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
                         Reminder reminder = new Reminder(name, syn_date, syn_time, description);
                         db.addReminder(reminder);
+                        createReminder(name, description, reminderSelectedYear, reminderSelectedMonth, reminderSelectedDay, dueHour, dueMinute, reminder.getKey());
                         toMainActivity(v);
                         Toast.makeText(AddReminderActivity.this, "Successfully made reminder.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (Exception e) {
-                    Toast.makeText(AddReminderActivity.this, "Error creating reminder.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddReminderActivity.this, "Error creating reminder." + " " + e, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -137,5 +144,43 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
     public void toMainActivity(View view) {
         Intent intent = new Intent(AddReminderActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void createReminder(String name, String description, int year, int month, int day, int hour, int minute, int key) {
+        PackageManager pm = this.getPackageManager();
+        ComponentName receiver = new ComponentName(this, DeviceBootReceiver.class);
+        Intent alarmIntent = new Intent(this, ReminderReceiver.class);
+        PendingIntent pendingIntent;
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        alarmIntent.putExtra("name", name);
+        alarmIntent.putExtra("description", description);
+        pendingIntent = PendingIntent.getBroadcast(this, key, alarmIntent, 0);
+
+        //region Enable Daily Notifications
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month-1);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        if (manager != null) {
+            manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+        }
+        //To enable Boot Receiver class
+        pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+        /* code to turn off notification
+        if (PendingIntent.getBroadcast(this, key, alarmIntent, 0) != null && manager != null) {
+            manager.cancel(pendingIntent);
+            //Toast.makeText(this,"Notification disabled",Toast.LENGTH_SHORT).show();
+        }
+        //pm.setComponentEnabledSetting(receiver, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+         */
     }
 }

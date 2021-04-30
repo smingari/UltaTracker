@@ -79,6 +79,12 @@
         <activity
             android:name=".EditTaskActivity"
             android:screenOrientation="portrait" />
+        <receiver android:name=".DeviceBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ReminderReceiver" />
     </application>
 
 </manifest>
