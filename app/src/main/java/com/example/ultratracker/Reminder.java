@@ -39,7 +39,7 @@ public class Reminder {
     // Setter methods
     public void setName(String name) { this.name = name; }
     public void setDate(LocalDate date) { this.date = date; }
-    public void setDate(LocalTime time) { this.time = time; }
+    public void setTime(LocalTime time) { this.time = time; }
     public void setDesc(String desc) { this.desc = desc; }
 
     // Generates random number for key

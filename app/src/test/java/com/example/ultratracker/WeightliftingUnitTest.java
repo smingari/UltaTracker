@@ -44,6 +44,8 @@ public class WeightliftingUnitTest {
         assertEquals("constructor sets", set, w2.getSets());
         assertEquals("constructor reps", rep, w2.getReps());
         assertEquals("constructor weight", weight, w2.getWeight());
+        assertEquals("constructor key", key, w2.getKey());
+
     }
 
     @Test
@@ -52,10 +54,13 @@ public class WeightliftingUnitTest {
         w1.setReps(rep);
         w1.setSets(set);
         w1.setWeight(weight);
+        w1.setKey(0);
         assertEquals("default constructor name", name, w1.getName());
         assertEquals("default constructor sets", set, w1.getSets());
         assertEquals("default constructor reps", rep, w1.getReps());
         assertEquals("default constructor weight", weight, w1.getWeight());
+        assertEquals("constructor key", 0, w1.getKey());
+
     }
 
 }

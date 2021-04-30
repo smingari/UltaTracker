@@ -37,8 +37,8 @@ public class Weightlifting {
     public void setReps(int reps) { this.reps = reps; }
     public int getWeight() { return weight; }
     public void setWeight(int weight) { this.weight = weight; }
-    public int getKey() { return weight; }
-    public void setKey(int weight) { this.weight = weight; }
+    public int getKey() { return key; }
+    public void setKey(int key) { this.key = key; }
     public static int getRandomBetweenRange(double min, double max){
         double x = (Math.random()*((max-min)+1))+min;
         return (int) x;

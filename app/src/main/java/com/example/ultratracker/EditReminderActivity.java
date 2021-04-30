@@ -73,7 +73,7 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
 
                     RemindersActivity.selectedReminder.setName(name);
                     RemindersActivity.selectedReminder.setDate(syn_date);
-                    RemindersActivity.selectedReminder.setDate(syn_time);
+                    RemindersActivity.selectedReminder.setTime(syn_time);
                     RemindersActivity.selectedReminder.setDesc(description);
                     if(db.editReminder(RemindersActivity.selectedReminder)) {
                         toMainActivity(v);

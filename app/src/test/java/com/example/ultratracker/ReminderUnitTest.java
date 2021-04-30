@@ -48,6 +48,7 @@ public class ReminderUnitTest {
     public void testSetters() {
         assertEquals("Test name on string constructor", name2, r2.getName());
         assertEquals("Test date on string constructor", d1.toString(), r2.getDate());
+        assertEquals("Test time on string constructor", t1.toString(), r2.getTime());
         assertEquals("Test description on string constructor", des2, r2.getDesc());
 
 //        n2.setKey(0);
@@ -62,5 +63,7 @@ public class ReminderUnitTest {
         r2.setDesc("DesTest");
         assertEquals("Test des setter", "DesTest", r2.getDesc());
 
+        r2.setTime(LocalTime.parse("10:40"));
+        assertEquals("Test Time setter", "10:40", r2.getTime());
     }
 }
