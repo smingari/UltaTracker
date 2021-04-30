@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
@@ -26,6 +27,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_WORKOUT_KEY = "WORKOUT_KEY";
     public static final String COLUMN_WEIGHTLIFTING_KEY = "WEIGHTLIFTING_KEY";
     public static final String COLUMN_WEIGHTLIFTING_NAME = "WEIGHTLIFTING_NAME";
+    public static final String COLUMN_WORKOUT_NAME = "WORKOUT_NAME";
     public static final String COLUMN_WEIGHTLIFTING_SETS = "WEIGHTLIFTING_SETS";
     public static final String COLUMN_WEIGHTLIFTING_REPS = "WEIGHTLIFTING_REPS";
     public static final String COLUMN_WEIGHTLIFTING_WEIGHT = "WEIGHTLIFTING_WEIGHT";
@@ -55,7 +57,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_EXERCISE_KEY + " INT, " + COLUMN_EXERCISE_TYPE + " TEXT, " + COLUMN_EXERCISE_DATE + " Text, " + COLUMN_EXERCISE_TIME + " Text, " +
                 COLUMN_EXERCISE_DURATION + " INT, " + COLUMN_EXERCISE_CALS + " INT) ";
         String createWeightliftingTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHTLIFTING_TABLE + " (" + COLUMN_WEIGHTLIFTING_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WORKOUT_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " +
+                COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WORKOUT_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WORKOUT_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " +
                 COLUMN_WEIGHTLIFTING_REPS + " INT, " + COLUMN_WEIGHTLIFTING_WEIGHT + " INT, " + COLUMN_WEIGHTLIFTING_DATE + " INT " + ")";
         String createRideTableStatement = "CREATE TABLE IF NOT EXISTS " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
@@ -209,6 +211,94 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return wlList;
+    }
+
+    public List<Workout> getWorkoutsByDate(String qDate) {
+        List<Weightlifting> liftList = new ArrayList<>();
+        List<Workout> woList;
+
+        // get data from the database
+        String queryString = "SELECT * FROM " + WEIGHTLIFTING_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        int key;
+        int wKey;
+        String name;
+        String woName;
+        int sets;
+        int reps;
+        int weight;
+        String date;
+        // move to the first result. If it is true then there is at least 1 value
+        if (cursor.moveToFirst()) {
+            // loop through cursor and add all entries with correct date to foodList
+            do {
+                date = cursor.getString(8);
+                if (date.equals(qDate)) {
+                    key = cursor.getInt(1);
+                    wKey = cursor.getInt(2);
+                    name = cursor.getString(3);
+                    woName = cursor.getString(4);
+                    sets = cursor.getInt(5);
+                    reps = cursor.getInt(6);
+                    weight = cursor.getInt(7);
+
+                    Weightlifting lift = new Weightlifting(name, sets, reps, weight, woName, date, key, wKey);
+                    liftList.add(lift);
+
+                    //Meal newMeal = new Meal(name, cals, protein, carbs, fat, fiber, date, mealName, foodList, key);
+                }
+
+            } while (cursor.moveToNext());
+        }
+        else { }
+
+        // Send liftList to be organized into workouts
+        woList = liftToWorkout(liftList);
+        cursor.close();
+        db.close();
+        return woList;
+    }
+
+    public List<Workout> liftToWorkout (List<Weightlifting> liftList) {
+        HashMap<Integer, List<Weightlifting>> hashMap = new HashMap<Integer, List<Weightlifting>>();
+        List<Workout> woList = new ArrayList<>();
+        List<Integer> woKeys = new ArrayList<>();
+
+        for (Weightlifting lift: liftList) {
+            if (!hashMap.containsKey(lift.getWorkoutKey())) {
+                List<Weightlifting> list = new ArrayList<>();
+                list.add(lift);
+                hashMap.put(lift.getWorkoutKey(), list);
+                woKeys.add(lift.getWorkoutKey());
+            } else {
+                hashMap.get(lift.getWorkoutKey()).add(lift);
+            }
+        }
+
+        for (int i = 0; i < woKeys.size(); i++) {
+            List<Weightlifting> lifts = hashMap.get(woKeys.get(i));
+            int totalCals = 0;
+            int totalProtein = 0;
+            int totalCarbs = 0;
+            int totalFat = 0;
+            int totalFiber = 0;
+
+            for (Weightlifting lift: lifts) {
+                totalCals += food.getCals();
+                totalProtein += food.getProtein();
+                totalCarbs += food.getCarbs();
+                totalFat += food.getFat();
+                totalFiber += food.getFiber();
+            }
+
+            Workout wo = new Workout(lifts.get(0).getWorkoutName(), lifts, lifts.get(0).getDate(), lifts.get(0).getWorkoutKey());
+            woList.add(wo);
+        }
+
+        return woList;
     }
 
     public List<Weightlifting> getAllWeightlifting() {

@@ -19,10 +19,11 @@ import java.util.List;
 
 public class EDayActivity extends AppCompatActivity {
     Button addRunButton, addRideButton, addWWButton;
-    Button editButton;
-    Button deleteButton, viewButton;
+    Button editButton, editWWButton;
+    Button deleteButton, deleteWWButton, viewButton;
 
     TableLayout exerciseTable;
+    TableLayout strengthTable;
     TableRow selectedRow;
     public static Exercise selectedExercise;
     ExerciseDatabaseHelper e_db;
@@ -39,9 +40,11 @@ public class EDayActivity extends AppCompatActivity {
 
         addRunButton = findViewById(R.id.add_running_button);
         addRideButton = findViewById(R.id.add_cycling_button);
-        //addWWButton = findViewById(R.id.add_weightlifting_button);
+        addWWButton = findViewById(R.id.add_weightlifting_button);
         editButton = findViewById(R.id.edit_exercise_button);
+        editWWButton = findViewById(R.id.edit_lift_button);
         deleteButton = findViewById(R.id.delete_exercise_button);
+        deleteWWButton = findViewById(R.id.delete_lift_button);
         viewButton = findViewById(R.id.eday_view_button2);
 
         //hideButtons();
@@ -49,6 +52,7 @@ public class EDayActivity extends AppCompatActivity {
         EDayActivity.inEdit = false;
 
         hideButtons();
+        hideWWButtons();
 
         e_db = new ExerciseDatabaseHelper(this);
 
@@ -67,6 +71,7 @@ public class EDayActivity extends AppCompatActivity {
         MainActivity.newWo = new Workout("newWo", list, LocalDate.parse(currentDate));
 
         init_exercise_table();
+        init_strength_table();
 
         TextView date = (TextView)findViewById(R.id.current_date_e);
         date.setText(MainActivity.selectedMonth + "/" + MainActivity.selectedDay + "/" + MainActivity.selectedYear);
@@ -75,9 +80,99 @@ public class EDayActivity extends AppCompatActivity {
     public void init_exercise_table() {
         exerciseTable = findViewById(R.id.exercise_table);
 
-        // TODO FIX THIS
-        
         List<Exercise> exerciseList = e_db.getExercisesByDate(currentDate);
+        int dbSize;
+        if (exerciseList != null) { dbSize = exerciseList.size(); }
+        else { dbSize = 0; }
+
+
+        // Set up table header
+        TableRow exerciseTableHeader = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        exerciseTableHeader.setLayoutParams(lp);
+
+        // First column header
+        TextView tv0 = new TextView(this);
+        tv0.setPaintFlags(tv0.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv0.setText(" Exercise ");
+        tv0.setGravity(Gravity.CENTER_HORIZONTAL);
+        exerciseTableHeader.addView(tv0);
+
+        // Second column header
+        TextView tv1 = new TextView(this);
+        tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv1.setText(" Time ");
+        tv1.setGravity(Gravity.CENTER_HORIZONTAL);
+        exerciseTableHeader.addView(tv1);
+
+        // Third column header
+        TextView tv2 = new TextView(this);
+        tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv2.setText(" Calories Burned ");
+        tv2.setGravity(Gravity.CENTER_HORIZONTAL);
+        exerciseTableHeader.addView(tv2);
+
+        // Add header row to table
+        exerciseTable.addView(exerciseTableHeader);
+
+        // Add rows dynamically from database
+        if (dbSize != 0) {
+            for (int i = 0; i < dbSize; i++) {
+                TableRow row = new TableRow(this);
+                row.setId(i);
+                row.setBackgroundResource(R.drawable.list_selector_background);
+                row.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isComplete;
+                        if (selectedRow != null) {
+                            selectedRow.setSelected(false);
+                        }
+                        selectedRow = row;
+                        row.setSelected(true);
+                        viewButton.setVisibility(View.VISIBLE);
+                        showButtons();
+                        selectedExercise = exerciseList.get(row.getId());
+                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
+                        //isComplete = MainActivity.selectedTask.isComplete();
+                        //foodSelected = !isComplete;
+                        //completedTaskSelected = isComplete;
+                        //showButtons();
+                        //if(isComplete) {
+                        //btn_moveToTasks.setVisibility(View.VISIBLE);
+                        //} else {
+                        //btn_moveToTasks.setVisibility(View.INVISIBLE);
+                        //}
+                    }
+                });
+
+                TextView t1v = new TextView(this);
+                String exerciseType = exerciseList.get(i).getExerciseType();
+                if (exerciseType.length() > 12) {
+                    exerciseType = (exerciseType.substring(0, Math.min(exerciseType.length(), 12))) + "..";
+                }
+                t1v.setText(exerciseType);
+                t1v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t1v);
+
+                TextView t2v = new TextView(this);
+                t2v.setText(exerciseList.get(i).getCompletedTime());
+                t2v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t2v);
+
+                TextView t3v = new TextView(this);
+                t3v.setText(String.valueOf(exerciseList.get(i).getCaloriesBurned()));
+                t3v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t3v);
+                exerciseTable.addView(row);
+            }
+        }
+    }
+
+    public void init_strength_table() {
+        strengthTable = findViewById(R.id.strength_table);
+
+        List<Weightlifting> liftList = e_db.getExercisesByDate(currentDate);
         int dbSize;
         if (exerciseList != null) { dbSize = exerciseList.size(); }
         else { dbSize = 0; }
@@ -240,12 +335,28 @@ public class EDayActivity extends AppCompatActivity {
     public void hideButtons() {
         viewButton.setVisibility(View.INVISIBLE);
         editButton.setVisibility(View.INVISIBLE);
+        editWWButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
+        deleteWWButton.setVisibility(View.INVISIBLE);
+    }
+
+    public void hideWWButtons() {
+        viewButton.setVisibility(View.INVISIBLE);
+        editWWButton.setVisibility(View.INVISIBLE);
+        deleteWWButton.setVisibility(View.INVISIBLE);
     }
 
     public void showButtons() {
         viewButton.setVisibility(View.VISIBLE);
         editButton.setVisibility(View.VISIBLE);
+        editWWButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
+        deleteWWButton.setVisibility(View.VISIBLE);
+    }
+
+    public void showWWButtons() {
+        viewButton.setVisibility(View.VISIBLE);
+        editWWButton.setVisibility(View.VISIBLE);
+        deleteWWButton.setVisibility(View.VISIBLE);
     }
 }

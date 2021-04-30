@@ -313,7 +313,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         } else {
             // Add food items to meal database
             for (Weightlifting wl : MainActivity.newWo.getLiftList()) {
-                Weightlifting newWl = new Weightlifting(wl.getName(), wl.getSets(), wl.getReps(), wl.getWeight(), curDate, wl.getKey());
+                Weightlifting newWl = new Weightlifting(wl.getName(), wl.getSets(), wl.getReps(), wl.getWeight(), newWoName, curDate, wl.getKey(), MainActivity.newWo.getKey());
                 db.addWeightlifting(newWl, MainActivity.newWo.getKey());
             }
             Intent intent = new Intent(AddWeightliftingActivity.this, EDayActivity.class);
