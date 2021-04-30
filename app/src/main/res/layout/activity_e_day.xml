@@ -144,11 +144,24 @@
         app:layout_constraintTop_toBottomOf="@+id/exercise_scrollview" />
 
     <Button
+        android:id="@+id/track_weight_button"
+        android:layout_width="120dp"
+        android:layout_height="47dp"
+        android:textSize="12sp"
+        android:text="@string/track_weight"
+        android:onClick="toTrackWeightActivity"
+        app:layout_constraintEnd_toEndOf="@id/add_running_button"
+        app:layout_constraintStart_toStartOf="@id/add_cycling_button"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_divider2" />
+
+
+    <Button
         android:id="@+id/add_cycling_button"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="120dp"
+        android:layout_height="47dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
+        android:textSize="12sp"
         android:onClick="toAddRideActivity"
         android:text="@string/AddCycling"
         app:layout_constraintStart_toStartOf="parent"
@@ -156,9 +169,10 @@
 
     <Button
         android:id="@+id/add_running_button"
-        android:layout_width="175dp"
-        android:layout_height="40dp"
+        android:layout_width="120dp"
+        android:layout_height="47dp"
         android:layout_marginEnd="5dp"
+        android:textSize="12sp"
         android:layout_marginRight="5dp"
         android:onClick="toAddRunActivity"
         android:text="@string/AddRunning"
@@ -244,7 +258,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
-        android:onClick="editExercise"
+        android:onClick="editWorkout"
         android:text="@string/edit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/strength_divider2" />
@@ -255,7 +269,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
-        android:onClick="deleteExercise"
+        android:onClick="deleteWorkout"
         android:text="Delete"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/strength_divider2" />
@@ -266,7 +280,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="138dp"
         android:layout_marginLeft="138dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="138dp"
         android:layout_marginRight="138dp"
         android:text="Strength Training"

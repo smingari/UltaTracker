@@ -56,9 +56,12 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         String createExerciseTableStatement = "CREATE TABLE IF NOT EXISTS " + EXERCISE_TABLE + " (" + COLUMN_EXERCISE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_EXERCISE_KEY + " INT, " + COLUMN_EXERCISE_TYPE + " TEXT, " + COLUMN_EXERCISE_DATE + " Text, " + COLUMN_EXERCISE_TIME + " Text, " +
                 COLUMN_EXERCISE_DURATION + " INT, " + COLUMN_EXERCISE_CALS + " INT) ";
+
         String createWeightliftingTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHTLIFTING_TABLE + " (" + COLUMN_WEIGHTLIFTING_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_WEIGHTLIFTING_KEY + " INT, " + COLUMN_WORKOUT_KEY + " INT, " + COLUMN_WEIGHTLIFTING_NAME + " TEXT, " + COLUMN_WORKOUT_NAME + " TEXT, " + COLUMN_WEIGHTLIFTING_SETS + " INT, " +
                 COLUMN_WEIGHTLIFTING_REPS + " INT, " + COLUMN_WEIGHTLIFTING_WEIGHT + " INT, " + COLUMN_WEIGHTLIFTING_DATE + " INT " + ")";
+
+
         String createRideTableStatement = "CREATE TABLE IF NOT EXISTS " + RIDE_TABLE + " (" + COLUMN_RIDE_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RIDE_KEY + " INT, " + COLUMN_RIDE_DISTANCE + " DOUBLE, " + COLUMN_RIDE_PACE + " DOUBLE " + ")";
         String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
@@ -247,10 +250,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
                     Weightlifting lift = new Weightlifting(name, sets, reps, weight, woName, date, key, wKey);
                     liftList.add(lift);
-
-                    //Meal newMeal = new Meal(name, cals, protein, carbs, fat, fiber, date, mealName, foodList, key);
                 }
-
             } while (cursor.moveToNext());
         }
         else { }
@@ -279,6 +279,9 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         }
 
         for (int i = 0; i < woKeys.size(); i++) {
+            // Skip if key = 0 (this is part of the lift bank)
+            if (woKeys.get(i) == 0) { continue; }
+
             List<Weightlifting> lifts = hashMap.get(woKeys.get(i));
 
             int totalSets = 0;
@@ -314,10 +317,10 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
             do {
                 key = cursor.getInt(1);
                 name = cursor.getString(3);
-                sets = cursor.getInt(4);
-                reps = cursor.getInt(5);
-                weight = cursor.getInt(6);
-                date = cursor.getString(7);
+                sets = cursor.getInt(5);
+                reps = cursor.getInt(6);
+                weight = cursor.getInt(7);
+                date = cursor.getString(8);
                 curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
                 wlList.add(curWeightlifting);
             } while(cursor.moveToNext());
@@ -347,10 +350,10 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
             do {
                 key = cursor.getInt(1);
                 name = cursor.getString(3);
-                sets = cursor.getInt(4);
-                reps = cursor.getInt(5);
-                weight = cursor.getInt(6);
-                date = cursor.getString(7);
+                sets = cursor.getInt(5);
+                reps = cursor.getInt(6);
+                weight = cursor.getInt(7);
+                date = cursor.getString(8);
                 curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
                 wlList.add(curWeightlifting);
             } while(cursor.moveToNext());

@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UltraTracker">
         <activity android:name=".EditReminderActivity"></activity>
+        <activity android:name=".TrackWeightActivity"/>
         <activity android:name=".EditNoteActivity" />
         <activity android:name=".RemindersActivity">
             android:screenOrientation="portrait" />

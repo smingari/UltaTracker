@@ -99,16 +99,23 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Reps ");
+        tv1.setText(" Sets ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         createTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Weight ");
+        tv2.setText(" Reps ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
         createTableHeader.addView(tv2);
+
+        // Fourth column header
+        TextView tv3 = new TextView(this);
+        tv3.setPaintFlags(tv3.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv3.setText(" Weight ");
+        tv3.setGravity(Gravity.CENTER_HORIZONTAL);
+        createTableHeader.addView(tv3);
 
         // Add header row to table
         woTable.addView(createTableHeader);
@@ -144,14 +151,19 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(String.valueOf(wo.getLiftList().get(i).getReps()));
+                t2v.setText(String.valueOf(wo.getLiftList().get(i).getSets()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                t3v.setText(String.valueOf(wo.getLiftList().get(i).getWeight()));
+                t3v.setText(String.valueOf(wo.getLiftList().get(i).getReps()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
+
+                TextView t4v = new TextView(this);
+                t4v.setText(String.valueOf(wo.getLiftList().get(i).getWeight()));
+                t4v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t4v);
                 woTable.addView(row);
                 //Toast.makeText(AddMealActivity.this, "Initialized create table", Toast.LENGTH_SHORT).show();
             }
@@ -182,16 +194,23 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         // Second column header
         TextView tv1 = new TextView(this);
         tv1.setPaintFlags(tv1.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv1.setText(" Reps ");
+        tv1.setText(" Sets ");
         tv1.setGravity(Gravity.CENTER_HORIZONTAL);
         createTableHeader.addView(tv1);
 
         // Third column header
         TextView tv2 = new TextView(this);
         tv2.setPaintFlags(tv2.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        tv2.setText(" Weight ");
+        tv2.setText(" Reps ");
         tv2.setGravity(Gravity.CENTER_HORIZONTAL);
         createTableHeader.addView(tv2);
+
+        // Fourth column header
+        TextView tv3 = new TextView(this);
+        tv3.setPaintFlags(tv3.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv3.setText(" Weight ");
+        tv3.setGravity(Gravity.CENTER_HORIZONTAL);
+        createTableHeader.addView(tv3);
 
         // Add header row to table
         liftTable.addView(createTableHeader);
@@ -227,14 +246,19 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                 row.addView(t1v);
 
                 TextView t2v = new TextView(this);
-                t2v.setText(String.valueOf(lifts.get(i).getReps()));
+                t2v.setText(String.valueOf(lifts.get(i).getSets()));
                 t2v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t2v);
 
                 TextView t3v = new TextView(this);
-                t3v.setText(String.valueOf(lifts.get(i).getWeight()));
+                t3v.setText(String.valueOf(lifts.get(i).getReps()));
                 t3v.setGravity(Gravity.CENTER_HORIZONTAL);
                 row.addView(t3v);
+
+                TextView t4v = new TextView(this);
+                t4v.setText(String.valueOf(lifts.get(i).getWeight()));
+                t4v.setGravity(Gravity.CENTER_HORIZONTAL);
+                row.addView(t4v);
                 liftTable.addView(row);
                 //Toast.makeText(AddMealActivity.this, "Initialized create table", Toast.LENGTH_SHORT).show();
             }
