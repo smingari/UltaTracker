@@ -124,7 +124,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         if (dbSize != 0) {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
-                row.setId(i);
+                row.setId(wo.getLiftList().get(i).getKey());
                 row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -139,7 +139,10 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                         showButtons();
                         addToButton.setVisibility(View.INVISIBLE);
                         editButton.setVisibility(View.INVISIBLE);
-                        selectedWl = wo.getLiftList().get(row.getId());
+                        //selectedWl = wo.getLiftList().get(row.getId());
+                        for(Weightlifting wl : wo.getLiftList()) {
+                            if(wl.getKey() == row.getId()) selectedWl = wl;
+                        }
                     }
                 });
 
@@ -219,7 +222,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         if (dbSize != 0) {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
-                row.setId(i);
+                row.setId(lifts.get(i).getKey());
                 row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -234,7 +237,9 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                         mealSelected = false;
                         addToButton.setVisibility(View.VISIBLE);
                         editButton.setVisibility(View.VISIBLE);
-                        selectedWl = lifts.get(row.getId());
+                        for(Weightlifting wl : lifts) {
+                            if(wl.getKey() == row.getId()) selectedWl = wl;
+                        }
                     }
                 });
 
@@ -268,7 +273,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
     public void addToWorkout(View view) {
         if (bankSelected) {
             TableRow newRow = new TableRow(this);
-            newRow.setId(MainActivity.newWo.getLiftList().size());
+            newRow.setId(selectedWl.getKey());
             MainActivity.newWo.getLiftList().add(selectedWl);
             newRow.setBackgroundResource(R.drawable.list_selector_background);
             newRow.setOnClickListener(new View.OnClickListener() {
@@ -284,7 +289,9 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                     showButtons();
                     addToButton.setVisibility(View.INVISIBLE);
                     editButton.setVisibility(View.INVISIBLE);
-                    selectedWl = MainActivity.newWo.getLiftList().get(newRow.getId());
+                    for(Weightlifting wl : MainActivity.newWo.getLiftList()) {
+                        if(wl.getKey() == newRow.getId()) selectedWl = wl;
+                    }
                 }
             });
 
