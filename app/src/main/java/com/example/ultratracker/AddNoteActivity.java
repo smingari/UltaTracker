@@ -63,7 +63,7 @@ public class AddNoteActivity extends AppCompatActivity implements DateSelectorDi
 
                         Note note = new Note(name, syn_date, description);
                         db.addNote(note);
-                        toMainActivity(v);
+                        cancelPressed(v);
                         Toast.makeText(AddNoteActivity.this, "Successfully made note.", Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -65,7 +65,7 @@ public class AddRideActivity extends AppCompatActivity implements DateSelectorDi
                             Double.parseDouble(distance_entry.getText().toString()), pace);
 
                     e_db.addRide(ride);
-                    toMainActivity(v);
+                    toEDay(v);
                     Toast.makeText(AddRideActivity.this, "Successfully added ride.", Toast.LENGTH_SHORT).show();
 
                 }catch(Exception e){

@@ -63,7 +63,7 @@ public class AddReminderActivity extends AppCompatActivity implements DateSelect
                         LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
                         Reminder reminder = new Reminder(name, syn_date, syn_time, description);
                         db.addReminder(reminder);
-                        toMainActivity(v);
+                        cancelPressed(v);
                         Toast.makeText(AddReminderActivity.this, "Successfully made reminder.", Toast.LENGTH_SHORT).show();
                     }
                 }

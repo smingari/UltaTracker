@@ -85,7 +85,7 @@ public class EditTaskActivity extends AppCompatActivity implements DateSelectorD
                     MainActivity.selectedTask.setDescription(description);
                     MainActivity.selectedTask.setPriority(priority);
                     if(db.editTask(MainActivity.selectedTask)) {
-                        toMainActivity(v);
+                        toPDay(v);
                         Toast.makeText(EditTaskActivity.this, "Successfully edited task.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditTaskActivity.this, "Error editing task.", Toast.LENGTH_SHORT).show();

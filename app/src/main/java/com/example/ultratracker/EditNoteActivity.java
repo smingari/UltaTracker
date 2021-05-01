@@ -66,7 +66,7 @@ public class EditNoteActivity extends AppCompatActivity implements DateSelectorD
                     NotesActivity.selectedNote.setDate(syn_date);
                     NotesActivity.selectedNote.setDesc(description);
                     if(db.editNote(NotesActivity.selectedNote)) {
-                        toMainActivity(v);
+                        cancelPressed(v);
                         Toast.makeText(EditNoteActivity.this, "Successfully updated note.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditNoteActivity.this, "Error updating note.", Toast.LENGTH_SHORT).show();

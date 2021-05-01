@@ -74,7 +74,7 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
                                                             Double.parseDouble(distance_entry.getText().toString()), pace);
 
                     e_db.addRun(run);
-                    toMainActivity(v);
+                    toEDay(v);
                     Toast.makeText(AddRunActivity.this, "Successfully added run.", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e) {
@@ -135,7 +135,7 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
         completed_time_display.setText(String.format("%d:%02d %s", displayHour, minute, AMorPM));
     }
 
-    public void toPDay(View view) {
+    public void toEDay(View view) {
         Intent intent = new Intent(AddRunActivity.this, EDayActivity.class);
         startActivity(intent);
     }

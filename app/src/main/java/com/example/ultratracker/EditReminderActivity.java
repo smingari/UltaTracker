@@ -84,7 +84,7 @@ public class EditReminderActivity extends AppCompatActivity implements DateSelec
                     RemindersActivity.selectedReminder.setTime(syn_time);
                     RemindersActivity.selectedReminder.setDesc(description);
                     if(db.editReminder(RemindersActivity.selectedReminder)) {
-                        toMainActivity(v);
+                        cancelPressed(v);
                         Toast.makeText(EditReminderActivity.this, "Successfully updated reminder.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditReminderActivity.this, "Error updating reminder.", Toast.LENGTH_SHORT).show();

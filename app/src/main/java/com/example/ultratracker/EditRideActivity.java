@@ -87,7 +87,7 @@ public class EditRideActivity extends AppCompatActivity implements DateSelectorD
                     selectedRide.setPace(pace);
 
                     if (e_db.editRide(selectedRide)) {
-                        toMainActivity(v);
+                        toEDay(v);
                         Toast.makeText(EditRideActivity.this, "Successfully edited ride.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditRideActivity.this, "Error editing ride.", Toast.LENGTH_SHORT).show();

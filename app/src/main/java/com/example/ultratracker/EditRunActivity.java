@@ -90,7 +90,7 @@ public class EditRunActivity extends AppCompatActivity implements DateSelectorDi
                     selectedRun.setPace(pace);
 
                     if(e_db.editRun(selectedRun)) {
-                        toMainActivity(v);
+                        toEDay(v);
                         Toast.makeText(EditRunActivity.this, "Successfully edited run.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(EditRunActivity.this, "Error editing run.", Toast.LENGTH_SHORT).show();

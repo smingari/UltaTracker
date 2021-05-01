@@ -72,7 +72,7 @@ public class AddTaskActivity extends AppCompatActivity implements DateSelectorDi
 
                         Task task = new Task(name, syn_date, syn_date, syn_time, description, priority, false);
                         db.addOne(task);
-                        toMainActivity(v);
+                        toPDay(v);
                         Toast.makeText(AddTaskActivity.this, "Successfully made task.", Toast.LENGTH_SHORT).show();
                     }
                 }
