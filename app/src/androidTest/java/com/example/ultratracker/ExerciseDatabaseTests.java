@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING) // Needed to test order of the keys
 @RunWith(AndroidJUnit4.class)
@@ -27,7 +29,7 @@ public class ExerciseDatabaseTests {
     private Ride ri1, ri2, ri3, ri4;
     private Weightlifting w1, w2, w3, w4;
     private Weightlifting ww1, ww2, ww3, ww4;  // for workout
-    private Weight weight1;
+    private Weight weight1, weight2;
     private LocalDate d1, d2, d3, d4;
     private ExerciseDatabaseHelper db;
     private Context appContext;
@@ -39,9 +41,10 @@ public class ExerciseDatabaseTests {
     private String exerType1, exerType2;
     private List<Exercise> list1, list2, list3, list4;
     private List<Weightlifting> wList1, wList2;
-    private double weightD;
+    private double weightD1, weightD2;
     private String woName1, woName2, woName3, woName4;
-
+    private List<Workout> lw1, lw2;
+    private List<Weight> fatty;
     private LocalTime t1;
 
 
@@ -65,7 +68,7 @@ public class ExerciseDatabaseTests {
         dur1 = 5; dur2 = 10; dur3 = 15; dur4 = 20;
         dis1 = 1.02; dis2 = 3.15; dis3 = 10.2; dis4 = 15.5;
         p1 = 4.10; p2 = 7.9; p3 = 10.1; p4 = 9.1;
-        weightD = 180.75;
+        weightD1 = 180.75; weightD2 = 196.75;
 
         woName1 = "Beach"; woName2 = "T90X"; woName3 = "HotCarl"; woName4 = "DirtySanchez";
 
@@ -100,7 +103,8 @@ public class ExerciseDatabaseTests {
         ww3 = new Weightlifting(exerType1, sets, reps, weight, woName3, d3);
         ww4 = new Weightlifting(exerType2, sets, reps, weight, woName4, d4);
 
-        weight1 = new Weight(weightD, d1.toString());
+        weight1 = new Weight(weightD1, d1.toString());
+        weight2 = new Weight(weightD2, d1.toString());
     }
 
     @After
@@ -351,13 +355,98 @@ public class ExerciseDatabaseTests {
 
     }
 
+    @Test
+    public void testGetWorkoutByDate() {
+        int workoutKey = 69;
+        int workoutKey2 = 96;
+        w1.setDate(d1);
+        w2.setDate(d1);
 
+        w3.setDate(d2);
+        w4.setDate(d2);
 
+        db.addWeightlifting(w1, workoutKey);
+        db.addWeightlifting(w2, workoutKey);
+        db.addWeightlifting(w3, workoutKey2);
+        db.addWeightlifting(w4, workoutKey2);
+
+        lw1 = db.getWorkoutsByDate(d1.toString());
+        assertEquals("check size", 2, wList1.size());
+        assertEquals("check value", w1.getName(), wList1.get(0).getName());
+        assertEquals("check value", w2.getName(), wList1.get(1).getName());
+
+    }
+
+    @Test
+    public void testRemoveWorkoutEmpty() {
+        Workout work = new Workout(woName1, wList1, d1);
+        assertFalse(db.removeWorkout(work));
+    }
+
+    @Test
+    public void testRemoveWorkout() {
+        int workoutKey = 69;
+        int workoutKey2 = 96;
+        w1.setDate(d1);
+        w2.setDate(d1);
+
+        w3.setDate(d2);
+        w4.setDate(d2);
+
+        db.addWeightlifting(w1, workoutKey);
+        db.addWeightlifting(w2, workoutKey);
+        db.addWeightlifting(w3, workoutKey2);
+        db.addWeightlifting(w4, workoutKey2);
+
+        lw1 = db.getWorkoutsByDate(d1.toString());
+
+        assertEquals("check size", 1, lw1.size());
+        assertEquals("check value", w1.getName(), lw1.get(0).getName());
+
+        lw2 = db.getWorkoutsByDate(d2.toString());
+
+        assertEquals("check size", 1, lw2.size());
+        assertEquals("check value", w3.getName(), lw2.get(0).getName());
+
+        db.removeWorkout(lw2.get(0));
+
+        lw1 = db.getWorkoutsByDate(d1.toString());
+        lw2 = db.getWorkoutsByDate(d2.toString());
+        assertEquals("Check Size", 1, lw1.size());
+        assertEquals("Check Size", 0, lw2.size());
+    }
 
 
 
     @Test
-    public void addWeight(){
+    public void testAddManyWeight(){
         db.addWeight(weight1);
+        db.addWeight(weight2);
+        db.addWeight(weight1);
+        fatty = db.getAllWeights();
+        assertEquals("Verify Size", 3, fatty.size());
+    }
+
+    @Test
+    public void testGetAllWeight() {
+        db.addWeight(weight1);
+        fatty = db.getAllWeights();
+        assertEquals("Verify Size", 1, fatty.size());
+        assertEquals("Verify Index", weightD1, fatty.get(0).getWeight(), 0.01);
+    }
+
+    @Test
+    public void deleteNoneWeight() {
+        assertFalse(db.removeWeight(weight1));
+    }
+
+    @Test
+    public void deleteWeight() {
+        db.addWeight(weight1);
+        db.addWeight(weight2);
+        db.removeWeight(weight1);
+        fatty = db.getAllWeights();
+        assertEquals("Verify Size", 1, fatty.size());
+        assertEquals("Verify Index", weightD2, fatty.get(0).getWeight(), 0.01);
     }
 }

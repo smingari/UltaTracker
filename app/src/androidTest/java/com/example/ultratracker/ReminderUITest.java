@@ -230,7 +230,7 @@ public class ReminderUITest {
         appCompatEditText2.perform(replaceText("des"), closeSoftKeyboard());
 
         ViewInteraction materialButton12 = onView(
-                allOf(withId(R.id.create_reminder_button), withText("Create Reminder"),
+                allOf(withId(R.id.create_reminder_button), withText("Create"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -348,7 +348,7 @@ public class ReminderUITest {
         appCompatEditText4.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton21 = onView(
-                allOf(withId(R.id.edit_reminder_button), withText("Update Reminder"),
+                allOf(withId(R.id.edit_reminder_button), withText("Update"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -407,7 +407,7 @@ public class ReminderUITest {
         appCompatEditText6.perform(replaceText("del"), closeSoftKeyboard());
 
         ViewInteraction materialButton24 = onView(
-                allOf(withId(R.id.create_reminder_button), withText("Create Reminder"),
+                allOf(withId(R.id.create_reminder_button), withText("Create"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
