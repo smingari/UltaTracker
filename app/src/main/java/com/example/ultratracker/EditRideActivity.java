@@ -152,7 +152,7 @@ public class EditRideActivity extends AppCompatActivity implements DateSelectorD
     }
 
     public void toEDay(View view) {
-        Intent intent = new Intent(EditRideActivity.this, PDayActivity.class);
+        Intent intent = new Intent(EditRideActivity.this, EDayActivity.class);
         startActivity(intent);
     }
 
