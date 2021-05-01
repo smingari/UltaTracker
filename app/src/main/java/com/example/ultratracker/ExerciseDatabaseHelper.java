@@ -74,7 +74,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         String createRunTableStatement = "CREATE TABLE IF NOT EXISTS " + RUN_TABLE + " (" + COLUMN_RUN_ID + " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_RUN_KEY + " INT, " + COLUMN_RUN_DISTANCE + " DOUBLE, " + COLUMN_RUN_PACE + " DOUBLE " + ")";
         String createWeightTableStatement = "CREATE TABLE IF NOT EXISTS " + WEIGHT_TABLE + " (" + COLUMN_WEIGHT_ID+ " INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_WEIGHT_DATE + " TEXT, " + COLUMN_WEIGHT_VALUE + " DOUBLE " + ")";
+                COLUMN_WEIGHT_KEY + " INT, " + COLUMN_WEIGHT_DATE + " TEXT, " + COLUMN_WEIGHT_VALUE + " DOUBLE " + ")";
 
         db.execSQL(createExerciseTableStatement);
         db.execSQL(createWeightliftingTableStatement);
@@ -476,7 +476,7 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     public boolean addWeight(Weight w){
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
-
+        cv.put(COLUMN_WEIGHT_KEY, w.getKey());
         cv.put(COLUMN_WEIGHT_DATE, String.valueOf(w.getDate()));
         cv.put(COLUMN_WEIGHT_VALUE, w.getWeight());
         long insert = db.insert(WEIGHT_TABLE, null, cv);
