@@ -335,6 +335,8 @@ public class EDayActivity extends AppCompatActivity {
                 viewRideDialog.show(getSupportFragmentManager(), "view ride dialog");
             }
         } else if (!exerciseSelected && workoutSelected) {
+            EDayActivity.inEdit = true;
+            MainActivity.newWo = selectedWorkout;
             Intent intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
             startActivity(intent);
         }
