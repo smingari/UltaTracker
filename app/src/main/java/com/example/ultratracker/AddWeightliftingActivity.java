@@ -301,9 +301,14 @@ public class AddWeightliftingActivity extends AppCompatActivity {
             newRow.addView(t2v);
 
             TextView t3v = new TextView(this);
-            t3v.setText(String.valueOf(selectedWl.getWeight()));
+            t3v.setText(String.valueOf(selectedWl.getSets()));
             t3v.setGravity(Gravity.CENTER_HORIZONTAL);
             newRow.addView(t3v);
+
+            TextView t4v = new TextView(this);
+            t4v.setText(String.valueOf(selectedWl.getWeight()));
+            t4v.setGravity(Gravity.CENTER_HORIZONTAL);
+            newRow.addView(t4v);
             woTable.addView(newRow);
 
             selectedRow.setSelected(false);
