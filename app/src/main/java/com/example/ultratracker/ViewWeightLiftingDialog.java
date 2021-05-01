@@ -33,6 +33,9 @@ public class ViewWeightLiftingDialog extends AppCompatDialogFragment {
 
         builder.setView(view);
         builder.setTitle(w.getName());
+        sets_display.setText(String.valueOf(w.getSets()));
+        reps_display.setText(String.valueOf(w.getReps()));
+        weight_display.setText(String.valueOf(w.getWeight()));
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {}
