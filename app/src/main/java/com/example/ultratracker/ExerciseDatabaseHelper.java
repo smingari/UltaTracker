@@ -508,11 +508,11 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean removeWeight(Weight w){
-        String whereClause = COLUMN_WEIGHT_KEY + " = ?";
+        String whereClause = COLUMN_WEIGHT_KEY + "=?";
         SQLiteDatabase db = this.getWritableDatabase();
-        int num = db.delete(WEIGHT_TABLE, whereClause, new String[] {String.valueOf(w.getKey())});
+        final int delete = db.delete(WEIGHT_TABLE, whereClause, new String[] {String.valueOf(w.getKey())});
         db.close();
-        return num > 0;
+        return delete > 0;
     }
 
     public boolean removeWorkout(Workout wo) {
