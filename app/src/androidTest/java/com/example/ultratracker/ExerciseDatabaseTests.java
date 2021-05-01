@@ -417,6 +417,36 @@ public class ExerciseDatabaseTests {
     }
 
 
+    @Test
+    public void testGetLiftBank() {
+        int workoutKey = 69;
+        int workoutKey2 = 0;
+        db.addWeightlifting(w1, workoutKey);
+        db.addWeightlifting(w2, workoutKey);
+        db.addWeightlifting(w3, workoutKey2);
+        db.addWeightlifting(w4, workoutKey2);
+
+        wList1 = db.getLiftBank();
+        assertEquals("Check size", 2, wList1.size());
+        assertEquals("Check index", w3.getName(), wList1.get(0).getName());
+        assertEquals("Check index", w4.getName(), wList1.get(1).getName());
+    }
+
+    @Test
+    public void testCheckByNameRepsWeight() {
+        int workoutKey = 69;
+
+        db.addWeightlifting(w1, workoutKey);
+        db.addWeightlifting(w2, workoutKey);
+        db.addWeightlifting(w3, workoutKey);
+        db.addWeightlifting(w4, workoutKey);
+
+        assertTrue(db.checkByNameRepsWeight(w1.getName(), w1.getReps(), w1.getWeight(), w1.getKey()));
+        assertTrue(db.checkByNameRepsWeight(w2.getName(), w2.getReps(), w2.getWeight(), w2.getKey()));
+        assertTrue(db.checkByNameRepsWeight(w3.getName(), w3.getReps(), w3.getWeight(), w3.getKey()));
+        assertTrue(db.checkByNameRepsWeight(w4.getName(), w4.getReps(), w4.getWeight(), w4.getKey()));
+    }
+
 
     @Test
     public void testAddManyWeight(){
