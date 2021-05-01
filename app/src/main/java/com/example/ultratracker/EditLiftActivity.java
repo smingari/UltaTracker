@@ -31,7 +31,7 @@ public class EditLiftActivity extends AppCompatActivity {
         weight_entry = findViewById(R.id.weight_entry);
 
         cancel_button = findViewById(R.id.cancel_button);
-        edit_lift_button = findViewById(R.id.edit_lift_button);
+        edit_lift_button = findViewById(R.id.edit_edit_lift_button);
 
         liftname_entry.setText(AddWeightliftingActivity.selectedWl.getName());
         sets_entry.setText(String.valueOf(AddWeightliftingActivity.selectedWl.getSets()));

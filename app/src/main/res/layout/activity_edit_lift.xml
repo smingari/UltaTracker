@@ -15,7 +15,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="81dp"
         android:layout_marginRight="81dp"
-        android:text="@string/edit_lift_title"
+        android:text="Edit Lift"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,12 +132,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/create_lift_button"
+        android:id="@+id/edit_edit_lift_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
-        android:text="@string/edit_lift_button"
+        android:text="Edit Lift"
         app:layout_constraintBottom_toBottomOf="@+id/cancel_button"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -622,18 +622,18 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_WEIGHTLIFTING_KEY, wl.getKey());
-        cv.put(COLUMN_WEIGHTLIFTING_DATE, wl.getDate());
+        cv.put(COLUMN_WORKOUT_KEY, wl.getWorkoutKey());
         cv.put(COLUMN_WEIGHTLIFTING_NAME, wl.getName());
-        cv.put(COLUMN_WEIGHTLIFTING_REPS, wl.getReps());
+        cv.put(COLUMN_WORKOUT_NAME, wl.getName());
         cv.put(COLUMN_WEIGHTLIFTING_SETS, wl.getSets());
+        cv.put(COLUMN_WEIGHTLIFTING_REPS, wl.getReps());
         cv.put(COLUMN_WEIGHTLIFTING_WEIGHT, wl.getWeight());
+        cv.put(COLUMN_WEIGHTLIFTING_DATE, wl.getDate());
 
         long update = db.update(WEIGHTLIFTING_TABLE, cv, COLUMN_WEIGHTLIFTING_KEY + "=?", new String[]{String.valueOf(wl.getKey())});
         db.close();
         return update != -1;
     }
-
-
 
     public List<Exercise> getAll() {
         List<Exercise> returnList = new ArrayList<>();

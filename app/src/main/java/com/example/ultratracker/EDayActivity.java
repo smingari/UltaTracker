@@ -352,6 +352,7 @@ public class EDayActivity extends AppCompatActivity {
     public void hideButtons() {
         editButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
+        viewButton.setVisibility(View.INVISIBLE);
     }
 
     public void hideWWButtons() {
