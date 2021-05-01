@@ -186,7 +186,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="2dp"
-        android:onClick="toEditFoodActivity"
+        android:onClick="toEditLiftActivity"
         android:text="Edit Lift"
         app:layout_constraintBottom_toTopOf="@+id/lift_scrollview"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -26,7 +26,8 @@ public class ExerciseDatabaseTests {
     private Run r1, r2, r3, r4;
     private Ride ri1, ri2, ri3, ri4;
     private Weightlifting w1, w2, w3, w4;
-    private WeightliftingWorkout ww1, ww2, ww3, ww4;
+    private Weightlifting ww1, ww2, ww3, ww4;  // for workout
+    private Weight weight1;
     private LocalDate d1, d2, d3, d4;
     private ExerciseDatabaseHelper db;
     private Context appContext;
@@ -38,6 +39,8 @@ public class ExerciseDatabaseTests {
     private String exerType1, exerType2;
     private List<Exercise> list1, list2, list3, list4;
     private List<Weightlifting> wList1, wList2;
+    private double weightD;
+    private String woName1, woName2, woName3, woName4;
 
     private LocalTime t1;
 
@@ -62,6 +65,9 @@ public class ExerciseDatabaseTests {
         dur1 = 5; dur2 = 10; dur3 = 15; dur4 = 20;
         dis1 = 1.02; dis2 = 3.15; dis3 = 10.2; dis4 = 15.5;
         p1 = 4.10; p2 = 7.9; p3 = 10.1; p4 = 9.1;
+        weightD = 180.75;
+
+        woName1 = "Beach"; woName2 = "T90X"; woName3 = "HotCarl"; woName4 = "DirtySanchez";
 
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
@@ -89,11 +95,12 @@ public class ExerciseDatabaseTests {
         wList2.add(w3);
         wList2.add(w4);
 
-        ww1 = new WeightliftingWorkout(d1, t1, dur1, cals1, wList1);
-        ww2 = new WeightliftingWorkout(d2, t1, dur2, cals2, wList2);
-        ww3 = new WeightliftingWorkout(d3, t1, dur3, cals3, wList1);
-        ww4 = new WeightliftingWorkout(d4, t1, dur4, cals4, wList2);
+        ww1 = new Weightlifting(exerType1, sets, reps, weight, woName1, d1);
+        ww2 = new Weightlifting(exerType2, sets, reps, weight, woName2, d2);
+        ww3 = new Weightlifting(exerType1, sets, reps, weight, woName3, d3);
+        ww4 = new Weightlifting(exerType2, sets, reps, weight, woName4, d4);
 
+        weight1 = new Weight(weightD, d1.toString());
     }
 
     @After
@@ -316,5 +323,41 @@ public class ExerciseDatabaseTests {
         assertEquals("check value", exerType1, wList1.get(0).getName());
     }
 
+    @Test
+    public void editLift() {
+        db.addWeightlifting(w1, 0);
+        wList1 = db.getAllWeightlifting();
+        assertEquals("check size", 1, wList1.size());
+        assertEquals("check value", exerType1, wList1.get(0).getName());
 
+        w1.setName(woName4);
+        db.editLift(w1);
+        wList1 = db.getAllWeightlifting();
+        assertEquals("check size", 1, wList1.size());
+        assertEquals("check value", woName4, wList1.get(0).getName());
+
+    }
+
+    @Test
+    public void testGetWorkout () {
+        int workoutKey = 69;
+        db.addWeightlifting(w1, workoutKey);
+        db.addWeightlifting(w2, workoutKey);
+        db.addWeightlifting(w3, workoutKey);
+        db.addWeightlifting(w4, workoutKey);
+
+        wList1 = db.getWorkout(workoutKey);
+        assertEquals("check size", 4, wList1.size());
+
+    }
+
+
+
+
+
+
+    @Test
+    public void addWeight(){
+        db.addWeight(weight1);
+    }
 }
