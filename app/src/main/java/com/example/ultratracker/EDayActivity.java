@@ -55,6 +55,7 @@ public class EDayActivity extends AppCompatActivity {
 
         hideButtons();
         hideWWButtons();
+        viewButton.setVisibility(View.INVISIBLE);
 
         e_db = new ExerciseDatabaseHelper(this);
 
@@ -138,16 +139,6 @@ public class EDayActivity extends AppCompatActivity {
                         showButtons();
                         hideWWButtons();
                         selectedExercise = exerciseList.get(row.getId());
-                        //Toast.makeText(HDayActivity.this, selectedMeal.getName(), Toast.LENGTH_SHORT).show();
-                        //isComplete = MainActivity.selectedTask.isComplete();
-                        //foodSelected = !isComplete;
-                        //completedTaskSelected = isComplete;
-                        //showButtons();
-                        //if(isComplete) {
-                        //btn_moveToTasks.setVisibility(View.VISIBLE);
-                        //} else {
-                        //btn_moveToTasks.setVisibility(View.INVISIBLE);
-                        //}
                     }
                 });
 
@@ -352,7 +343,6 @@ public class EDayActivity extends AppCompatActivity {
     public void hideButtons() {
         editButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
-        viewButton.setVisibility(View.INVISIBLE);
     }
 
     public void hideWWButtons() {
