@@ -211,10 +211,10 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
             do {
                 key = cursor.getInt(1);
                 name = cursor.getString(3);
-                sets = cursor.getInt(4);
-                reps = cursor.getInt(5);
-                weight = cursor.getInt(6);
-                date = cursor.getString(7);
+                sets = cursor.getInt(5);
+                reps = cursor.getInt(6);
+                weight = cursor.getInt(7);
+                date = cursor.getString(8);
 
                 curWeightlifting = new Weightlifting(name, sets, reps, weight, date, key);
                 wlList.add(curWeightlifting);
