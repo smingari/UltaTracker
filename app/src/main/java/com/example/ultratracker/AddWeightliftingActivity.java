@@ -355,8 +355,8 @@ public class AddWeightliftingActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void toEditFoodActivity(View view){
-        Intent intent = new Intent(AddWeightliftingActivity.this, EditFoodActivity.class);
+    public void toEditLiftActivity(View view){
+        Intent intent = new Intent(AddWeightliftingActivity.this, EditLiftActivity.class);
         startActivity(intent);
     }
 
