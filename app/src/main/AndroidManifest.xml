@@ -48,6 +48,9 @@
             android:name=".EditRideActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".EditLiftActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".HDayActivity"
             android:screenOrientation="portrait" />
         <activity
