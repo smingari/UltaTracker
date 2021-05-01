@@ -65,7 +65,7 @@ public class AddRunActivity extends AppCompatActivity implements DateSelectorDia
                     // Get bodyweight and pace information and calculate.
                     bodyweight = Double.parseDouble(bw_entry.getText().toString());
                     pace = Double.parseDouble(distance_entry.getText().toString()) / Double.parseDouble(duration_entry.getText().toString());
-                    caloriesBurned = (int)(bodyweight * pace);
+                    caloriesBurned = (int)(bodyweight * 8 * pace);
 
                     LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
                     LocalTime syn_time = LocalTime.of(dueHour, dueMinute);

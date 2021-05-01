@@ -232,7 +232,7 @@ public class AddWeightliftingActivity extends AppCompatActivity {
                         }
                         selectedRow = row;
                         row.setSelected(true);
-                        hideButtons();
+                        showButtons();
                         bankSelected = true;
                         mealSelected = false;
                         addToButton.setVisibility(View.VISIBLE);
@@ -303,12 +303,12 @@ public class AddWeightliftingActivity extends AppCompatActivity {
             newRow.addView(t1v);
 
             TextView t2v = new TextView(this);
-            t2v.setText(String.valueOf(selectedWl.getReps()));
+            t2v.setText(String.valueOf(selectedWl.getSets()));
             t2v.setGravity(Gravity.CENTER_HORIZONTAL);
             newRow.addView(t2v);
 
             TextView t3v = new TextView(this);
-            t3v.setText(String.valueOf(selectedWl.getSets()));
+            t3v.setText(String.valueOf(selectedWl.getReps()));
             t3v.setGravity(Gravity.CENTER_HORIZONTAL);
             newRow.addView(t3v);
 
