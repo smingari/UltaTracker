@@ -120,7 +120,7 @@ public class AddMealActivity extends AppCompatActivity {
         if (dbSize != 0) {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
-                row.setId(i);
+                row.setId(meal.getFoodList().get(i).getKey());
                 row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,6 +136,9 @@ public class AddMealActivity extends AppCompatActivity {
                         addToMealButton.setVisibility(View.INVISIBLE);
                         editButton.setVisibility(View.INVISIBLE);
                         selectedFood = meal.getFoodList().get(row.getId());
+                        for(Food f : meal.getFoodList()) {
+                            if(f.getKey() == row.getId()) selectedFood = f;
+                        }
                     }
                 });
 
@@ -202,7 +205,7 @@ public class AddMealActivity extends AppCompatActivity {
         if (dbSize != 0) {
             for (int i = 0; i < dbSize; i++) {
                 TableRow row = new TableRow(this);
-                row.setId(i);
+                row.setId(foods[i].getKey());
                 row.setBackgroundResource(R.drawable.list_selector_background);
                 row.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -217,7 +220,9 @@ public class AddMealActivity extends AppCompatActivity {
                         mealSelected = false;
                         addToMealButton.setVisibility(View.VISIBLE);
                         editButton.setVisibility(View.VISIBLE);
-                        selectedFood = foods[row.getId()];
+                        for(Food f : foods) {
+                            if(f.getKey() == row.getId()) selectedFood = f;
+                        }
                     }
                 });
 
@@ -245,7 +250,7 @@ public class AddMealActivity extends AppCompatActivity {
     public void addToMeal(View view) {
         if (bankSelected) {
             TableRow newRow = new TableRow(this);
-            newRow.setId(MainActivity.newMeal.getFoodList().size());
+            newRow.setId(selectedFood.getKey());
             MainActivity.newMeal.getFoodList().add(selectedFood);
             newRow.setBackgroundResource(R.drawable.list_selector_background);
             newRow.setOnClickListener(new View.OnClickListener() {
@@ -261,7 +266,9 @@ public class AddMealActivity extends AppCompatActivity {
                     showButtons();
                     addToMealButton.setVisibility(View.INVISIBLE);
                     editButton.setVisibility(View.INVISIBLE);
-                    selectedFood = MainActivity.newMeal.getFoodList().get(newRow.getId());
+                    for(Food f : MainActivity.newMeal.getFoodList()) {
+                        if(f.getKey() == newRow.getId()) selectedFood = f;
+                    }
                 }
             });
 
