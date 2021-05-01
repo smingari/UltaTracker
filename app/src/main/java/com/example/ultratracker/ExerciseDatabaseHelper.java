@@ -483,7 +483,36 @@ public class ExerciseDatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
         return insert != -1;
+    }
 
+    public List<Weight> getAllWeights() {
+        String queryString = "SELECT * FROM " + WEIGHT_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+        int key;
+        String date;
+        double weightValue;
+        ArrayList<Weight> weightList = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                key = cursor.getInt(1);
+                date = cursor.getString(2);
+                weightValue = cursor.getDouble(3);
+                weightList.add(new Weight(weightValue, date, key));
+            } while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return weightList;
+    }
+
+    public boolean removeWeight(Weight w){
+        String whereClause = COLUMN_WEIGHT_KEY + " = ?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        int num = db.delete(WEIGHT_TABLE, whereClause, new String[] {String.valueOf(w.getKey())});
+        db.close();
+        return num > 0;
     }
 
     public boolean removeWorkout(Workout wo) {
