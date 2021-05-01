@@ -56,7 +56,7 @@ public class AddRideActivity extends AppCompatActivity implements DateSelectorDi
                 try {
                     bodyweight = Double.parseDouble(bw_entry.getText().toString());
                     pace = Double.parseDouble(distance_entry.getText().toString()) / Double.parseDouble(duration_entry.getText().toString());
-                    caloriesBurned = (int)(bodyweight * pace);
+                    caloriesBurned = (int)(bodyweight * 5.5 * pace * 2);
 
                     LocalDate syn_date = LocalDate.of(taskSelectedYear,taskSelectedMonth,taskSelectedDay);
                     LocalTime syn_time = LocalTime.of(dueHour, dueMinute);
