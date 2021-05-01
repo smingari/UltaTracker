@@ -31,7 +31,8 @@ public class EDayActivity extends AppCompatActivity {
 
     String currentDate;
 
-    boolean exerciseSelected;
+    boolean exerciseSelected = false;
+    boolean workoutSelected = false;
     public static boolean inEdit;
 
     @Override
@@ -131,6 +132,8 @@ public class EDayActivity extends AppCompatActivity {
                         }
                         selectedRow = row;
                         row.setSelected(true);
+                        exerciseSelected = true;
+                        workoutSelected = false;
                         viewButton.setVisibility(View.VISIBLE);
                         showButtons();
                         hideWWButtons();
@@ -223,6 +226,8 @@ public class EDayActivity extends AppCompatActivity {
                         }
                         selectedRow = row;
                         row.setSelected(true);
+                        exerciseSelected = false;
+                        workoutSelected = true;
                         viewButton.setVisibility(View.VISIBLE);
                         showWWButtons();
                         hideButtons();
@@ -330,12 +335,17 @@ public class EDayActivity extends AppCompatActivity {
 
 
     public void openViewDialog(View view) {
-        if (selectedExercise.getExerciseType().equals("Run")) {
-            ViewRunDialog viewRunDialog = new ViewRunDialog((Run) selectedExercise);
-            viewRunDialog.show(getSupportFragmentManager(), "view run dialog");
-        } else if (selectedExercise.getExerciseType().equals("Ride")) {
-            ViewRideDialog viewRideDialog = new ViewRideDialog((Ride) selectedExercise);
-            viewRideDialog.show(getSupportFragmentManager(), "view ride dialog");
+        if (exerciseSelected && !workoutSelected) {
+            if (selectedExercise.getExerciseType().equals("Run")) {
+                ViewRunDialog viewRunDialog = new ViewRunDialog((Run) selectedExercise);
+                viewRunDialog.show(getSupportFragmentManager(), "view run dialog");
+            } else if (selectedExercise.getExerciseType().equals("Ride")) {
+                ViewRideDialog viewRideDialog = new ViewRideDialog((Ride) selectedExercise);
+                viewRideDialog.show(getSupportFragmentManager(), "view ride dialog");
+            }
+        } else if (!exerciseSelected && workoutSelected) {
+            Intent intent = new Intent(EDayActivity.this, AddWeightliftingActivity.class);
+            startActivity(intent);
         }
     }
 
